@@ -1,0 +1,413 @@
+{% extends "base.html" %}
+
+{% block title %}厨师管理端 - WXZY点餐系统{% endblock %}
+
+{% block content %}
+<div class="chef-dashboard">
+    <div class="container-fluid">
+        <!-- 页面标题 -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h1 class="display-6">
+                        <i class="fas fa-chef-hat text-success me-3"></i>
+                        厨师管理端
+                    </h1>
+                    <div class="chef-actions">
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addDishModal">
+                            <i class="fas fa-plus me-2"></i>添加菜品
+                        </button>
+                        <button class="btn btn-info ms-2" onclick="generateCustomerLink()">
+                            <i class="fas fa-link me-2"></i>生成客户链接
+                        </button>
+                        <button class="btn btn-outline-secondary ms-2" onclick="refreshOrders()">
+                            <i class="fas fa-sync-alt me-2"></i>刷新订单
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- 左侧：菜品管理 -->
+            <div class="col-lg-6">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-success text-white">
+                        <h4 class="mb-0">
+                            <i class="fas fa-utensils me-2"></i>
+                            菜品管理 ({{ dishes|length }} 道菜)
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        {% if dishes %}
+                            <div class="dishes-grid">
+                                {% for dish in dishes %}
+                                <div class="dish-item mb-3">
+                                    <div class="card border-0 shadow-sm">
+                                        <div class="row g-0">
+                                            <div class="col-4">
+                                                <img src="{{ url_for('uploaded_file', filename=dish.image_path.split('/')[-1]) }}" 
+                                                     class="img-fluid rounded-start dish-thumbnail" 
+                                                     alt="{{ dish.name }}"
+                                                     style="height: 100px; object-fit: cover;">
+                                            </div>
+                                            <div class="col-8">
+                                                <div class="card-body py-2">
+                                                    <h6 class="card-title mb-1">{{ dish.name }}</h6>
+                                                    <p class="card-text">
+                                                        <small class="text-muted">编号: {{ loop.index }}</small>
+                                                    </p>
+                                                    <form method="POST" action="{{ url_for('delete_dish') }}" class="d-inline">
+                                                        <input type="hidden" name="dish_index" value="{{ loop.index0 }}">
+                                                        <button type="submit" class="btn btn-outline-danger btn-sm" 
+                                                                onclick="return confirm('确定要删除菜品「{{ dish.name }}」吗？')">
+                                                            <i class="fas fa-trash me-1"></i>删除
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <div class="empty-state text-center py-5">
+                                <i class="fas fa-plate-wheat text-muted" style="font-size: 3rem;"></i>
+                                <h5 class="mt-3 text-muted">暂无菜品</h5>
+                                <p class="text-muted">点击上方按钮添加第一道菜品</p>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- 右侧：订单管理 -->
+            <div class="col-lg-6">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-warning text-dark">
+                        <h4 class="mb-0">
+                            <i class="fas fa-clipboard-list me-2"></i>
+                            待处理订单 (<span id="orderCount">{{ orders|length }}</span>)
+                        </h4>
+                    </div>
+                    <div class="card-body" style="max-height: 600px; overflow-y: auto;">
+                        <div id="ordersContainer">
+                            {% if orders %}
+                                {% for order in orders %}
+                                <div class="order-item mb-3">
+                                    <div class="card border-start border-warning border-3">
+                                        <div class="card-body">
+                                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                                <div>
+                                                    <h6 class="card-title mb-1">
+                                                        <i class="fas fa-user me-1"></i>
+                                                        {{ order.customer_name }}
+                                                    </h6>
+                                                    <small class="text-muted">
+                                                        <i class="fas fa-clock me-1"></i>
+                                                        {{ order.created_time }}
+                                                    </small>
+                                                </div>
+                                                <span class="badge bg-warning text-dark">订单 #{{ order.id }}</span>
+                                            </div>
+                                            
+                                            <div class="order-dishes mb-3">
+                                                <h6 class="mb-2">
+                                                    <i class="fas fa-list me-1"></i>点餐详情:
+                                                </h6>
+                                                {% set dish_counts = {} %}
+                                                {% for dish in order.dishes %}
+                                                    {% if dish_counts.update({dish: dish_counts.get(dish, 0) + 1}) %}{% endif %}
+                                                {% endfor %}
+                                                
+                                                <ul class="list-unstyled mb-0">
+                                                    {% for dish, count in dish_counts.items() %}
+                                                    <li class="mb-1">
+                                                        <span class="badge bg-light text-dark me-2">{{ count }}</span>
+                                                        {{ dish }}
+                                                    </li>
+                                                    {% endfor %}
+                                                </ul>
+                                                <div class="mt-2">
+                                                    <small class="text-muted">
+                                                        总计: {{ order.dishes|length }} 道菜
+                                                    </small>
+                                                </div>
+                                            </div>
+                                            
+                                            <form method="POST" action="{{ url_for('complete_order') }}" class="d-inline">
+                                                <input type="hidden" name="order_id" value="{{ order.id }}">
+                                                <button type="submit" class="btn btn-success btn-sm w-100" 
+                                                        onclick="return confirm('确认已完成订单 #{{ order.id }} 吗？')">
+                                                    <i class="fas fa-check me-1"></i>
+                                                    完成订单
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            {% else %}
+                                <div class="empty-orders text-center py-5">
+                                    <i class="fas fa-clipboard text-muted" style="font-size: 3rem;"></i>
+                                    <h5 class="mt-3 text-muted">暂无订单</h5>
+                                    <p class="text-muted">等待客户下单...</p>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 添加菜品模态框 -->
+<div class="modal fade" id="addDishModal" tabindex="-1" aria-labelledby="addDishModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="addDishModalLabel">
+                    <i class="fas fa-plus me-2"></i>添加新菜品
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <form method="POST" action="{{ url_for('add_dish') }}" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="dish_name" class="form-label">
+                            <i class="fas fa-utensils me-1"></i>菜品名称 <span class="text-danger">*</span>
+                        </label>
+                        <input type="text" class="form-control" id="dish_name" name="dish_name" required 
+                               placeholder="请输入菜品名称">
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="dish_image" class="form-label">
+                            <i class="fas fa-image me-1"></i>菜品图片 <span class="text-danger">*</span>
+                        </label>
+                        <input type="file" class="form-control" id="dish_image" name="dish_image" 
+                               accept="image/*" required onchange="previewImage(this)">
+                        <div class="form-text">支持 PNG、JPG、JPEG、GIF、BMP 格式，最大 16MB</div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <div id="imagePreview" class="text-center" style="display: none;">
+                            <img id="previewImg" src="" alt="预览图" 
+                                 class="img-fluid rounded border" style="max-height: 200px;">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <i class="fas fa-times me-1"></i>取消
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save me-1"></i>保存菜品
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- 客户链接模态框 -->
+<div class="modal fade" id="customerLinkModal" tabindex="-1" aria-labelledby="customerLinkModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-info text-white">
+                <h5 class="modal-title" id="customerLinkModalLabel">
+                    <i class="fas fa-link me-2"></i>客户点餐链接
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>分享以下链接给朋友，他们可以通过此链接进行点餐：</p>
+                <div class="input-group">
+                    <input type="text" class="form-control" id="customerLink" readonly>
+                    <button class="btn btn-outline-secondary" type="button" onclick="copyLink()">
+                        <i class="fas fa-copy me-1"></i>复制
+                    </button>
+                </div>
+                <div class="mt-3">
+                    <small class="text-muted">
+                        <i class="fas fa-info-circle me-1"></i>
+                        此链接包含唯一的客户ID，方便您识别不同的客户订单
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+// 图片预览功能
+function previewImage(input) {
+    const preview = document.getElementById('imagePreview');
+    const previewImg = document.getElementById('previewImg');
+    
+    if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            previewImg.src = e.target.result;
+            preview.style.display = 'block';
+        };
+        reader.readAsDataURL(input.files[0]);
+    } else {
+        preview.style.display = 'none';
+    }
+}
+
+// 生成客户链接
+function generateCustomerLink() {
+    fetch('/generate_customer_link', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            document.getElementById('customerLink').value = data.customer_url;
+            const modal = new bootstrap.Modal(document.getElementById('customerLinkModal'));
+            modal.show();
+        } else {
+            alert('生成链接失败');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('生成链接失败');
+    });
+}
+
+// 复制链接
+function copyLink() {
+    const linkInput = document.getElementById('customerLink');
+    linkInput.select();
+    linkInput.setSelectionRange(0, 99999);
+    document.execCommand('copy');
+    
+    // 显示复制成功提示
+    const button = event.target.closest('button');
+    const originalText = button.innerHTML;
+    button.innerHTML = '<i class="fas fa-check me-1"></i>已复制';
+    button.classList.remove('btn-outline-secondary');
+    button.classList.add('btn-success');
+    
+    setTimeout(() => {
+        button.innerHTML = originalText;
+        button.classList.remove('btn-success');
+        button.classList.add('btn-outline-secondary');
+    }, 2000);
+}
+
+// 刷新订单
+function refreshOrders() {
+    fetch('/get_orders')
+    .then(response => response.json())
+    .then(orders => {
+        updateOrdersDisplay(orders);
+        document.getElementById('orderCount').textContent = orders.length;
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
+
+// 更新订单显示
+function updateOrdersDisplay(orders) {
+    const container = document.getElementById('ordersContainer');
+    
+    if (orders.length === 0) {
+        container.innerHTML = `
+            <div class="empty-orders text-center py-5">
+                <i class="fas fa-clipboard text-muted" style="font-size: 3rem;"></i>
+                <h5 class="mt-3 text-muted">暂无订单</h5>
+                <p class="text-muted">等待客户下单...</p>
+            </div>
+        `;
+        return;
+    }
+    
+    let html = '';
+    orders.forEach(order => {
+        // 统计菜品数量
+        const dishCounts = {};
+        order.dishes.forEach(dish => {
+            dishCounts[dish] = (dishCounts[dish] || 0) + 1;
+        });
+        
+        html += `
+            <div class="order-item mb-3">
+                <div class="card border-start border-warning border-3">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <div>
+                                <h6 class="card-title mb-1">
+                                    <i class="fas fa-user me-1"></i>
+                                    ${order.customer_name}
+                                </h6>
+                                <small class="text-muted">
+                                    <i class="fas fa-clock me-1"></i>
+                                    ${order.created_time}
+                                </small>
+                            </div>
+                            <span class="badge bg-warning text-dark">订单 #${order.id}</span>
+                        </div>
+                        
+                        <div class="order-dishes mb-3">
+                            <h6 class="mb-2">
+                                <i class="fas fa-list me-1"></i>点餐详情:
+                            </h6>
+                            <ul class="list-unstyled mb-0">
+        `;
+        
+        Object.entries(dishCounts).forEach(([dish, count]) => {
+            html += `
+                <li class="mb-1">
+                    <span class="badge bg-light text-dark me-2">${count}</span>
+                    ${dish}
+                </li>
+            `;
+        });
+        
+        html += `
+                            </ul>
+                            <div class="mt-2">
+                                <small class="text-muted">
+                                    总计: ${order.dishes.length} 道菜
+                                </small>
+                            </div>
+                        </div>
+                        
+                        <form method="POST" action="/complete_order" class="d-inline">
+                            <input type="hidden" name="order_id" value="${order.id}">
+                            <button type="submit" class="btn btn-success btn-sm w-100" 
+                                    onclick="return confirm('确认已完成订单 #${order.id} 吗？')">
+                                <i class="fas fa-check me-1"></i>
+                                完成订单
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        `;
+    });
+    
+    container.innerHTML = html;
+}
+
+// 定期刷新订单（每30秒）
+setInterval(refreshOrders, 30000);
+
+// 页面加载完成后立即刷新一次订单
+$(document).ready(function() {
+    refreshOrders();
+});
+</script>
+{% endblock %}

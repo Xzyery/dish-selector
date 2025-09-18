@@ -1,0 +1,336 @@
+/* 自定义样式文件 */
+
+/* 全局样式 */
+body {
+    background-color: #f8f9fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* 导航栏样式 */
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+/* 英雄区域样式 */
+.hero-section {
+    background: linear-gradient(135deg, #87ceeb 0%, #b0e0e6 50%, #e0f6ff 100%);
+    color: white;
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+}
+
+.hero-content h1 {
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.feature-item {
+    font-size: 1.1rem;
+    padding: 0.5rem 0;
+}
+
+/* 门户卡片样式 */
+.portal-card .card {
+    transition: all 0.3s ease;
+    height: 100%;
+}
+
+.portal-card .card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1) !important;
+}
+
+.portal-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+}
+
+/* 特色功能样式 */
+.feature-box {
+    text-align: center;
+    padding: 2rem 1rem;
+}
+
+.feature-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+/* 卡片通用样式 */
+.card {
+    border: none;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15) !important;
+}
+
+/* 厨师端样式 */
+.chef-dashboard .dish-thumbnail {
+    border-radius: 8px;
+}
+
+.chef-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.order-item .card {
+    transition: all 0.3s ease;
+}
+
+.order-item .card:hover {
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1) !important;
+}
+
+/* 客户端样式 */
+.customer-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.dishes-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.dish-item-hover {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    height: 100%;
+}
+
+.dish-item-hover:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15) !important;
+}
+
+.dish-image {
+    transition: transform 0.3s ease;
+    border-radius: 15px 15px 0 0;
+}
+
+.dish-card {
+    position: relative;
+}
+
+.dish-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 60px;
+    background: rgba(0,0,0,0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: 15px 15px 0 0;
+}
+
+.dish-card:hover .dish-overlay {
+    opacity: 1;
+}
+
+.dish-added {
+    animation: addToCartPulse 0.6s ease;
+}
+
+.dish-recommended {
+    animation: recommendPulse 3s ease infinite;
+    box-shadow: 0 0 0 3px rgba(255, 193, 7, 0.5) !important;
+}
+
+@keyframes addToCartPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+@keyframes recommendPulse {
+    0%, 100% { box-shadow: 0 0 0 3px rgba(255, 193, 7, 0.5); }
+    50% { box-shadow: 0 0 0 6px rgba(255, 193, 7, 0.8); }
+}
+
+/* 购物车样式 */
+.cart-item {
+    transition: all 0.3s ease;
+    border-radius: 8px;
+}
+
+.cart-item:hover {
+    background-color: #e9ecef !important;
+    transform: translateX(5px);
+}
+
+/* 空状态样式 */
+.empty-state, .empty-orders, .empty-cart, .empty-menu {
+    color: #6c757d;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .hero-section {
+        min-height: 50vh;
+        text-align: center;
+    }
+    
+    .portal-icon {
+        font-size: 3rem;
+    }
+    
+    .dishes-gallery {
+        grid-template-columns: 1fr;
+    }
+    
+    .chef-actions, .customer-actions {
+        justify-content: center;
+        margin-top: 1rem;
+    }
+    
+    .display-6 {
+        font-size: 1.8rem;
+    }
+}
+
+/* 按钮样式增强 */
+.btn {
+    border-radius: 25px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    padding: 0.5rem 1.5rem;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.btn-lg {
+    padding: 0.75rem 2rem;
+    font-size: 1.1rem;
+}
+
+/* 模态框样式 */
+.modal-content {
+    border-radius: 15px;
+    border: none;
+}
+
+.modal-header {
+    border-radius: 15px 15px 0 0;
+    border-bottom: none;
+    padding: 1.5rem;
+}
+
+.modal-body {
+    padding: 1.5rem;
+}
+
+.modal-footer {
+    border-top: none;
+    padding: 1.5rem;
+}
+
+/* 表单样式 */
+.form-control {
+    border-radius: 10px;
+    border: 2px solid #e9ecef;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+    transform: translateY(-1px);
+}
+
+/* 警告样式 */
+.alert {
+    border-radius: 10px;
+    border: none;
+}
+
+/* 页脚样式 */
+footer {
+    margin-top: auto;
+}
+
+/* 工具提示和加载状态 */
+.loading {
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+/* 滚动条样式 */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
+
+/* 动画类 */
+.fade-in {
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.slide-up {
+    animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+}
+
+/* 特殊效果 */
+.glass-effect {
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.gradient-text {
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* 打印样式 */
+@media print {
+    .navbar, .btn, footer {
+        display: none !important;
+    }
+    
+    .card {
+        box-shadow: none !important;
+        border: 1px solid #dee2e6 !important;
+    }
+}

@@ -1,0 +1,514 @@
+{% extends "base.html" %}
+
+{% block title %}客户点餐端 - WXZY点餐系统{% endblock %}
+
+{% block content %}
+<div class="customer-dashboard">
+    <div class="container-fluid">
+        <!-- 页面标题 -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="d-flex justify-content-between align-items-center flex-wrap">
+                    <h1 class="display-6 mb-2">
+                        <i class="fas fa-utensils text-primary me-3"></i>
+                        WXZY菜单
+                    </h1>
+                    <div class="customer-actions">
+                        <button class="btn btn-warning" onclick="randomRecommend()">
+                            <i class="fas fa-random me-2"></i>随机推荐
+                        </button>
+                        <button class="btn btn-outline-danger ms-2" onclick="clearCart()">
+                            <i class="fas fa-trash me-2"></i>清空购物车
+                        </button>
+                        <button class="btn btn-success ms-2" data-bs-toggle="modal" data-bs-target="#orderModal">
+                            <i class="fas fa-shopping-cart me-2"></i>
+                            确认下单 (<span id="cartCount">0</span>)
+                        </button>
+                    </div>
+                </div>
+                {% if customer_id %}
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle me-2"></i>
+                    您的客户ID: <strong>{{ customer_id }}</strong> - 厨师可以通过此ID识别您的订单
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- 左侧：菜品展示 -->
+            <div class="col-lg-8">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-primary text-white">
+                        <h4 class="mb-0">
+                            <i class="fas fa-list me-2"></i>
+                            精选菜品 ({{ dishes|length }} 道菜)
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        {% if dishes %}
+                            <div class="dishes-gallery">
+                                {% for dish in dishes %}
+                                <div class="dish-card mb-4" data-dish-index="{{ loop.index0 }}" data-dish-name="{{ dish.name }}">
+                                    <div class="card h-100 border-0 shadow-sm dish-item-hover">
+                                        <div class="position-relative">
+                                            <img src="{{ url_for('uploaded_file', filename=dish.image_path.split('/')[-1]) }}" 
+                                                 class="card-img-top dish-image" 
+                                                 alt="{{ dish.name }}"
+                                                 style="height: 250px; object-fit: cover;">
+                                            <div class="dish-overlay">
+                                                <button class="btn btn-primary btn-lg" onclick="addToCart('{{ dish.name|e }}', {{ loop.index0 }})">
+                                                    <i class="fas fa-plus me-2"></i>加入购物车
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="card-body text-center">
+                                            <h5 class="card-title">{{ dish.name }}</h5>
+                                            <p class="card-text text-muted">
+                                                <small>编号: {{ loop.index }}</small>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <div class="empty-menu text-center py-5">
+                                <i class="fas fa-plate-wheat text-muted" style="font-size: 4rem;"></i>
+                                <h4 class="mt-3 text-muted">暂无菜品</h4>
+                                <p class="text-muted">菜单正在准备中，请稍后再来查看</p>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- 右侧：购物车 -->
+            <div class="col-lg-4">
+                <div class="card shadow-sm sticky-top" style="top: 20px;">
+                    <div class="card-header bg-success text-white">
+                        <h4 class="mb-0">
+                            <i class="fas fa-shopping-cart me-2"></i>
+                            购物车
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <div id="cartItems">
+                            <div class="empty-cart text-center py-4">
+                                <i class="fas fa-shopping-cart text-muted" style="font-size: 2rem;"></i>
+                                <p class="mt-2 text-muted">购物车为空<br>选择您喜欢的菜品吧！</p>
+                            </div>
+                        </div>
+                        
+                        <div id="cartSummary" style="display: none;" class="mt-3 pt-3 border-top">
+                            <div class="d-flex justify-content-between">
+                                <span>总菜品数：</span>
+                                <span id="totalItems">0</span>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <span>不同菜品：</span>
+                                <span id="uniqueItems">0</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-success w-100" data-bs-toggle="modal" data-bs-target="#orderModal" id="checkoutBtn" disabled>
+                            <i class="fas fa-check me-2"></i>确认下单
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 下单确认模态框 -->
+<div class="modal fade" id="orderModal" tabindex="-1" aria-labelledby="orderModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-success text-white">
+                <h5 class="modal-title" id="orderModalLabel">
+                    <i class="fas fa-check-circle me-2"></i>确认下单
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label for="customerName" class="form-label">
+                        <i class="fas fa-user me-1"></i>您的姓名
+                    </label>
+                    <input type="text" class="form-control" id="customerName" placeholder="请输入您的姓名（可选）">
+                    <div class="form-text">方便厨师识别您的订单</div>
+                </div>
+                
+                <div class="mb-3">
+                    <h6><i class="fas fa-list me-2"></i>订单详情：</h6>
+                    <div id="orderSummary" class="border rounded p-3 bg-light">
+                        <!-- 订单详情将通过JavaScript填充 -->
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <i class="fas fa-times me-1"></i>取消
+                </button>
+                <button type="button" class="btn btn-success" onclick="submitOrder()">
+                    <i class="fas fa-paper-plane me-1"></i>提交订单
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 成功提示模态框 -->
+<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-success text-white">
+                <h5 class="modal-title" id="successModalLabel">
+                    <i class="fas fa-check-circle me-2"></i>订单提交成功
+                </h5>
+            </div>
+            <div class="modal-body text-center">
+                <i class="fas fa-check-circle text-success" style="font-size: 3rem;"></i>
+                <h4 class="mt-3">订单已提交！</h4>
+                <p class="text-muted">您的订单已成功提交给厨师，请耐心等待美味出炉！</p>
+                <div id="orderIdDisplay" class="mt-3 p-3 bg-light rounded">
+                    <!-- 订单ID将显示在这里 -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-bs-dismiss="modal" onclick="location.reload()">
+                    <i class="fas fa-utensils me-1"></i>继续点餐
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+// 购物车数据
+let cart = [];
+let dishesData = {{ dishes | tojson | safe }};
+
+// 添加到购物车
+function addToCart(dishName, dishIndex) {
+    cart.push(dishName);
+    updateCartDisplay();
+    
+    // 添加视觉反馈
+    const dishCard = document.querySelector(`[data-dish-index="${dishIndex}"]`);
+    dishCard.classList.add('dish-added');
+    setTimeout(() => {
+        dishCard.classList.remove('dish-added');
+    }, 1000);
+    
+    // 显示提示
+    showToast(`已将 "${dishName}" 加入购物车`, 'success');
+}
+
+// 从购物车移除
+function removeFromCart(index) {
+    const removedItem = cart[index];
+    cart.splice(index, 1);
+    updateCartDisplay();
+    showToast(`已从购物车移除 "${removedItem}"`, 'info');
+}
+
+// 更新购物车显示
+function updateCartDisplay() {
+    const cartItemsContainer = document.getElementById('cartItems');
+    const cartSummary = document.getElementById('cartSummary');
+    const cartCount = document.getElementById('cartCount');
+    const checkoutBtn = document.getElementById('checkoutBtn');
+    
+    cartCount.textContent = cart.length;
+    
+    if (cart.length === 0) {
+        cartItemsContainer.innerHTML = `
+            <div class="empty-cart text-center py-4">
+                <i class="fas fa-shopping-cart text-muted" style="font-size: 2rem;"></i>
+                <p class="mt-2 text-muted">购物车为空<br>选择您喜欢的菜品吧！</p>
+            </div>
+        `;
+        cartSummary.style.display = 'none';
+        checkoutBtn.disabled = true;
+        return;
+    }
+    
+    // 统计菜品数量
+    const dishCounts = {};
+    cart.forEach(dish => {
+        dishCounts[dish] = (dishCounts[dish] || 0) + 1;
+    });
+    
+    let html = '';
+    cart.forEach((dish, index) => {
+        html += `
+            <div class="cart-item d-flex justify-content-between align-items-center mb-2 p-2 bg-light rounded">
+                <span class="flex-grow-1">${index + 1}. ${dish}</span>
+                <button class="btn btn-outline-danger btn-sm" onclick="removeFromCart(${index})">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        `;
+    });
+    
+    cartItemsContainer.innerHTML = html;
+    
+    // 更新统计信息
+    document.getElementById('totalItems').textContent = cart.length;
+    document.getElementById('uniqueItems').textContent = Object.keys(dishCounts).length;
+    cartSummary.style.display = 'block';
+    checkoutBtn.disabled = false;
+}
+
+// 清空购物车
+function clearCart() {
+    if (cart.length === 0) {
+        showToast('购物车已经是空的', 'info');
+        return;
+    }
+    
+    if (confirm('确定要清空购物车吗？')) {
+        cart = [];
+        updateCartDisplay();
+        showToast('购物车已清空', 'info');
+    }
+}
+
+// 随机推荐
+function randomRecommend() {
+    if (dishesData.length === 0) {
+        showToast('暂无菜品可推荐', 'warning');
+        return;
+    }
+    
+    const randomDish = dishesData[Math.floor(Math.random() * dishesData.length)];
+    const dishIndex = dishesData.indexOf(randomDish);
+    
+    // 滚动到推荐的菜品
+    const dishCard = document.querySelector(`[data-dish-index="${dishIndex}"]`);
+    if (dishCard) {
+        dishCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        
+        // 高亮推荐的菜品
+        dishCard.classList.add('dish-recommended');
+        setTimeout(() => {
+            dishCard.classList.remove('dish-recommended');
+        }, 3000);
+    }
+    
+    showToast(`为您推荐: ${randomDish.name}`, 'info');
+}
+
+// 更新订单模态框
+function updateOrderModal() {
+    const orderSummary = document.getElementById('orderSummary');
+    
+    if (cart.length === 0) {
+        orderSummary.innerHTML = '<p class="text-muted">购物车为空</p>';
+        return;
+    }
+    
+    // 统计菜品数量
+    const dishCounts = {};
+    cart.forEach(dish => {
+        dishCounts[dish] = (dishCounts[dish] || 0) + 1;
+    });
+    
+    let html = '<ul class="list-unstyled mb-0">';
+    Object.entries(dishCounts).forEach(([dish, count]) => {
+        html += `
+            <li class="d-flex justify-content-between align-items-center mb-1">
+                <span>${dish}</span>
+                <span class="badge bg-primary">${count}</span>
+            </li>
+        `;
+    });
+    html += '</ul>';
+    html += `<div class="mt-3 pt-2 border-top"><strong>总计: ${cart.length} 道菜</strong></div>`;
+    
+    orderSummary.innerHTML = html;
+}
+
+// 提交订单
+function submitOrder() {
+    if (cart.length === 0) {
+        showToast('购物车为空，无法下单', 'warning');
+        return;
+    }
+    
+    const customerName = document.getElementById('customerName').value.trim() || '匿名客户';
+    const customerId = '{{ customer_id or "web" }}';
+    
+    const orderData = {
+        customer_name: customerName,
+        customer_id: customerId,
+        selected_dishes: cart
+    };
+    
+    fetch('/place_order', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(orderData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // 关闭下单模态框
+            const orderModal = bootstrap.Modal.getInstance(document.getElementById('orderModal'));
+            orderModal.hide();
+            
+            // 显示成功信息
+            document.getElementById('orderIdDisplay').innerHTML = `
+                <strong>订单号: #${data.order_id}</strong><br>
+                <small class="text-muted">请记录此订单号以便查询</small>
+            `;
+            
+            const successModal = new bootstrap.Modal(document.getElementById('successModal'));
+            successModal.show();
+            
+            // 清空购物车
+            cart = [];
+            updateCartDisplay();
+            
+        } else {
+            showToast(data.message || '下单失败', 'error');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showToast('下单失败，请重试', 'error');
+    });
+}
+
+// 显示提示消息
+function showToast(message, type = 'info') {
+    const toastContainer = document.getElementById('toastContainer') || createToastContainer();
+    
+    const toastId = 'toast_' + Date.now();
+    const toastHtml = `
+        <div id="${toastId}" class="toast align-items-center text-white bg-${type === 'error' ? 'danger' : type === 'success' ? 'success' : 'info'} border-0" role="alert">
+            <div class="d-flex">
+                <div class="toast-body">
+                    <i class="fas fa-${type === 'error' ? 'exclamation-circle' : type === 'success' ? 'check-circle' : 'info-circle'} me-2"></i>
+                    ${message}
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+            </div>
+        </div>
+    `;
+    
+    toastContainer.insertAdjacentHTML('beforeend', toastHtml);
+    
+    const toastElement = document.getElementById(toastId);
+    const toast = new bootstrap.Toast(toastElement);
+    toast.show();
+    
+    // 自动删除DOM元素
+    toastElement.addEventListener('hidden.bs.toast', () => {
+        toastElement.remove();
+    });
+}
+
+// 创建Toast容器
+function createToastContainer() {
+    const container = document.createElement('div');
+    container.id = 'toastContainer';
+    container.className = 'toast-container position-fixed top-0 end-0 p-3';
+    container.style.zIndex = '9999';
+    document.body.appendChild(container);
+    return container;
+}
+
+// 页面加载完成后的初始化
+$(document).ready(function() {
+    updateCartDisplay();
+    
+    // 当打开订单模态框时更新订单详情
+    document.getElementById('orderModal').addEventListener('show.bs.modal', updateOrderModal);
+});
+</script>
+
+<style>
+/* 自定义样式 */
+.dishes-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.dish-item-hover {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.dish-item-hover:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15) !important;
+}
+
+.dish-image {
+    transition: transform 0.3s ease;
+}
+
+.dish-card {
+    position: relative;
+}
+
+.dish-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 60px;
+    background: rgba(0,0,0,0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.dish-card:hover .dish-overlay {
+    opacity: 1;
+}
+
+.dish-added {
+    animation: addToCartPulse 0.6s ease;
+}
+
+.dish-recommended {
+    animation: recommendPulse 3s ease infinite;
+    box-shadow: 0 0 0 3px rgba(255, 193, 7, 0.5) !important;
+}
+
+@keyframes addToCartPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+@keyframes recommendPulse {
+    0%, 100% { box-shadow: 0 0 0 3px rgba(255, 193, 7, 0.5); }
+    50% { box-shadow: 0 0 0 6px rgba(255, 193, 7, 0.8); }
+}
+
+.cart-item {
+    transition: all 0.3s ease;
+}
+
+.cart-item:hover {
+    background-color: #f8f9fa !important;
+}
+
+.min-vh-75 {
+    min-height: 75vh;
+}
+</style>
+{% endblock %}
