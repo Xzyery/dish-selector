@@ -66,37 +66,19 @@ Desktop.ini
 instance/
 .webassets-cache
 
-# 订单文件（如果包含敏感信息）
-web/orders/*.json
-orders/
-
-# 用户生成的数据文件
+# 用户生成的数据文件（包含个人信息）
 web/user_data.json
 web/user_data.json.backup*
 web/questionnaire_responses.json
 
-# 用户上传的菜品图片
-web/static/dish_*.jpg
-web/static/dish_*.jpeg
-web/static/dish_*.png
-web/static/dish_*.gif
-web/static/dish_*.bmp
+# 订单文件（如果包含敏感信息）
+web/orders/*.json
+orders/*.json
 
 # 测试和调试文件
 web/test_*.py
 web/debug_*.py
 web/clear_*.py
-
-# 空的工具文件
-web/config.py
-web/utils.py
-
-# 多余的部署配置
-railway.json
-render_start.sh
-
-# Vercel
-.vercel
 
 # 上传的临时文件
 uploads/
