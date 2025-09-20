@@ -93,8 +93,10 @@ web/utils.py
 
 # 多余的部署配置
 railway.json
-vercel.json
 render_start.sh
+
+# Vercel
+.vercel
 
 # 上传的临时文件
 uploads/

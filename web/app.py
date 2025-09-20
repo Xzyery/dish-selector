@@ -10,7 +10,7 @@ import shutil
 import random
 
 app = Flask(__name__)
-app.secret_key = 'dish_selector_secret_key_2024'
+app.secret_key = os.environ.get('SECRET_KEY', 'dish_selector_secret_key_2024')
 
 # 配置文件上传
 UPLOAD_FOLDER = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static')
@@ -18,17 +18,18 @@ ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'bmp'}
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB max file size
 
-# 数据文件路径
-DISHES_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'dishes.json')
-ORDERS_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'orders')
-USER_DATA_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'user_data.json')
-QUESTIONNAIRE_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'questionnaire_responses.json')
-SEEDS_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'seeds_data.json')
+# 数据文件路径 - 适配Vercel无服务器环境
+base_dir = os.path.dirname(os.path.abspath(__file__))
+DISHES_FILE = os.path.join(base_dir, 'dishes.json')
+ORDERS_DIR = os.path.join(base_dir, 'orders')
+USER_DATA_FILE = os.path.join(base_dir, 'user_data.json')
+QUESTIONNAIRE_FILE = os.path.join(base_dir, 'questionnaire_responses.json')
+SEEDS_FILE = os.path.join(base_dir, 'seeds_data.json')
 
 # 确保必要的目录存在
 for directory in [UPLOAD_FOLDER, ORDERS_DIR]:
     if not os.path.exists(directory):
-        os.makedirs(directory)
+        os.makedirs(directory, exist_ok=True)
 
 # 默认用户凭据（保留用于兼容性）
 DEFAULT_USER = {

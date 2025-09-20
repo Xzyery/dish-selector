@@ -1,6 +1,438 @@
 {
-  "balance": 5371,
+  "balance": 2893,
   "transactions": [
+    {
+      "id": "a7dda709",
+      "amount": 25,
+      "description": "抽奖奖励-宝宝币25个",
+      "type": "income",
+      "timestamp": 1758375223,
+      "date": "2025-09-20 21:33:43"
+    },
+    {
+      "id": "f9736d03",
+      "amount": -20,
+      "description": "抽奖奖励-扣除20宝宝币",
+      "type": "expense",
+      "timestamp": 1758375223,
+      "date": "2025-09-20 21:33:43"
+    },
+    {
+      "id": "e36c5067",
+      "amount": 10,
+      "description": "抽奖奖励-宝宝币10枚",
+      "type": "income",
+      "timestamp": 1758375223,
+      "date": "2025-09-20 21:33:43"
+    },
+    {
+      "id": "e0484124",
+      "amount": 25,
+      "description": "抽奖奖励-宝宝币25个",
+      "type": "income",
+      "timestamp": 1758375223,
+      "date": "2025-09-20 21:33:43"
+    },
+    {
+      "id": "1278c410",
+      "amount": 25,
+      "description": "抽奖奖励-宝宝币25个",
+      "type": "income",
+      "timestamp": 1758375223,
+      "date": "2025-09-20 21:33:43"
+    },
+    {
+      "id": "d34a4f64",
+      "amount": -20,
+      "description": "抽奖奖励-扣除20宝宝币",
+      "type": "expense",
+      "timestamp": 1758375223,
+      "date": "2025-09-20 21:33:43"
+    },
+    {
+      "id": "c621b6be",
+      "amount": 25,
+      "description": "抽奖奖励-宝宝币25个",
+      "type": "income",
+      "timestamp": 1758375223,
+      "date": "2025-09-20 21:33:43"
+    },
+    {
+      "id": "6bb20ec5",
+      "amount": -520,
+      "description": "十连抽奖-normal",
+      "type": "expense",
+      "timestamp": 1758375223,
+      "date": "2025-09-20 21:33:43"
+    },
+    {
+      "id": "914a3549",
+      "amount": 10,
+      "description": "抽奖奖励-宝宝币10枚",
+      "type": "income",
+      "timestamp": 1758375220,
+      "date": "2025-09-20 21:33:40"
+    },
+    {
+      "id": "f9fec928",
+      "amount": -20,
+      "description": "抽奖奖励-扣除20宝宝币",
+      "type": "expense",
+      "timestamp": 1758375220,
+      "date": "2025-09-20 21:33:40"
+    },
+    {
+      "id": "0737f33c",
+      "amount": 10,
+      "description": "抽奖奖励-宝宝币10枚",
+      "type": "income",
+      "timestamp": 1758375220,
+      "date": "2025-09-20 21:33:40"
+    },
+    {
+      "id": "ac5e84b3",
+      "amount": 10,
+      "description": "抽奖奖励-宝宝币10枚",
+      "type": "income",
+      "timestamp": 1758375220,
+      "date": "2025-09-20 21:33:40"
+    },
+    {
+      "id": "3817808c",
+      "amount": 10,
+      "description": "抽奖奖励-宝宝币10枚",
+      "type": "income",
+      "timestamp": 1758375220,
+      "date": "2025-09-20 21:33:40"
+    },
+    {
+      "id": "84962073",
+      "amount": 25,
+      "description": "抽奖奖励-宝宝币25个",
+      "type": "income",
+      "timestamp": 1758375220,
+      "date": "2025-09-20 21:33:40"
+    },
+    {
+      "id": "f99e6b50",
+      "amount": 25,
+      "description": "抽奖奖励-宝宝币25个",
+      "type": "income",
+      "timestamp": 1758375220,
+      "date": "2025-09-20 21:33:40"
+    },
+    {
+      "id": "9c7ccf32",
+      "amount": 25,
+      "description": "抽奖奖励-宝宝币25个",
+      "type": "income",
+      "timestamp": 1758375220,
+      "date": "2025-09-20 21:33:40"
+    },
+    {
+      "id": "8bc9bffe",
+      "amount": 10,
+      "description": "抽奖奖励-宝宝币10枚",
+      "type": "income",
+      "timestamp": 1758375220,
+      "date": "2025-09-20 21:33:40"
+    },
+    {
+      "id": "63ba6d52",
+      "amount": -520,
+      "description": "十连抽奖-normal",
+      "type": "expense",
+      "timestamp": 1758375220,
+      "date": "2025-09-20 21:33:40"
+    },
+    {
+      "id": "aa131e7d",
+      "amount": 52,
+      "description": "猜数字游戏奖励(第3次猜中)",
+      "type": "income",
+      "timestamp": 1758373521,
+      "date": "2025-09-20 21:05:21"
+    },
+    {
+      "id": "7a19b8b5",
+      "amount": 25,
+      "description": "抽奖奖励-宝宝币25个",
+      "type": "income",
+      "timestamp": 1758372106,
+      "date": "2025-09-20 20:41:46"
+    },
+    {
+      "id": "f74cec35",
+      "amount": 10,
+      "description": "抽奖奖励-宝宝币10枚",
+      "type": "income",
+      "timestamp": 1758372106,
+      "date": "2025-09-20 20:41:46"
+    },
+    {
+      "id": "2a5e6891",
+      "amount": 25,
+      "description": "抽奖奖励-宝宝币25个",
+      "type": "income",
+      "timestamp": 1758372106,
+      "date": "2025-09-20 20:41:46"
+    },
+    {
+      "id": "56a3e32c",
+      "amount": 10,
+      "description": "抽奖奖励-宝宝币10枚",
+      "type": "income",
+      "timestamp": 1758372106,
+      "date": "2025-09-20 20:41:46"
+    },
+    {
+      "id": "31a17d95",
+      "amount": -20,
+      "description": "抽奖奖励-扣除20宝宝币",
+      "type": "expense",
+      "timestamp": 1758372106,
+      "date": "2025-09-20 20:41:46"
+    },
+    {
+      "id": "e0a3a095",
+      "amount": 10,
+      "description": "抽奖奖励-宝宝币10枚",
+      "type": "income",
+      "timestamp": 1758372106,
+      "date": "2025-09-20 20:41:46"
+    },
+    {
+      "id": "fc44545b",
+      "amount": -520,
+      "description": "十连抽奖-normal",
+      "type": "expense",
+      "timestamp": 1758372106,
+      "date": "2025-09-20 20:41:46"
+    },
+    {
+      "id": "27b9bc5a",
+      "amount": 25,
+      "description": "抽奖奖励-宝宝币25个",
+      "type": "income",
+      "timestamp": 1758372103,
+      "date": "2025-09-20 20:41:43"
+    },
+    {
+      "id": "072fa040",
+      "amount": 25,
+      "description": "抽奖奖励-宝宝币25个",
+      "type": "income",
+      "timestamp": 1758372103,
+      "date": "2025-09-20 20:41:43"
+    },
+    {
+      "id": "ec14ee66",
+      "amount": 25,
+      "description": "抽奖奖励-宝宝币25个",
+      "type": "income",
+      "timestamp": 1758372103,
+      "date": "2025-09-20 20:41:43"
+    },
+    {
+      "id": "8ec34e90",
+      "amount": 10,
+      "description": "抽奖奖励-宝宝币10枚",
+      "type": "income",
+      "timestamp": 1758372103,
+      "date": "2025-09-20 20:41:43"
+    },
+    {
+      "id": "ddf33164",
+      "amount": 25,
+      "description": "抽奖奖励-宝宝币25个",
+      "type": "income",
+      "timestamp": 1758372103,
+      "date": "2025-09-20 20:41:43"
+    },
+    {
+      "id": "30db784a",
+      "amount": 10,
+      "description": "抽奖奖励-宝宝币10枚",
+      "type": "income",
+      "timestamp": 1758372103,
+      "date": "2025-09-20 20:41:43"
+    },
+    {
+      "id": "9b37531e",
+      "amount": 10,
+      "description": "抽奖奖励-宝宝币10枚",
+      "type": "income",
+      "timestamp": 1758372103,
+      "date": "2025-09-20 20:41:43"
+    },
+    {
+      "id": "e5ca9008",
+      "amount": 10,
+      "description": "抽奖奖励-宝宝币10枚",
+      "type": "income",
+      "timestamp": 1758372103,
+      "date": "2025-09-20 20:41:43"
+    },
+    {
+      "id": "4bafd0ed",
+      "amount": -520,
+      "description": "十连抽奖-normal",
+      "type": "expense",
+      "timestamp": 1758372103,
+      "date": "2025-09-20 20:41:43"
+    },
+    {
+      "id": "e06f5b90",
+      "amount": 25,
+      "description": "抽奖奖励-宝宝币25个",
+      "type": "income",
+      "timestamp": 1758372099,
+      "date": "2025-09-20 20:41:39"
+    },
+    {
+      "id": "5da0077f",
+      "amount": 25,
+      "description": "抽奖奖励-宝宝币25个",
+      "type": "income",
+      "timestamp": 1758372099,
+      "date": "2025-09-20 20:41:39"
+    },
+    {
+      "id": "92f3bbc1",
+      "amount": 25,
+      "description": "抽奖奖励-宝宝币25个",
+      "type": "income",
+      "timestamp": 1758372099,
+      "date": "2025-09-20 20:41:39"
+    },
+    {
+      "id": "88444a49",
+      "amount": 25,
+      "description": "抽奖奖励-宝宝币25个",
+      "type": "income",
+      "timestamp": 1758372099,
+      "date": "2025-09-20 20:41:39"
+    },
+    {
+      "id": "24c12142",
+      "amount": -20,
+      "description": "抽奖奖励-扣除20宝宝币",
+      "type": "expense",
+      "timestamp": 1758372099,
+      "date": "2025-09-20 20:41:39"
+    },
+    {
+      "id": "6b0bd7d5",
+      "amount": -20,
+      "description": "抽奖奖励-扣除20宝宝币",
+      "type": "expense",
+      "timestamp": 1758372099,
+      "date": "2025-09-20 20:41:39"
+    },
+    {
+      "id": "49f8b547",
+      "amount": -20,
+      "description": "抽奖奖励-扣除20宝宝币",
+      "type": "expense",
+      "timestamp": 1758372099,
+      "date": "2025-09-20 20:41:39"
+    },
+    {
+      "id": "11370ee6",
+      "amount": 10,
+      "description": "抽奖奖励-宝宝币10枚",
+      "type": "income",
+      "timestamp": 1758372099,
+      "date": "2025-09-20 20:41:39"
+    },
+    {
+      "id": "9059a9db",
+      "amount": 25,
+      "description": "抽奖奖励-宝宝币25个",
+      "type": "income",
+      "timestamp": 1758372099,
+      "date": "2025-09-20 20:41:39"
+    },
+    {
+      "id": "e9d45934",
+      "amount": -520,
+      "description": "十连抽奖-normal",
+      "type": "expense",
+      "timestamp": 1758372099,
+      "date": "2025-09-20 20:41:39"
+    },
+    {
+      "id": "e5522583",
+      "amount": 10,
+      "description": "抽奖奖励-宝宝币10枚",
+      "type": "income",
+      "timestamp": 1758371842,
+      "date": "2025-09-20 20:37:22"
+    },
+    {
+      "id": "9670dec5",
+      "amount": 10,
+      "description": "抽奖奖励-宝宝币10枚",
+      "type": "income",
+      "timestamp": 1758371842,
+      "date": "2025-09-20 20:37:22"
+    },
+    {
+      "id": "d9200ad1",
+      "amount": 25,
+      "description": "抽奖奖励-宝宝币25个",
+      "type": "income",
+      "timestamp": 1758371842,
+      "date": "2025-09-20 20:37:22"
+    },
+    {
+      "id": "ff1656e6",
+      "amount": 25,
+      "description": "抽奖奖励-宝宝币25个",
+      "type": "income",
+      "timestamp": 1758371842,
+      "date": "2025-09-20 20:37:22"
+    },
+    {
+      "id": "aeef134e",
+      "amount": 10,
+      "description": "抽奖奖励-宝宝币10枚",
+      "type": "income",
+      "timestamp": 1758371842,
+      "date": "2025-09-20 20:37:22"
+    },
+    {
+      "id": "4ac2ef88",
+      "amount": 25,
+      "description": "抽奖奖励-宝宝币25个",
+      "type": "income",
+      "timestamp": 1758371842,
+      "date": "2025-09-20 20:37:22"
+    },
+    {
+      "id": "4cee164f",
+      "amount": 10,
+      "description": "抽奖奖励-宝宝币10枚",
+      "type": "income",
+      "timestamp": 1758371842,
+      "date": "2025-09-20 20:37:22"
+    },
+    {
+      "id": "7884b450",
+      "amount": 25,
+      "description": "抽奖奖励-宝宝币25个",
+      "type": "income",
+      "timestamp": 1758371842,
+      "date": "2025-09-20 20:37:22"
+    },
+    {
+      "id": "37dcdabb",
+      "amount": -520,
+      "description": "十连抽奖-normal",
+      "type": "expense",
+      "timestamp": 1758371842,
+      "date": "2025-09-20 20:37:22"
+    },
     {
       "id": "a1bba1ca",
       "amount": -52,
@@ -6922,295 +7354,37 @@
   "lottery_attempts": 3,
   "lottery_attempts_date": "2025-09-19",
   "lottery_history": [],
-  "coupons": [
-    {
-      "id": "ffd28bb7",
-      "type": "discount",
-      "value": 0.9,
-      "description": "九折优惠券",
-      "expires": "2025-10-20",
-      "used": true,
-      "created_date": "2025-09-20",
-      "source": "lottery",
-      "used_date": "2025-09-20"
-    },
-    {
-      "id": "156dc40a",
-      "type": "free",
-      "value": 1.0,
-      "description": "免单券",
-      "expires": "2025-10-20",
-      "used": true,
-      "created_date": "2025-09-20",
-      "source": "lottery",
-      "used_date": "2025-09-20"
-    },
-    {
-      "id": "139e7600",
-      "type": "discount",
-      "value": 0.9,
-      "description": "九折优惠券",
-      "expires": "2025-10-20",
-      "used": false,
-      "created_date": "2025-09-20",
-      "source": "lottery"
-    },
-    {
-      "id": "279ba0aa",
-      "type": "discount",
-      "value": 0.9,
-      "description": "九折优惠券",
-      "expires": "2025-10-20",
-      "used": false,
-      "created_date": "2025-09-20",
-      "source": "lottery"
-    },
-    {
-      "id": "5f94f7c0",
-      "type": "discount",
-      "value": 0.9,
-      "description": "九折优惠券",
-      "expires": "2025-10-20",
-      "used": false,
-      "created_date": "2025-09-20",
-      "source": "lottery"
-    },
-    {
-      "id": "1c658b8c",
-      "type": "discount",
-      "value": 0.9,
-      "description": "九折优惠券",
-      "expires": "2025-10-20",
-      "used": false,
-      "created_date": "2025-09-20",
-      "source": "lottery"
-    },
-    {
-      "id": "fe772bf1",
-      "type": "discount",
-      "value": 0.9,
-      "description": "九折优惠券",
-      "expires": "2025-10-20",
-      "used": false,
-      "created_date": "2025-09-20",
-      "source": "lottery"
-    },
-    {
-      "id": "1939ba5a",
-      "type": "discount",
-      "value": 0.9,
-      "description": "九折优惠券",
-      "expires": "2025-10-20",
-      "used": false,
-      "created_date": "2025-09-20",
-      "source": "lottery"
-    },
-    {
-      "id": "46fa77fc",
-      "type": "discount",
-      "value": 0.9,
-      "description": "九折优惠券",
-      "expires": "2025-10-20",
-      "used": false,
-      "created_date": "2025-09-20",
-      "source": "lottery"
-    },
-    {
-      "id": "b2f357be",
-      "type": "discount",
-      "value": 0.9,
-      "description": "九折优惠券",
-      "expires": "2025-10-20",
-      "used": false,
-      "created_date": "2025-09-20",
-      "source": "lottery"
-    },
-    {
-      "id": "222633f0",
-      "type": "discount",
-      "value": 0.9,
-      "description": "九折优惠券",
-      "expires": "2025-10-20",
-      "used": false,
-      "created_date": "2025-09-20",
-      "source": "lottery"
-    },
-    {
-      "id": "3ba484a8",
-      "type": "discount",
-      "value": 0.9,
-      "description": "九折优惠券",
-      "expires": "2025-10-20",
-      "used": false,
-      "created_date": "2025-09-20",
-      "source": "lottery"
-    },
-    {
-      "id": "2fcc477b",
-      "type": "discount",
-      "value": 0.9,
-      "description": "九折优惠券",
-      "expires": "2025-10-20",
-      "used": false,
-      "created_date": "2025-09-20",
-      "source": "lottery"
-    },
-    {
-      "id": "5472d8ae",
-      "type": "discount",
-      "value": 0.9,
-      "description": "九折优惠券",
-      "expires": "2025-10-20",
-      "used": false,
-      "created_date": "2025-09-20",
-      "source": "lottery"
-    },
-    {
-      "id": "91df48b4",
-      "type": "discount",
-      "value": 0.9,
-      "description": "九折优惠券",
-      "expires": "2025-10-20",
-      "used": false,
-      "created_date": "2025-09-20",
-      "source": "lottery"
-    },
-    {
-      "id": "6e9e5e47",
-      "type": "discount",
-      "value": 0.9,
-      "description": "九折优惠券",
-      "expires": "2025-10-20",
-      "used": false,
-      "created_date": "2025-09-20",
-      "source": "lottery"
-    },
-    {
-      "id": "4b835b5d",
-      "type": "discount",
-      "value": 0.9,
-      "description": "九折优惠券",
-      "expires": "2025-10-20",
-      "used": false,
-      "created_date": "2025-09-20",
-      "source": "lottery"
-    },
-    {
-      "id": "c0762ed9",
-      "type": "discount",
-      "value": 0.9,
-      "description": "九折优惠券",
-      "expires": "2025-10-20",
-      "used": false,
-      "created_date": "2025-09-20",
-      "source": "lottery"
-    },
-    {
-      "id": "b82f68bc",
-      "type": "discount",
-      "value": 0.9,
-      "description": "九折优惠券",
-      "expires": "2025-10-20",
-      "used": false,
-      "created_date": "2025-09-20",
-      "source": "lottery"
-    },
-    {
-      "id": "81955ff5",
-      "type": "discount",
-      "value": 0.9,
-      "description": "九折优惠券",
-      "expires": "2025-10-20",
-      "used": false,
-      "created_date": "2025-09-20",
-      "source": "lottery"
-    },
-    {
-      "id": "8b36edf7",
-      "type": "discount",
-      "value": 0.9,
-      "description": "九折优惠券",
-      "expires": "2025-10-20",
-      "used": false,
-      "created_date": "2025-09-20",
-      "source": "lottery"
-    },
-    {
-      "id": "80f9be1f",
-      "type": "discount",
-      "value": 0.9,
-      "description": "九折优惠券",
-      "expires": "2025-10-20",
-      "used": false,
-      "created_date": "2025-09-20",
-      "source": "lottery"
-    },
-    {
-      "id": "5d8ad282",
-      "type": "discount",
-      "value": 0.9,
-      "description": "九折优惠券",
-      "expires": "2025-10-20",
-      "used": false,
-      "created_date": "2025-09-20",
-      "source": "lottery"
-    },
-    {
-      "id": "bdebf429",
-      "type": "discount",
-      "value": 0.9,
-      "description": "九折优惠券",
-      "expires": "2025-10-20",
-      "used": false,
-      "created_date": "2025-09-20",
-      "source": "lottery"
-    },
-    {
-      "id": "3c9ee763",
-      "type": "discount",
-      "value": 0.9,
-      "description": "九折优惠券",
-      "expires": "2025-10-20",
-      "used": false,
-      "created_date": "2025-09-20",
-      "source": "lottery"
-    }
-  ],
+  "coupons": [],
   "guess_game_attempts": 0,
   "guess_game_date": "2025-09-19",
   "guess_game_history": {
     "2025-09-19": {
       "games_played": 6,
       "total_reward": 726
+    },
+    "2025-09-20": {
+      "games_played": 1,
+      "total_reward": 52
     }
   },
   "inventory": [
     {
-      "type": "physical",
-      "name": "面包",
-      "description": "面包（实际物品）",
-      "category": "real_item",
-      "item_code": "面包",
-      "obtained_date": "2025-09-20 17:23:25",
-      "quantity": 3
-    },
-    {
-      "type": "physical",
-      "name": "奶茶一杯",
-      "description": "奶茶一杯（实际物品）",
-      "category": "real_item",
-      "item_code": "奶茶一杯",
-      "obtained_date": "2025-09-20 17:25:32",
+      "type": "fragment",
+      "name": "麦辣鸡腿堡碎片",
+      "description": "麦辣鸡腿堡碎片（在背包中10个合成一个实际物品才能使用）",
+      "category": "fragment_item",
+      "fragment_type": "麦辣鸡腿堡",
+      "obtained_date": "2025-09-20 20:41:39",
       "quantity": 2
     },
     {
-      "type": "physical",
-      "name": "黑咖啡一杯",
-      "description": "黑咖啡一杯（实际物品）",
-      "category": "real_item",
-      "item_code": "黑咖啡一杯",
-      "obtained_date": "2025-09-20 17:26:09",
-      "quantity": 2
+      "type": "fragment",
+      "name": "金戈戈碎片",
+      "description": "金戈戈碎片（在背包中10个合成一个实际物品才能使用）",
+      "category": "fragment_item",
+      "fragment_type": "金戈戈",
+      "obtained_date": "2025-09-20 20:41:43",
+      "quantity": 1
     },
     {
       "type": "fragment",
@@ -7218,57 +7392,21 @@
       "description": "德湘厨兑换券碎片（在背包中10个合成一个实际物品才能使用）",
       "category": "fragment_item",
       "fragment_type": "德湘厨兑换券",
-      "obtained_date": "2025-09-20 17:26:57",
+      "obtained_date": "2025-09-20 20:41:43",
+      "quantity": 1
+    },
+    {
+      "type": "fragment",
+      "name": "奥尔良鸡腿堡碎片",
+      "description": "奥尔良鸡腿堡碎片（在背包中10个合成一个实际物品才能使用）",
+      "category": "fragment_item",
+      "fragment_type": "奥尔良鸡腿堡",
+      "obtained_date": "2025-09-20 20:41:46",
       "quantity": 3
-    },
-    {
-      "type": "physical",
-      "name": "紫菜卷",
-      "description": "紫菜卷（实际物品）",
-      "category": "real_item",
-      "item_code": "紫菜卷",
-      "obtained_date": "2025-09-20 17:27:54",
-      "quantity": 2
-    },
-    {
-      "type": "physical",
-      "name": "按摩15分钟",
-      "description": "按摩15分钟（实际物品）",
-      "category": "real_item",
-      "item_code": "按摩15分钟",
-      "obtained_date": "2025-09-20 17:30:59",
-      "quantity": 1
-    },
-    {
-      "type": "physical",
-      "name": "麦辣鸡腿堡2",
-      "description": "麦辣鸡腿堡2（实际物品可直接使用）",
-      "category": "real_item",
-      "item_code": "麦辣鸡腿堡2",
-      "obtained_date": "2025-09-20 17:30:59",
-      "quantity": 1
-    },
-    {
-      "type": "physical",
-      "name": "按摩30分钟",
-      "description": "按摩30分钟（实际物品）",
-      "category": "real_item",
-      "item_code": "按摩30分钟",
-      "obtained_date": "2025-09-20 17:30:59",
-      "quantity": 1
-    },
-    {
-      "type": "physical",
-      "name": "外卖盲盒",
-      "description": "外卖盲盒（实际物品）",
-      "category": "real_item",
-      "item_code": "外卖盲盒",
-      "obtained_date": "2025-09-20 17:30:59",
-      "quantity": 1
     }
   ],
   "make_up_cards": 0,
-  "extra_game_chances": 2,
+  "extra_game_chances": 1,
   "daily_questionnaire_completed": {
     "2025-09-19": true
   },
@@ -7282,7 +7420,7 @@
   },
   "consecutive_days": 2,
   "total_check_ins": 5,
-  "daily_guess_games": 0,
+  "daily_guess_games": 11,
   "last_game_date": "2025-09-20",
   "treasure_hunt": {
     "current_position": 37,
