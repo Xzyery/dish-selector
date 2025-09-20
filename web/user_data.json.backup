@@ -1,0 +1,4920 @@
+{
+  "balance": 15660,
+  "transactions": [
+    {
+      "id": "b648f560",
+      "amount": 1314,
+      "description": "抽奖奖励-1314宝宝币",
+      "type": "income",
+      "timestamp": 1758348183,
+      "date": "2025-09-20 14:03:03"
+    },
+    {
+      "id": "400e1f72",
+      "amount": 13140,
+      "description": "抽奖奖励-13140宝宝币",
+      "type": "income",
+      "timestamp": 1758348183,
+      "date": "2025-09-20 14:03:03"
+    },
+    {
+      "id": "877d8683",
+      "amount": -15600,
+      "description": "三连抽奖-legendary",
+      "type": "expense",
+      "timestamp": 1758348183,
+      "date": "2025-09-20 14:03:03"
+    },
+    {
+      "id": "94ee51ff",
+      "amount": 5200,
+      "description": "抽奖奖励-5200宝宝币",
+      "type": "income",
+      "timestamp": 1758348177,
+      "date": "2025-09-20 14:02:57"
+    },
+    {
+      "id": "ebd10103",
+      "amount": 5200,
+      "description": "抽奖奖励-5200宝宝币",
+      "type": "income",
+      "timestamp": 1758348177,
+      "date": "2025-09-20 14:02:57"
+    },
+    {
+      "id": "f43d68ab",
+      "amount": 5200,
+      "description": "抽奖奖励-5200宝宝币",
+      "type": "income",
+      "timestamp": 1758348177,
+      "date": "2025-09-20 14:02:57"
+    },
+    {
+      "id": "1204413d",
+      "amount": -15600,
+      "description": "三连抽奖-legendary",
+      "type": "expense",
+      "timestamp": 1758348177,
+      "date": "2025-09-20 14:02:57"
+    },
+    {
+      "id": "97197858",
+      "amount": 1314,
+      "description": "抽奖奖励-1314宝宝币",
+      "type": "income",
+      "timestamp": 1758348168,
+      "date": "2025-09-20 14:02:48"
+    },
+    {
+      "id": "d0b5e31f",
+      "amount": 1314,
+      "description": "抽奖奖励-1314宝宝币",
+      "type": "income",
+      "timestamp": 1758348168,
+      "date": "2025-09-20 14:02:48"
+    },
+    {
+      "id": "34182927",
+      "amount": 5200,
+      "description": "抽奖奖励-5200宝宝币",
+      "type": "income",
+      "timestamp": 1758348168,
+      "date": "2025-09-20 14:02:48"
+    },
+    {
+      "id": "f149f374",
+      "amount": -15600,
+      "description": "三连抽奖-legendary",
+      "type": "expense",
+      "timestamp": 1758348168,
+      "date": "2025-09-20 14:02:48"
+    },
+    {
+      "id": "c2cbe172",
+      "amount": -52,
+      "description": "浇水(西瓜)",
+      "type": "expense",
+      "timestamp": 1758347916,
+      "date": "2025-09-20 13:58:36"
+    },
+    {
+      "id": "6dc69a53",
+      "amount": -52,
+      "description": "浇水(番茄)",
+      "type": "expense",
+      "timestamp": 1758347908,
+      "date": "2025-09-20 13:58:28"
+    },
+    {
+      "id": "82008602",
+      "amount": -5200,
+      "description": "单次抽奖-legendary",
+      "type": "expense",
+      "timestamp": 1758343582,
+      "date": "2025-09-20 12:46:22"
+    },
+    {
+      "id": "92bc7eaf",
+      "amount": 1314,
+      "description": "抽奖奖励-1314宝宝币",
+      "type": "income",
+      "timestamp": 1758343579,
+      "date": "2025-09-20 12:46:19"
+    },
+    {
+      "id": "4e9058ee",
+      "amount": -5200,
+      "description": "单次抽奖-legendary",
+      "type": "expense",
+      "timestamp": 1758343579,
+      "date": "2025-09-20 12:46:19"
+    },
+    {
+      "id": "c71a0754",
+      "amount": -5200,
+      "description": "单次抽奖-legendary",
+      "type": "expense",
+      "timestamp": 1758343576,
+      "date": "2025-09-20 12:46:16"
+    },
+    {
+      "id": "aa1ab817",
+      "amount": 1314,
+      "description": "抽奖奖励-1314宝宝币",
+      "type": "income",
+      "timestamp": 1758343542,
+      "date": "2025-09-20 12:45:42"
+    },
+    {
+      "id": "0b841859",
+      "amount": -5200,
+      "description": "单次抽奖-legendary",
+      "type": "expense",
+      "timestamp": 1758343542,
+      "date": "2025-09-20 12:45:42"
+    },
+    {
+      "id": "67581a13",
+      "amount": 1314,
+      "description": "抽奖奖励-1314宝宝币",
+      "type": "income",
+      "timestamp": 1758343462,
+      "date": "2025-09-20 12:44:22"
+    },
+    {
+      "id": "79350053",
+      "amount": -5200,
+      "description": "单次抽奖-legendary",
+      "type": "expense",
+      "timestamp": 1758343462,
+      "date": "2025-09-20 12:44:22"
+    },
+    {
+      "id": "52011e2a",
+      "amount": 1314,
+      "description": "抽奖奖励-1314宝宝币",
+      "type": "income",
+      "timestamp": 1758343458,
+      "date": "2025-09-20 12:44:18"
+    },
+    {
+      "id": "2ffc3618",
+      "amount": -5200,
+      "description": "单次抽奖-legendary",
+      "type": "expense",
+      "timestamp": 1758343458,
+      "date": "2025-09-20 12:44:18"
+    },
+    {
+      "id": "b4fb106d",
+      "amount": 1314,
+      "description": "抽奖奖励-1314宝宝币",
+      "type": "income",
+      "timestamp": 1758343455,
+      "date": "2025-09-20 12:44:15"
+    },
+    {
+      "id": "425d6680",
+      "amount": -5200,
+      "description": "单次抽奖-legendary",
+      "type": "expense",
+      "timestamp": 1758343455,
+      "date": "2025-09-20 12:44:15"
+    },
+    {
+      "id": "248ed12a",
+      "amount": 52000,
+      "description": "厨师端充值",
+      "type": "income",
+      "timestamp": 1758343443,
+      "date": "2025-09-20 12:44:03"
+    },
+    {
+      "id": "dcd156bf",
+      "amount": 1314,
+      "description": "抽奖奖励-1314宝宝币",
+      "type": "income",
+      "timestamp": 1758343430,
+      "date": "2025-09-20 12:43:50"
+    },
+    {
+      "id": "3bd9f036",
+      "amount": -5200,
+      "description": "单次抽奖-legendary",
+      "type": "expense",
+      "timestamp": 1758343430,
+      "date": "2025-09-20 12:43:50"
+    },
+    {
+      "id": "fea5dbba",
+      "amount": 5200,
+      "description": "抽奖奖励-5200宝宝币",
+      "type": "income",
+      "timestamp": 1758343427,
+      "date": "2025-09-20 12:43:47"
+    },
+    {
+      "id": "6858c4af",
+      "amount": -5200,
+      "description": "单次抽奖-legendary",
+      "type": "expense",
+      "timestamp": 1758343427,
+      "date": "2025-09-20 12:43:47"
+    },
+    {
+      "id": "0b87e98b",
+      "amount": 1314,
+      "description": "抽奖奖励-1314宝宝币",
+      "type": "income",
+      "timestamp": 1758343423,
+      "date": "2025-09-20 12:43:43"
+    },
+    {
+      "id": "ea3fa3dc",
+      "amount": -5200,
+      "description": "单次抽奖-legendary",
+      "type": "expense",
+      "timestamp": 1758343423,
+      "date": "2025-09-20 12:43:43"
+    },
+    {
+      "id": "71ebc6a2",
+      "amount": 1314,
+      "description": "抽奖奖励-1314宝宝币",
+      "type": "income",
+      "timestamp": 1758343417,
+      "date": "2025-09-20 12:43:37"
+    },
+    {
+      "id": "2f3907c0",
+      "amount": -5200,
+      "description": "单次抽奖-legendary",
+      "type": "expense",
+      "timestamp": 1758343417,
+      "date": "2025-09-20 12:43:37"
+    },
+    {
+      "id": "8894e0d8",
+      "amount": -5200,
+      "description": "单次抽奖-legendary",
+      "type": "expense",
+      "timestamp": 1758343414,
+      "date": "2025-09-20 12:43:34"
+    },
+    {
+      "id": "41ca1c23",
+      "amount": 1314,
+      "description": "抽奖奖励-1314宝宝币",
+      "type": "income",
+      "timestamp": 1758343410,
+      "date": "2025-09-20 12:43:30"
+    },
+    {
+      "id": "de39475b",
+      "amount": -5200,
+      "description": "单次抽奖-legendary",
+      "type": "expense",
+      "timestamp": 1758343410,
+      "date": "2025-09-20 12:43:30"
+    },
+    {
+      "id": "f9e50a82",
+      "amount": 1314,
+      "description": "抽奖奖励-1314宝宝币",
+      "type": "income",
+      "timestamp": 1758343407,
+      "date": "2025-09-20 12:43:27"
+    },
+    {
+      "id": "c2dd9f81",
+      "amount": -5200,
+      "description": "单次抽奖-legendary",
+      "type": "expense",
+      "timestamp": 1758343407,
+      "date": "2025-09-20 12:43:27"
+    },
+    {
+      "id": "f3013e3f",
+      "amount": -5200,
+      "description": "单次抽奖-legendary",
+      "type": "expense",
+      "timestamp": 1758343403,
+      "date": "2025-09-20 12:43:23"
+    },
+    {
+      "id": "d380a0a5",
+      "amount": -5200,
+      "description": "单次抽奖-legendary",
+      "type": "expense",
+      "timestamp": 1758343157,
+      "date": "2025-09-20 12:39:17"
+    },
+    {
+      "id": "4d970df4",
+      "amount": -5200,
+      "description": "单次抽奖-legendary",
+      "type": "expense",
+      "timestamp": 1758343147,
+      "date": "2025-09-20 12:39:07"
+    },
+    {
+      "id": "4d29b48a",
+      "amount": -5200,
+      "description": "单次抽奖-legendary",
+      "type": "expense",
+      "timestamp": 1758341705,
+      "date": "2025-09-20 12:15:05"
+    },
+    {
+      "id": "e8c22b4d",
+      "amount": -5200,
+      "description": "单次抽奖-legendary",
+      "type": "expense",
+      "timestamp": 1758341701,
+      "date": "2025-09-20 12:15:01"
+    },
+    {
+      "id": "34d8c11c",
+      "amount": 1314,
+      "description": "抽奖奖励-1314宝宝币",
+      "type": "income",
+      "timestamp": 1758341698,
+      "date": "2025-09-20 12:14:58"
+    },
+    {
+      "id": "9e69fbbb",
+      "amount": -5200,
+      "description": "单次抽奖-legendary",
+      "type": "expense",
+      "timestamp": 1758341698,
+      "date": "2025-09-20 12:14:58"
+    },
+    {
+      "id": "16abe1bb",
+      "amount": 53140,
+      "description": "厨师端充值",
+      "type": "income",
+      "timestamp": 1758341689,
+      "date": "2025-09-20 12:14:49"
+    },
+    {
+      "id": "f7ed7a3b",
+      "amount": 200,
+      "description": "抽奖奖励-200个宝宝币",
+      "type": "income",
+      "timestamp": 1758339955,
+      "date": "2025-09-20 11:45:55"
+    },
+    {
+      "id": "f9690b83",
+      "amount": -50,
+      "description": "抽奖奖励-扣除50宝宝币",
+      "type": "expense",
+      "timestamp": 1758339955,
+      "date": "2025-09-20 11:45:55"
+    },
+    {
+      "id": "ab9b85a6",
+      "amount": -50,
+      "description": "抽奖奖励-扣除50宝宝币",
+      "type": "expense",
+      "timestamp": 1758339955,
+      "date": "2025-09-20 11:45:55"
+    },
+    {
+      "id": "7432de3e",
+      "amount": 200,
+      "description": "抽奖奖励-200个宝宝币",
+      "type": "income",
+      "timestamp": 1758339955,
+      "date": "2025-09-20 11:45:55"
+    },
+    {
+      "id": "546511c0",
+      "amount": 200,
+      "description": "抽奖奖励-200个宝宝币",
+      "type": "income",
+      "timestamp": 1758339955,
+      "date": "2025-09-20 11:45:55"
+    },
+    {
+      "id": "5e2e15ac",
+      "amount": -5200,
+      "description": "十连抽奖-premium",
+      "type": "expense",
+      "timestamp": 1758339955,
+      "date": "2025-09-20 11:45:55"
+    },
+    {
+      "id": "2fc4e3f3",
+      "amount": 5200,
+      "description": "厨师端充值",
+      "type": "income",
+      "timestamp": 1758339921,
+      "date": "2025-09-20 11:45:21"
+    },
+    {
+      "id": "c496be8c",
+      "amount": 10,
+      "description": "抽奖奖励-宝宝币10枚",
+      "type": "income",
+      "timestamp": 1758339856,
+      "date": "2025-09-20 11:44:16"
+    },
+    {
+      "id": "fe358f19",
+      "amount": 25,
+      "description": "抽奖奖励-宝宝币25个",
+      "type": "income",
+      "timestamp": 1758339856,
+      "date": "2025-09-20 11:44:16"
+    },
+    {
+      "id": "1065eed0",
+      "amount": 10,
+      "description": "抽奖奖励-宝宝币10枚",
+      "type": "income",
+      "timestamp": 1758339856,
+      "date": "2025-09-20 11:44:16"
+    },
+    {
+      "id": "0cc324bc",
+      "amount": 10,
+      "description": "抽奖奖励-宝宝币10枚",
+      "type": "income",
+      "timestamp": 1758339856,
+      "date": "2025-09-20 11:44:16"
+    },
+    {
+      "id": "4a617d3e",
+      "amount": -20,
+      "description": "抽奖奖励-扣除20宝宝币",
+      "type": "expense",
+      "timestamp": 1758339856,
+      "date": "2025-09-20 11:44:16"
+    },
+    {
+      "id": "bdbea8a0",
+      "amount": 25,
+      "description": "抽奖奖励-宝宝币25个",
+      "type": "income",
+      "timestamp": 1758339856,
+      "date": "2025-09-20 11:44:16"
+    },
+    {
+      "id": "9af77abc",
+      "amount": 10,
+      "description": "抽奖奖励-宝宝币10枚",
+      "type": "income",
+      "timestamp": 1758339856,
+      "date": "2025-09-20 11:44:16"
+    },
+    {
+      "id": "51b9599d",
+      "amount": 10,
+      "description": "抽奖奖励-宝宝币10枚",
+      "type": "income",
+      "timestamp": 1758339856,
+      "date": "2025-09-20 11:44:16"
+    },
+    {
+      "id": "780acde5",
+      "amount": 10,
+      "description": "抽奖奖励-宝宝币10枚",
+      "type": "income",
+      "timestamp": 1758339856,
+      "date": "2025-09-20 11:44:16"
+    },
+    {
+      "id": "15658099",
+      "amount": -520,
+      "description": "十连抽奖-normal",
+      "type": "expense",
+      "timestamp": 1758339856,
+      "date": "2025-09-20 11:44:16"
+    },
+    {
+      "id": "3ed50858",
+      "amount": -520,
+      "description": "单次抽奖-premium",
+      "type": "expense",
+      "timestamp": 1758339046,
+      "date": "2025-09-20 11:30:46"
+    },
+    {
+      "id": "65249815",
+      "amount": 10,
+      "description": "抽奖奖励-宝宝币10枚",
+      "type": "income",
+      "timestamp": 1758336468,
+      "date": "2025-09-20 10:47:48"
+    },
+    {
+      "id": "c062be6f",
+      "amount": 25,
+      "description": "抽奖奖励-宝宝币25个",
+      "type": "income",
+      "timestamp": 1758336468,
+      "date": "2025-09-20 10:47:48"
+    },
+    {
+      "id": "81e3e6c7",
+      "amount": 10,
+      "description": "抽奖奖励-宝宝币10枚",
+      "type": "income",
+      "timestamp": 1758336468,
+      "date": "2025-09-20 10:47:48"
+    },
+    {
+      "id": "7b1fe052",
+      "amount": 25,
+      "description": "抽奖奖励-宝宝币25个",
+      "type": "income",
+      "timestamp": 1758336468,
+      "date": "2025-09-20 10:47:48"
+    },
+    {
+      "id": "669c6bd4",
+      "amount": 10,
+      "description": "抽奖奖励-宝宝币10枚",
+      "type": "income",
+      "timestamp": 1758336468,
+      "date": "2025-09-20 10:47:48"
+    },
+    {
+      "id": "78a0d333",
+      "amount": 25,
+      "description": "抽奖奖励-宝宝币25个",
+      "type": "income",
+      "timestamp": 1758336468,
+      "date": "2025-09-20 10:47:48"
+    },
+    {
+      "id": "ceffdaa9",
+      "amount": 10,
+      "description": "抽奖奖励-宝宝币10枚",
+      "type": "income",
+      "timestamp": 1758336468,
+      "date": "2025-09-20 10:47:48"
+    },
+    {
+      "id": "ca073efa",
+      "amount": -520,
+      "description": "十连抽奖-normal",
+      "type": "expense",
+      "timestamp": 1758336468,
+      "date": "2025-09-20 10:47:48"
+    },
+    {
+      "id": "de5a8176",
+      "amount": 25,
+      "description": "抽奖奖励-宝宝币25个",
+      "type": "income",
+      "timestamp": 1758336418,
+      "date": "2025-09-20 10:46:58"
+    },
+    {
+      "id": "ec6546da",
+      "amount": -20,
+      "description": "抽奖奖励-扣除20宝宝币",
+      "type": "expense",
+      "timestamp": 1758336418,
+      "date": "2025-09-20 10:46:58"
+    },
+    {
+      "id": "d6ebcd7b",
+      "amount": 10,
+      "description": "抽奖奖励-宝宝币10枚",
+      "type": "income",
+      "timestamp": 1758336418,
+      "date": "2025-09-20 10:46:58"
+    },
+    {
+      "id": "1d3bc0a6",
+      "amount": 25,
+      "description": "抽奖奖励-宝宝币25个",
+      "type": "income",
+      "timestamp": 1758336418,
+      "date": "2025-09-20 10:46:58"
+    },
+    {
+      "id": "6da7ead8",
+      "amount": 10,
+      "description": "抽奖奖励-宝宝币10枚",
+      "type": "income",
+      "timestamp": 1758336418,
+      "date": "2025-09-20 10:46:58"
+    },
+    {
+      "id": "da624792",
+      "amount": -20,
+      "description": "抽奖奖励-扣除20宝宝币",
+      "type": "expense",
+      "timestamp": 1758336418,
+      "date": "2025-09-20 10:46:58"
+    },
+    {
+      "id": "a82fd0d5",
+      "amount": 10,
+      "description": "抽奖奖励-宝宝币10枚",
+      "type": "income",
+      "timestamp": 1758336418,
+      "date": "2025-09-20 10:46:58"
+    },
+    {
+      "id": "fb9a256b",
+      "amount": -520,
+      "description": "十连抽奖-normal",
+      "type": "expense",
+      "timestamp": 1758336418,
+      "date": "2025-09-20 10:46:58"
+    },
+    {
+      "id": "16b59eb1",
+      "amount": 25,
+      "description": "抽奖奖励-宝宝币25个",
+      "type": "income",
+      "timestamp": 1758335787,
+      "date": "2025-09-20 10:36:27"
+    },
+    {
+      "id": "8a0b9cb9",
+      "amount": 25,
+      "description": "抽奖奖励-宝宝币25个",
+      "type": "income",
+      "timestamp": 1758335787,
+      "date": "2025-09-20 10:36:27"
+    },
+    {
+      "id": "7d518192",
+      "amount": 10,
+      "description": "抽奖奖励-宝宝币10枚",
+      "type": "income",
+      "timestamp": 1758335787,
+      "date": "2025-09-20 10:36:27"
+    },
+    {
+      "id": "dcdd8e00",
+      "amount": 25,
+      "description": "抽奖奖励-宝宝币25个",
+      "type": "income",
+      "timestamp": 1758335787,
+      "date": "2025-09-20 10:36:27"
+    },
+    {
+      "id": "ca201c64",
+      "amount": 25,
+      "description": "抽奖奖励-宝宝币25个",
+      "type": "income",
+      "timestamp": 1758335787,
+      "date": "2025-09-20 10:36:27"
+    },
+    {
+      "id": "8e5b2144",
+      "amount": 10,
+      "description": "抽奖奖励-宝宝币10枚",
+      "type": "income",
+      "timestamp": 1758335787,
+      "date": "2025-09-20 10:36:27"
+    },
+    {
+      "id": "502f1840",
+      "amount": 10,
+      "description": "抽奖奖励-宝宝币10枚",
+      "type": "income",
+      "timestamp": 1758335787,
+      "date": "2025-09-20 10:36:27"
+    },
+    {
+      "id": "fa58a4b2",
+      "amount": 25,
+      "description": "抽奖奖励-宝宝币25个",
+      "type": "income",
+      "timestamp": 1758335787,
+      "date": "2025-09-20 10:36:27"
+    },
+    {
+      "id": "df6ef386",
+      "amount": 25,
+      "description": "抽奖奖励-宝宝币25个",
+      "type": "income",
+      "timestamp": 1758335787,
+      "date": "2025-09-20 10:36:27"
+    },
+    {
+      "id": "508925ed",
+      "amount": 25,
+      "description": "抽奖奖励-宝宝币25个",
+      "type": "income",
+      "timestamp": 1758335787,
+      "date": "2025-09-20 10:36:27"
+    },
+    {
+      "id": "b3f448af",
+      "amount": -520,
+      "description": "十连抽奖-normal",
+      "type": "expense",
+      "timestamp": 1758335787,
+      "date": "2025-09-20 10:36:27"
+    },
+    {
+      "id": "85f3f56b",
+      "amount": 25,
+      "description": "抽奖奖励-宝宝币25个",
+      "type": "income",
+      "timestamp": 1758335780,
+      "date": "2025-09-20 10:36:20"
+    },
+    {
+      "id": "990c82e2",
+      "amount": 25,
+      "description": "抽奖奖励-宝宝币25个",
+      "type": "income",
+      "timestamp": 1758335780,
+      "date": "2025-09-20 10:36:20"
+    },
+    {
+      "id": "6a3fd389",
+      "amount": -20,
+      "description": "抽奖奖励-扣除20宝宝币",
+      "type": "expense",
+      "timestamp": 1758335780,
+      "date": "2025-09-20 10:36:20"
+    },
+    {
+      "id": "c44b02db",
+      "amount": 25,
+      "description": "抽奖奖励-宝宝币25个",
+      "type": "income",
+      "timestamp": 1758335780,
+      "date": "2025-09-20 10:36:20"
+    },
+    {
+      "id": "d06eae3a",
+      "amount": 25,
+      "description": "抽奖奖励-宝宝币25个",
+      "type": "income",
+      "timestamp": 1758335780,
+      "date": "2025-09-20 10:36:20"
+    },
+    {
+      "id": "629c7efc",
+      "amount": -20,
+      "description": "抽奖奖励-扣除20宝宝币",
+      "type": "expense",
+      "timestamp": 1758335780,
+      "date": "2025-09-20 10:36:20"
+    },
+    {
+      "id": "60e95cef",
+      "amount": -520,
+      "description": "十连抽奖-normal",
+      "type": "expense",
+      "timestamp": 1758335780,
+      "date": "2025-09-20 10:36:20"
+    },
+    {
+      "id": "41a0a2d8",
+      "amount": 10,
+      "description": "抽奖奖励-宝宝币10枚",
+      "type": "income",
+      "timestamp": 1758335774,
+      "date": "2025-09-20 10:36:14"
+    },
+    {
+      "id": "f9446289",
+      "amount": 25,
+      "description": "抽奖奖励-宝宝币25个",
+      "type": "income",
+      "timestamp": 1758335774,
+      "date": "2025-09-20 10:36:14"
+    },
+    {
+      "id": "cc097e87",
+      "amount": 10,
+      "description": "抽奖奖励-宝宝币10枚",
+      "type": "income",
+      "timestamp": 1758335774,
+      "date": "2025-09-20 10:36:14"
+    },
+    {
+      "id": "d26647f7",
+      "amount": 25,
+      "description": "抽奖奖励-宝宝币25个",
+      "type": "income",
+      "timestamp": 1758335774,
+      "date": "2025-09-20 10:36:14"
+    },
+    {
+      "id": "7760a74f",
+      "amount": 25,
+      "description": "抽奖奖励-宝宝币25个",
+      "type": "income",
+      "timestamp": 1758335774,
+      "date": "2025-09-20 10:36:14"
+    },
+    {
+      "id": "80b19c18",
+      "amount": 10,
+      "description": "抽奖奖励-宝宝币10枚",
+      "type": "income",
+      "timestamp": 1758335774,
+      "date": "2025-09-20 10:36:14"
+    },
+    {
+      "id": "4c66f288",
+      "amount": 10,
+      "description": "抽奖奖励-宝宝币10枚",
+      "type": "income",
+      "timestamp": 1758335774,
+      "date": "2025-09-20 10:36:14"
+    },
+    {
+      "id": "0b08acff",
+      "amount": -20,
+      "description": "抽奖奖励-扣除20宝宝币",
+      "type": "expense",
+      "timestamp": 1758335774,
+      "date": "2025-09-20 10:36:14"
+    },
+    {
+      "id": "15da4a03",
+      "amount": -20,
+      "description": "抽奖奖励-扣除20宝宝币",
+      "type": "expense",
+      "timestamp": 1758335774,
+      "date": "2025-09-20 10:36:14"
+    },
+    {
+      "id": "fc2ed44c",
+      "amount": -520,
+      "description": "十连抽奖-normal",
+      "type": "expense",
+      "timestamp": 1758335774,
+      "date": "2025-09-20 10:36:14"
+    },
+    {
+      "id": "0a83e5c7",
+      "amount": 10,
+      "description": "抽奖奖励-宝宝币10枚",
+      "type": "income",
+      "timestamp": 1758335761,
+      "date": "2025-09-20 10:36:01"
+    },
+    {
+      "id": "4957811b",
+      "amount": 25,
+      "description": "抽奖奖励-宝宝币25个",
+      "type": "income",
+      "timestamp": 1758335761,
+      "date": "2025-09-20 10:36:01"
+    },
+    {
+      "id": "5997c09e",
+      "amount": 10,
+      "description": "抽奖奖励-宝宝币10枚",
+      "type": "income",
+      "timestamp": 1758335761,
+      "date": "2025-09-20 10:36:01"
+    },
+    {
+      "id": "e7c8a406",
+      "amount": 25,
+      "description": "抽奖奖励-宝宝币25个",
+      "type": "income",
+      "timestamp": 1758335761,
+      "date": "2025-09-20 10:36:01"
+    },
+    {
+      "id": "5a5588f5",
+      "amount": 10,
+      "description": "抽奖奖励-宝宝币10枚",
+      "type": "income",
+      "timestamp": 1758335761,
+      "date": "2025-09-20 10:36:01"
+    },
+    {
+      "id": "f80072b5",
+      "amount": -20,
+      "description": "抽奖奖励-扣除20宝宝币",
+      "type": "expense",
+      "timestamp": 1758335761,
+      "date": "2025-09-20 10:36:01"
+    },
+    {
+      "id": "e242ca8e",
+      "amount": 10,
+      "description": "抽奖奖励-宝宝币10枚",
+      "type": "income",
+      "timestamp": 1758335761,
+      "date": "2025-09-20 10:36:01"
+    },
+    {
+      "id": "196ad5dd",
+      "amount": -520,
+      "description": "十连抽奖-normal",
+      "type": "expense",
+      "timestamp": 1758335761,
+      "date": "2025-09-20 10:36:01"
+    },
+    {
+      "id": "1eff12ea",
+      "amount": 25,
+      "description": "抽奖奖励-宝宝币25个",
+      "type": "income",
+      "timestamp": 1758335740,
+      "date": "2025-09-20 10:35:40"
+    },
+    {
+      "id": "2e9ca131",
+      "amount": 25,
+      "description": "抽奖奖励-宝宝币25个",
+      "type": "income",
+      "timestamp": 1758335740,
+      "date": "2025-09-20 10:35:40"
+    },
+    {
+      "id": "6ffcf7b4",
+      "amount": 10,
+      "description": "抽奖奖励-宝宝币10枚",
+      "type": "income",
+      "timestamp": 1758335740,
+      "date": "2025-09-20 10:35:40"
+    },
+    {
+      "id": "8dbb0116",
+      "amount": -20,
+      "description": "抽奖奖励-扣除20宝宝币",
+      "type": "expense",
+      "timestamp": 1758335740,
+      "date": "2025-09-20 10:35:40"
+    },
+    {
+      "id": "f571b5e6",
+      "amount": 10,
+      "description": "抽奖奖励-宝宝币10枚",
+      "type": "income",
+      "timestamp": 1758335740,
+      "date": "2025-09-20 10:35:40"
+    },
+    {
+      "id": "ed8be8f9",
+      "amount": 10,
+      "description": "抽奖奖励-宝宝币10枚",
+      "type": "income",
+      "timestamp": 1758335740,
+      "date": "2025-09-20 10:35:40"
+    },
+    {
+      "id": "e202d0ef",
+      "amount": 25,
+      "description": "抽奖奖励-宝宝币25个",
+      "type": "income",
+      "timestamp": 1758335740,
+      "date": "2025-09-20 10:35:40"
+    },
+    {
+      "id": "dcf12243",
+      "amount": -520,
+      "description": "十连抽奖-normal",
+      "type": "expense",
+      "timestamp": 1758335740,
+      "date": "2025-09-20 10:35:40"
+    },
+    {
+      "id": "7055141a",
+      "amount": 10,
+      "description": "每日签到奖励(连续2天)",
+      "type": "income",
+      "timestamp": 1758299454,
+      "date": "2025-09-20 00:30:54"
+    },
+    {
+      "id": "01347302",
+      "amount": 1314,
+      "description": "抽奖奖励-1314个宝宝币",
+      "type": "income",
+      "timestamp": 1758297116,
+      "date": "2025-09-19 23:51:56"
+    },
+    {
+      "id": "4d5bdf0b",
+      "amount": 1314,
+      "description": "抽奖奖励-1314个宝宝币",
+      "type": "income",
+      "timestamp": 1758297116,
+      "date": "2025-09-19 23:51:56"
+    },
+    {
+      "id": "fc92c5dc",
+      "amount": 520,
+      "description": "抽奖奖励-520个宝宝币",
+      "type": "income",
+      "timestamp": 1758297116,
+      "date": "2025-09-19 23:51:56"
+    },
+    {
+      "id": "8be50d0c",
+      "amount": -13140,
+      "description": "十连抽奖-ultimate",
+      "type": "expense",
+      "timestamp": 1758297116,
+      "date": "2025-09-19 23:51:56"
+    },
+    {
+      "id": "9975ae9a",
+      "amount": 520,
+      "description": "抽奖奖励-520个宝宝币",
+      "type": "income",
+      "timestamp": 1758297104,
+      "date": "2025-09-19 23:51:44"
+    },
+    {
+      "id": "60293439",
+      "amount": -13140,
+      "description": "十连抽奖-ultimate",
+      "type": "expense",
+      "timestamp": 1758297104,
+      "date": "2025-09-19 23:51:44"
+    },
+    {
+      "id": "a8f8c448",
+      "amount": 520,
+      "description": "抽奖奖励-520个宝宝币",
+      "type": "income",
+      "timestamp": 1758297092,
+      "date": "2025-09-19 23:51:32"
+    },
+    {
+      "id": "288a2577",
+      "amount": -13140,
+      "description": "十连抽奖-ultimate",
+      "type": "expense",
+      "timestamp": 1758297092,
+      "date": "2025-09-19 23:51:32"
+    },
+    {
+      "id": "027c1c56",
+      "amount": -13140,
+      "description": "十连抽奖-ultimate",
+      "type": "expense",
+      "timestamp": 1758297064,
+      "date": "2025-09-19 23:51:04"
+    },
+    {
+      "id": "1c1d2dce",
+      "amount": 52000,
+      "description": "厨师端充值",
+      "type": "income",
+      "timestamp": 1758297053,
+      "date": "2025-09-19 23:50:53"
+    },
+    {
+      "id": "ced622e9",
+      "amount": 250,
+      "description": "抽奖奖励-250个宝宝币",
+      "type": "income",
+      "timestamp": 1758296995,
+      "date": "2025-09-19 23:49:55"
+    },
+    {
+      "id": "01117534",
+      "amount": 250,
+      "description": "抽奖奖励-250个宝宝币",
+      "type": "income",
+      "timestamp": 1758296995,
+      "date": "2025-09-19 23:49:55"
+    },
+    {
+      "id": "4dc3623e",
+      "amount": 250,
+      "description": "抽奖奖励-250个宝宝币",
+      "type": "income",
+      "timestamp": 1758296995,
+      "date": "2025-09-19 23:49:55"
+    },
+    {
+      "id": "1203fbd5",
+      "amount": 250,
+      "description": "抽奖奖励-250个宝宝币",
+      "type": "income",
+      "timestamp": 1758296995,
+      "date": "2025-09-19 23:49:55"
+    },
+    {
+      "id": "01451500",
+      "amount": -5200,
+      "description": "十连抽奖-premium",
+      "type": "expense",
+      "timestamp": 1758296995,
+      "date": "2025-09-19 23:49:55"
+    },
+    {
+      "id": "6f42530e",
+      "amount": 5200,
+      "description": "厨师端充值",
+      "type": "income",
+      "timestamp": 1758296972,
+      "date": "2025-09-19 23:49:32"
+    },
+    {
+      "id": "dac8506a",
+      "amount": 25,
+      "description": "抽奖奖励-宝宝币25个",
+      "type": "income",
+      "timestamp": 1758296952,
+      "date": "2025-09-19 23:49:12"
+    },
+    {
+      "id": "14feedc7",
+      "amount": 25,
+      "description": "抽奖奖励-宝宝币25个",
+      "type": "income",
+      "timestamp": 1758296952,
+      "date": "2025-09-19 23:49:12"
+    },
+    {
+      "id": "08f98ce2",
+      "amount": 25,
+      "description": "抽奖奖励-宝宝币25个",
+      "type": "income",
+      "timestamp": 1758296952,
+      "date": "2025-09-19 23:49:12"
+    },
+    {
+      "id": "c50d4539",
+      "amount": 2,
+      "description": "抽奖奖励-宝宝币2枚",
+      "type": "income",
+      "timestamp": 1758296952,
+      "date": "2025-09-19 23:49:12"
+    },
+    {
+      "id": "ae06d3b4",
+      "amount": 10,
+      "description": "抽奖奖励-宝宝币10枚",
+      "type": "income",
+      "timestamp": 1758296952,
+      "date": "2025-09-19 23:49:12"
+    },
+    {
+      "id": "ff79f7e7",
+      "amount": 25,
+      "description": "抽奖奖励-宝宝币25个",
+      "type": "income",
+      "timestamp": 1758296952,
+      "date": "2025-09-19 23:49:12"
+    },
+    {
+      "id": "f501904e",
+      "amount": 25,
+      "description": "抽奖奖励-宝宝币25个",
+      "type": "income",
+      "timestamp": 1758296952,
+      "date": "2025-09-19 23:49:12"
+    },
+    {
+      "id": "2e623245",
+      "amount": 25,
+      "description": "抽奖奖励-宝宝币25个",
+      "type": "income",
+      "timestamp": 1758296952,
+      "date": "2025-09-19 23:49:12"
+    },
+    {
+      "id": "498c2ae3",
+      "amount": -520,
+      "description": "十连抽奖-normal",
+      "type": "expense",
+      "timestamp": 1758296952,
+      "date": "2025-09-19 23:49:12"
+    },
+    {
+      "id": "1149a173",
+      "amount": 3000,
+      "description": "厨师端充值",
+      "type": "income",
+      "timestamp": 1758296941,
+      "date": "2025-09-19 23:49:01"
+    },
+    {
+      "id": "7a092911",
+      "amount": -52,
+      "description": "单次抽奖-normal",
+      "type": "expense",
+      "timestamp": 1758296625,
+      "date": "2025-09-19 23:43:45"
+    },
+    {
+      "id": "0e88467a",
+      "amount": 25,
+      "description": "抽奖奖励-宝宝币25个",
+      "type": "income",
+      "timestamp": 1758296622,
+      "date": "2025-09-19 23:43:42"
+    },
+    {
+      "id": "21dd1304",
+      "amount": -52,
+      "description": "单次抽奖-normal",
+      "type": "expense",
+      "timestamp": 1758296622,
+      "date": "2025-09-19 23:43:42"
+    },
+    {
+      "id": "62276d49",
+      "amount": 25,
+      "description": "抽奖奖励-宝宝币25个",
+      "type": "income",
+      "timestamp": 1758296618,
+      "date": "2025-09-19 23:43:38"
+    },
+    {
+      "id": "cb5e81a3",
+      "amount": -52,
+      "description": "单次抽奖-normal",
+      "type": "expense",
+      "timestamp": 1758296618,
+      "date": "2025-09-19 23:43:38"
+    },
+    {
+      "id": "a96e6ce9",
+      "amount": 10,
+      "description": "抽奖奖励-宝宝币10枚",
+      "type": "income",
+      "timestamp": 1758296615,
+      "date": "2025-09-19 23:43:35"
+    },
+    {
+      "id": "6e37f9f4",
+      "amount": -52,
+      "description": "单次抽奖-normal",
+      "type": "expense",
+      "timestamp": 1758296615,
+      "date": "2025-09-19 23:43:35"
+    },
+    {
+      "id": "abeac18f",
+      "amount": 25,
+      "description": "抽奖奖励-宝宝币25个",
+      "type": "income",
+      "timestamp": 1758296612,
+      "date": "2025-09-19 23:43:32"
+    },
+    {
+      "id": "2754a91a",
+      "amount": -52,
+      "description": "单次抽奖-normal",
+      "type": "expense",
+      "timestamp": 1758296612,
+      "date": "2025-09-19 23:43:32"
+    },
+    {
+      "id": "67de3f61",
+      "amount": -52,
+      "description": "单次抽奖-normal",
+      "type": "expense",
+      "timestamp": 1758296609,
+      "date": "2025-09-19 23:43:29"
+    },
+    {
+      "id": "7aecc8e1",
+      "amount": -52,
+      "description": "单次抽奖-normal",
+      "type": "expense",
+      "timestamp": 1758296605,
+      "date": "2025-09-19 23:43:25"
+    },
+    {
+      "id": "b0501c6d",
+      "amount": 25,
+      "description": "抽奖奖励-宝宝币25个",
+      "type": "income",
+      "timestamp": 1758296596,
+      "date": "2025-09-19 23:43:16"
+    },
+    {
+      "id": "ab531f4a",
+      "amount": 25,
+      "description": "抽奖奖励-宝宝币25个",
+      "type": "income",
+      "timestamp": 1758296596,
+      "date": "2025-09-19 23:43:16"
+    },
+    {
+      "id": "e4ea5324",
+      "amount": 25,
+      "description": "抽奖奖励-宝宝币25个",
+      "type": "income",
+      "timestamp": 1758296596,
+      "date": "2025-09-19 23:43:16"
+    },
+    {
+      "id": "1e532c27",
+      "amount": 25,
+      "description": "抽奖奖励-宝宝币25个",
+      "type": "income",
+      "timestamp": 1758296596,
+      "date": "2025-09-19 23:43:16"
+    },
+    {
+      "id": "e9b3bf17",
+      "amount": 25,
+      "description": "抽奖奖励-宝宝币25个",
+      "type": "income",
+      "timestamp": 1758296596,
+      "date": "2025-09-19 23:43:16"
+    },
+    {
+      "id": "122fa18c",
+      "amount": 25,
+      "description": "抽奖奖励-宝宝币25个",
+      "type": "income",
+      "timestamp": 1758296596,
+      "date": "2025-09-19 23:43:16"
+    },
+    {
+      "id": "c0abf794",
+      "amount": -520,
+      "description": "十连抽奖-normal",
+      "type": "expense",
+      "timestamp": 1758296596,
+      "date": "2025-09-19 23:43:16"
+    },
+    {
+      "id": "a7bf9c9b",
+      "amount": 25,
+      "description": "抽奖奖励-宝宝币25个",
+      "type": "income",
+      "timestamp": 1758296586,
+      "date": "2025-09-19 23:43:06"
+    },
+    {
+      "id": "402330f7",
+      "amount": 25,
+      "description": "抽奖奖励-宝宝币25个",
+      "type": "income",
+      "timestamp": 1758296586,
+      "date": "2025-09-19 23:43:06"
+    },
+    {
+      "id": "ee19ce49",
+      "amount": 25,
+      "description": "抽奖奖励-宝宝币25个",
+      "type": "income",
+      "timestamp": 1758296586,
+      "date": "2025-09-19 23:43:06"
+    },
+    {
+      "id": "ec25b32c",
+      "amount": 25,
+      "description": "抽奖奖励-宝宝币25个",
+      "type": "income",
+      "timestamp": 1758296586,
+      "date": "2025-09-19 23:43:06"
+    },
+    {
+      "id": "e0532db2",
+      "amount": 2,
+      "description": "抽奖奖励-宝宝币2枚",
+      "type": "income",
+      "timestamp": 1758296586,
+      "date": "2025-09-19 23:43:06"
+    },
+    {
+      "id": "b6089844",
+      "amount": 25,
+      "description": "抽奖奖励-宝宝币25个",
+      "type": "income",
+      "timestamp": 1758296586,
+      "date": "2025-09-19 23:43:06"
+    },
+    {
+      "id": "484e380b",
+      "amount": 25,
+      "description": "抽奖奖励-宝宝币25个",
+      "type": "income",
+      "timestamp": 1758296586,
+      "date": "2025-09-19 23:43:06"
+    },
+    {
+      "id": "f3635460",
+      "amount": -520,
+      "description": "十连抽奖-normal",
+      "type": "expense",
+      "timestamp": 1758296586,
+      "date": "2025-09-19 23:43:06"
+    },
+    {
+      "id": "d8919ad0",
+      "amount": 25,
+      "description": "抽奖奖励-宝宝币25个",
+      "type": "income",
+      "timestamp": 1758296572,
+      "date": "2025-09-19 23:42:52"
+    },
+    {
+      "id": "bf618319",
+      "amount": 25,
+      "description": "抽奖奖励-宝宝币25个",
+      "type": "income",
+      "timestamp": 1758296572,
+      "date": "2025-09-19 23:42:52"
+    },
+    {
+      "id": "3d9121db",
+      "amount": 25,
+      "description": "抽奖奖励-宝宝币25个",
+      "type": "income",
+      "timestamp": 1758296572,
+      "date": "2025-09-19 23:42:52"
+    },
+    {
+      "id": "5d33d73c",
+      "amount": 25,
+      "description": "抽奖奖励-宝宝币25个",
+      "type": "income",
+      "timestamp": 1758296572,
+      "date": "2025-09-19 23:42:52"
+    },
+    {
+      "id": "0910c46d",
+      "amount": 25,
+      "description": "抽奖奖励-宝宝币25个",
+      "type": "income",
+      "timestamp": 1758296572,
+      "date": "2025-09-19 23:42:52"
+    },
+    {
+      "id": "7e5f5b89",
+      "amount": 25,
+      "description": "抽奖奖励-宝宝币25个",
+      "type": "income",
+      "timestamp": 1758296572,
+      "date": "2025-09-19 23:42:52"
+    },
+    {
+      "id": "d63a0bb5",
+      "amount": 2,
+      "description": "抽奖奖励-宝宝币2枚",
+      "type": "income",
+      "timestamp": 1758296572,
+      "date": "2025-09-19 23:42:52"
+    },
+    {
+      "id": "7e140e81",
+      "amount": -520,
+      "description": "十连抽奖-normal",
+      "type": "expense",
+      "timestamp": 1758296572,
+      "date": "2025-09-19 23:42:52"
+    },
+    {
+      "id": "8e7ae0a4",
+      "amount": -10,
+      "description": "购买西瓜 x1",
+      "type": "expense",
+      "timestamp": 1758295891,
+      "date": "2025-09-19 23:31:31"
+    },
+    {
+      "id": "f908e410",
+      "amount": 1314,
+      "description": "寻宝日记宝藏格子奖励(第38格)",
+      "type": "income",
+      "timestamp": 1758295715,
+      "date": "2025-09-19 23:28:35"
+    },
+    {
+      "id": "54b284da",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758295715,
+      "date": "2025-09-19 23:28:35"
+    },
+    {
+      "id": "6601e0a8",
+      "amount": 63,
+      "description": "寻宝日记格子奖励(第36格)",
+      "type": "income",
+      "timestamp": 1758295712,
+      "date": "2025-09-19 23:28:32"
+    },
+    {
+      "id": "3e7c38e3",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758295712,
+      "date": "2025-09-19 23:28:32"
+    },
+    {
+      "id": "a67132d0",
+      "amount": 17,
+      "description": "寻宝日记格子奖励(第30格)",
+      "type": "income",
+      "timestamp": 1758295709,
+      "date": "2025-09-19 23:28:29"
+    },
+    {
+      "id": "27256c5c",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758295708,
+      "date": "2025-09-19 23:28:28"
+    },
+    {
+      "id": "93547d38",
+      "amount": 101,
+      "description": "寻宝日记格子奖励(第24格)",
+      "type": "income",
+      "timestamp": 1758295705,
+      "date": "2025-09-19 23:28:25"
+    },
+    {
+      "id": "1a286615",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758295705,
+      "date": "2025-09-19 23:28:25"
+    },
+    {
+      "id": "af9c6a9b",
+      "amount": 77,
+      "description": "寻宝日记格子奖励(第18格)",
+      "type": "income",
+      "timestamp": 1758295701,
+      "date": "2025-09-19 23:28:21"
+    },
+    {
+      "id": "63c73faa",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758295701,
+      "date": "2025-09-19 23:28:21"
+    },
+    {
+      "id": "7405daac",
+      "amount": -11,
+      "description": "寻宝日记格子奖励(第13格)",
+      "type": "expense",
+      "timestamp": 1758295698,
+      "date": "2025-09-19 23:28:18"
+    },
+    {
+      "id": "8e366046",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758295698,
+      "date": "2025-09-19 23:28:18"
+    },
+    {
+      "id": "11b6d793",
+      "amount": -13,
+      "description": "寻宝日记格子奖励(第12格)",
+      "type": "expense",
+      "timestamp": 1758295694,
+      "date": "2025-09-19 23:28:14"
+    },
+    {
+      "id": "1bc1bef2",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758295694,
+      "date": "2025-09-19 23:28:14"
+    },
+    {
+      "id": "88c66397",
+      "amount": 76,
+      "description": "寻宝日记格子奖励(第8格)",
+      "type": "income",
+      "timestamp": 1758295691,
+      "date": "2025-09-19 23:28:11"
+    },
+    {
+      "id": "bdb1733c",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758295691,
+      "date": "2025-09-19 23:28:11"
+    },
+    {
+      "id": "0c4b0f71",
+      "amount": 72,
+      "description": "寻宝日记格子奖励(第3格)",
+      "type": "income",
+      "timestamp": 1758295687,
+      "date": "2025-09-19 23:28:07"
+    },
+    {
+      "id": "c1b3f7e8",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758295687,
+      "date": "2025-09-19 23:28:07"
+    },
+    {
+      "id": "d2271a86",
+      "amount": 66,
+      "description": "寻宝日记格子奖励(第2格)",
+      "type": "income",
+      "timestamp": 1758295683,
+      "date": "2025-09-19 23:28:03"
+    },
+    {
+      "id": "7de86f10",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758295683,
+      "date": "2025-09-19 23:28:03"
+    },
+    {
+      "id": "5a47f285",
+      "amount": 18,
+      "description": "寻宝日记格子奖励(第48格)",
+      "type": "income",
+      "timestamp": 1758295680,
+      "date": "2025-09-19 23:28:00"
+    },
+    {
+      "id": "7f30be2d",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758295680,
+      "date": "2025-09-19 23:28:00"
+    },
+    {
+      "id": "0d725e73",
+      "amount": 26,
+      "description": "寻宝日记格子奖励(第47格)",
+      "type": "income",
+      "timestamp": 1758295671,
+      "date": "2025-09-19 23:27:51"
+    },
+    {
+      "id": "ebf33f5f",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758295671,
+      "date": "2025-09-19 23:27:51"
+    },
+    {
+      "id": "739fcbc0",
+      "amount": 91,
+      "description": "寻宝日记格子奖励(第45格)",
+      "type": "income",
+      "timestamp": 1758295595,
+      "date": "2025-09-19 23:26:35"
+    },
+    {
+      "id": "568c40ef",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758295595,
+      "date": "2025-09-19 23:26:35"
+    },
+    {
+      "id": "6753d062",
+      "amount": -48,
+      "description": "寻宝日记格子奖励(第39格)",
+      "type": "expense",
+      "timestamp": 1758295590,
+      "date": "2025-09-19 23:26:30"
+    },
+    {
+      "id": "3f4f6dad",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758295590,
+      "date": "2025-09-19 23:26:30"
+    },
+    {
+      "id": "4307cef7",
+      "amount": 81,
+      "description": "寻宝日记格子奖励(第37格)",
+      "type": "income",
+      "timestamp": 1758295582,
+      "date": "2025-09-19 23:26:22"
+    },
+    {
+      "id": "5ec91857",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758295582,
+      "date": "2025-09-19 23:26:22"
+    },
+    {
+      "id": "e87e175c",
+      "amount": -22,
+      "description": "寻宝日记格子奖励(第33格)",
+      "type": "expense",
+      "timestamp": 1758295557,
+      "date": "2025-09-19 23:25:57"
+    },
+    {
+      "id": "a8570e2f",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758295557,
+      "date": "2025-09-19 23:25:57"
+    },
+    {
+      "id": "11110158",
+      "amount": 55,
+      "description": "寻宝日记格子奖励(第30格)",
+      "type": "income",
+      "timestamp": 1758295553,
+      "date": "2025-09-19 23:25:53"
+    },
+    {
+      "id": "89726358",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758295553,
+      "date": "2025-09-19 23:25:53"
+    },
+    {
+      "id": "dd743c2a",
+      "amount": 27,
+      "description": "寻宝日记格子奖励(第27格)",
+      "type": "income",
+      "timestamp": 1758295548,
+      "date": "2025-09-19 23:25:48"
+    },
+    {
+      "id": "0c4b2c52",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758295548,
+      "date": "2025-09-19 23:25:48"
+    },
+    {
+      "id": "9d93c9d1",
+      "amount": 25,
+      "description": "猜数字游戏奖励(第6次猜中)",
+      "type": "income",
+      "timestamp": 1758295360,
+      "date": "2025-09-19 23:22:40"
+    },
+    {
+      "id": "95de71b3",
+      "amount": -52,
+      "description": "购买游戏机会",
+      "type": "expense",
+      "timestamp": 1758295344,
+      "date": "2025-09-19 23:22:24"
+    },
+    {
+      "id": "362af7b6",
+      "amount": -52,
+      "description": "购买游戏机会",
+      "type": "expense",
+      "timestamp": 1758295315,
+      "date": "2025-09-19 23:21:55"
+    },
+    {
+      "id": "668e2213",
+      "amount": 52,
+      "description": "猜数字游戏奖励(第4次猜中)",
+      "type": "income",
+      "timestamp": 1758295293,
+      "date": "2025-09-19 23:21:33"
+    },
+    {
+      "id": "f5ecfda9",
+      "amount": -52,
+      "description": "购买游戏机会",
+      "type": "expense",
+      "timestamp": 1758295239,
+      "date": "2025-09-19 23:20:39"
+    },
+    {
+      "id": "9d32acf0",
+      "amount": -52,
+      "description": "购买游戏机会",
+      "type": "expense",
+      "timestamp": 1758295222,
+      "date": "2025-09-19 23:20:22"
+    },
+    {
+      "id": "9a25e46a",
+      "amount": -1314,
+      "description": "单次抽奖-ultimate",
+      "type": "expense",
+      "timestamp": 1758294891,
+      "date": "2025-09-19 23:14:51"
+    },
+    {
+      "id": "9d1505dc",
+      "amount": -1314,
+      "description": "单次抽奖-ultimate",
+      "type": "expense",
+      "timestamp": 1758294874,
+      "date": "2025-09-19 23:14:34"
+    },
+    {
+      "id": "2259ce6c",
+      "amount": 3000,
+      "description": "厨师端充值",
+      "type": "income",
+      "timestamp": 1758294804,
+      "date": "2025-09-19 23:13:24"
+    },
+    {
+      "id": "8cb29069",
+      "amount": -20,
+      "description": "抽奖奖励-扣除20宝宝币",
+      "type": "expense",
+      "timestamp": 1758294767,
+      "date": "2025-09-19 23:12:47"
+    },
+    {
+      "id": "85be004a",
+      "amount": -52,
+      "description": "单次抽奖-normal",
+      "type": "expense",
+      "timestamp": 1758294767,
+      "date": "2025-09-19 23:12:47"
+    },
+    {
+      "id": "6b5b945d",
+      "amount": 25,
+      "description": "抽奖奖励-宝宝币25个",
+      "type": "income",
+      "timestamp": 1758294764,
+      "date": "2025-09-19 23:12:44"
+    },
+    {
+      "id": "e8dc1f72",
+      "amount": -52,
+      "description": "单次抽奖-normal",
+      "type": "expense",
+      "timestamp": 1758294764,
+      "date": "2025-09-19 23:12:44"
+    },
+    {
+      "id": "a5d6b69b",
+      "amount": -52,
+      "description": "单次抽奖-normal",
+      "type": "expense",
+      "timestamp": 1758294755,
+      "date": "2025-09-19 23:12:35"
+    },
+    {
+      "id": "55059e88",
+      "amount": 25,
+      "description": "抽奖奖励-宝宝币25个",
+      "type": "income",
+      "timestamp": 1758294747,
+      "date": "2025-09-19 23:12:27"
+    },
+    {
+      "id": "76f6109a",
+      "amount": -52,
+      "description": "单次抽奖-normal",
+      "type": "expense",
+      "timestamp": 1758294747,
+      "date": "2025-09-19 23:12:27"
+    },
+    {
+      "id": "816df8f7",
+      "amount": 25,
+      "description": "抽奖奖励-宝宝币25个",
+      "type": "income",
+      "timestamp": 1758294742,
+      "date": "2025-09-19 23:12:22"
+    },
+    {
+      "id": "8e4794b4",
+      "amount": -52,
+      "description": "单次抽奖-normal",
+      "type": "expense",
+      "timestamp": 1758294742,
+      "date": "2025-09-19 23:12:22"
+    },
+    {
+      "id": "111b4127",
+      "amount": 10,
+      "description": "抽奖奖励-宝宝币10枚",
+      "type": "income",
+      "timestamp": 1758294734,
+      "date": "2025-09-19 23:12:14"
+    },
+    {
+      "id": "baab0ff0",
+      "amount": -52,
+      "description": "单次抽奖-normal",
+      "type": "expense",
+      "timestamp": 1758294734,
+      "date": "2025-09-19 23:12:14"
+    },
+    {
+      "id": "361549fa",
+      "amount": -520,
+      "description": "单次抽奖-premium",
+      "type": "expense",
+      "timestamp": 1758294329,
+      "date": "2025-09-19 23:05:29"
+    },
+    {
+      "id": "94b01ae1",
+      "amount": 250,
+      "description": "抽奖奖励-250个宝宝币",
+      "type": "income",
+      "timestamp": 1758294326,
+      "date": "2025-09-19 23:05:26"
+    },
+    {
+      "id": "6534f978",
+      "amount": -520,
+      "description": "单次抽奖-premium",
+      "type": "expense",
+      "timestamp": 1758294326,
+      "date": "2025-09-19 23:05:26"
+    },
+    {
+      "id": "1b213dbe",
+      "amount": -20,
+      "description": "抽奖奖励-扣除20宝宝币",
+      "type": "expense",
+      "timestamp": 1758294318,
+      "date": "2025-09-19 23:05:18"
+    },
+    {
+      "id": "ffd5c657",
+      "amount": -52,
+      "description": "单次抽奖-normal",
+      "type": "expense",
+      "timestamp": 1758294318,
+      "date": "2025-09-19 23:05:18"
+    },
+    {
+      "id": "b2da2cef",
+      "amount": 250,
+      "description": "抽奖奖励-250个宝宝币",
+      "type": "income",
+      "timestamp": 1758294307,
+      "date": "2025-09-19 23:05:07"
+    },
+    {
+      "id": "8ebdd722",
+      "amount": -520,
+      "description": "单次抽奖-premium",
+      "type": "expense",
+      "timestamp": 1758294307,
+      "date": "2025-09-19 23:05:07"
+    },
+    {
+      "id": "f0627e3c",
+      "amount": 1500,
+      "description": "厨师端充值",
+      "type": "income",
+      "timestamp": 1758294297,
+      "date": "2025-09-19 23:04:57"
+    },
+    {
+      "id": "8f4be4d0",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758288268,
+      "date": "2025-09-19 21:24:28"
+    },
+    {
+      "id": "82968951",
+      "amount": -8,
+      "description": "寻宝日记格子奖励(第19格)",
+      "type": "expense",
+      "timestamp": 1758288264,
+      "date": "2025-09-19 21:24:24"
+    },
+    {
+      "id": "b3d263b1",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758288264,
+      "date": "2025-09-19 21:24:24"
+    },
+    {
+      "id": "75ba5453",
+      "amount": -47,
+      "description": "寻宝日记格子奖励(第17格)",
+      "type": "expense",
+      "timestamp": 1758288261,
+      "date": "2025-09-19 21:24:21"
+    },
+    {
+      "id": "35304a9e",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758288261,
+      "date": "2025-09-19 21:24:21"
+    },
+    {
+      "id": "6d84eb64",
+      "amount": -8,
+      "description": "寻宝日记格子奖励(第16格)",
+      "type": "expense",
+      "timestamp": 1758288257,
+      "date": "2025-09-19 21:24:17"
+    },
+    {
+      "id": "0db7d9b2",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758288257,
+      "date": "2025-09-19 21:24:17"
+    },
+    {
+      "id": "16314798",
+      "amount": -40,
+      "description": "寻宝日记格子奖励(第13格)",
+      "type": "expense",
+      "timestamp": 1758288254,
+      "date": "2025-09-19 21:24:14"
+    },
+    {
+      "id": "8b950c7c",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758288254,
+      "date": "2025-09-19 21:24:14"
+    },
+    {
+      "id": "a1aa18b3",
+      "amount": 106,
+      "description": "寻宝日记格子奖励(第10格)",
+      "type": "income",
+      "timestamp": 1758288250,
+      "date": "2025-09-19 21:24:10"
+    },
+    {
+      "id": "eddde9b3",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758288250,
+      "date": "2025-09-19 21:24:10"
+    },
+    {
+      "id": "dea89cc0",
+      "amount": -52,
+      "description": "浇水(番茄)",
+      "type": "expense",
+      "timestamp": 1758287076,
+      "date": "2025-09-19 21:04:36"
+    },
+    {
+      "id": "533c07b7",
+      "amount": -52,
+      "description": "浇水(西瓜)",
+      "type": "expense",
+      "timestamp": 1758287071,
+      "date": "2025-09-19 21:04:31"
+    },
+    {
+      "id": "7b557428",
+      "amount": -88,
+      "description": "购买粪便 x1",
+      "type": "expense",
+      "timestamp": 1758287060,
+      "date": "2025-09-19 21:04:20"
+    },
+    {
+      "id": "7982bb12",
+      "amount": -88,
+      "description": "购买粪便 x1",
+      "type": "expense",
+      "timestamp": 1758287057,
+      "date": "2025-09-19 21:04:17"
+    },
+    {
+      "id": "372c0de4",
+      "amount": -88,
+      "description": "购买粪便 x1",
+      "type": "expense",
+      "timestamp": 1758287042,
+      "date": "2025-09-19 21:04:02"
+    },
+    {
+      "id": "189b73bc",
+      "amount": -52,
+      "description": "浇水(西瓜)",
+      "type": "expense",
+      "timestamp": 1758287038,
+      "date": "2025-09-19 21:03:58"
+    },
+    {
+      "id": "44febbba",
+      "amount": -10,
+      "description": "购买西瓜 x1",
+      "type": "expense",
+      "timestamp": 1758287015,
+      "date": "2025-09-19 21:03:35"
+    },
+    {
+      "id": "95f7dd1d",
+      "amount": -10,
+      "description": "购买西瓜 x1",
+      "type": "expense",
+      "timestamp": 1758287010,
+      "date": "2025-09-19 21:03:30"
+    },
+    {
+      "id": "57485db3",
+      "amount": -10,
+      "description": "购买番茄 x1",
+      "type": "expense",
+      "timestamp": 1758287006,
+      "date": "2025-09-19 21:03:26"
+    },
+    {
+      "id": "20cfbc1c",
+      "amount": -52,
+      "description": "浇水(忽必烈)",
+      "type": "expense",
+      "timestamp": 1758286809,
+      "date": "2025-09-19 21:00:09"
+    },
+    {
+      "id": "06e6491c",
+      "amount": -10,
+      "description": "购买忽必烈 x1",
+      "type": "expense",
+      "timestamp": 1758286798,
+      "date": "2025-09-19 20:59:58"
+    },
+    {
+      "id": "be5abc25",
+      "amount": -52,
+      "description": "浇水(254)",
+      "type": "expense",
+      "timestamp": 1758286685,
+      "date": "2025-09-19 20:58:05"
+    },
+    {
+      "id": "c9c9f777",
+      "amount": -10,
+      "description": "购买254 x1",
+      "type": "expense",
+      "timestamp": 1758286676,
+      "date": "2025-09-19 20:57:56"
+    },
+    {
+      "id": "fc693640",
+      "amount": -52,
+      "description": "浇水(254)",
+      "type": "expense",
+      "timestamp": 1758286659,
+      "date": "2025-09-19 20:57:39"
+    },
+    {
+      "id": "2db2a44b",
+      "amount": -10,
+      "description": "购买254 x1",
+      "type": "expense",
+      "timestamp": 1758286648,
+      "date": "2025-09-19 20:57:28"
+    },
+    {
+      "id": "55da2595",
+      "amount": -88,
+      "description": "购买粪便 x1",
+      "type": "expense",
+      "timestamp": 1758279946,
+      "date": "2025-09-19 19:05:46"
+    },
+    {
+      "id": "b3afcbf6",
+      "amount": -52,
+      "description": "浇水(254)",
+      "type": "expense",
+      "timestamp": 1758279940,
+      "date": "2025-09-19 19:05:40"
+    },
+    {
+      "id": "f4784611",
+      "amount": -10,
+      "description": "购买254 x1",
+      "type": "expense",
+      "timestamp": 1758279930,
+      "date": "2025-09-19 19:05:30"
+    },
+    {
+      "id": "2a793149",
+      "amount": -88,
+      "description": "购买粪便 x1",
+      "type": "expense",
+      "timestamp": 1758278424,
+      "date": "2025-09-19 18:40:24"
+    },
+    {
+      "id": "7bcecabc",
+      "amount": -52,
+      "description": "浇水(胡萝卜)",
+      "type": "expense",
+      "timestamp": 1758278416,
+      "date": "2025-09-19 18:40:16"
+    },
+    {
+      "id": "f928426e",
+      "amount": -52,
+      "description": "浇水(胡萝卜)",
+      "type": "expense",
+      "timestamp": 1758278412,
+      "date": "2025-09-19 18:40:12"
+    },
+    {
+      "id": "ad3b9423",
+      "amount": -50,
+      "description": "购买胡萝卜 x1",
+      "type": "expense",
+      "timestamp": 1758278402,
+      "date": "2025-09-19 18:40:02"
+    },
+    {
+      "id": "7d2b5919",
+      "amount": -52,
+      "description": "浇水(番茄种子)",
+      "type": "expense",
+      "timestamp": 1758277958,
+      "date": "2025-09-19 18:32:38"
+    },
+    {
+      "id": "89a63243",
+      "amount": -52,
+      "description": "浇水(测试种子)",
+      "type": "expense",
+      "timestamp": 1758277953,
+      "date": "2025-09-19 18:32:33"
+    },
+    {
+      "id": "8f1d7efc",
+      "amount": -15,
+      "description": "购买番茄种子 x1",
+      "type": "expense",
+      "timestamp": 1758277911,
+      "date": "2025-09-19 18:31:51"
+    },
+    {
+      "id": "2000f87a",
+      "amount": -10,
+      "description": "购买测试种子 x1",
+      "type": "expense",
+      "timestamp": 1758277906,
+      "date": "2025-09-19 18:31:46"
+    },
+    {
+      "id": "846d56e1",
+      "amount": -52,
+      "description": "浇水(测试种子)",
+      "type": "expense",
+      "timestamp": 1758277407,
+      "date": "2025-09-19 18:23:27"
+    },
+    {
+      "id": "8c94199f",
+      "amount": -10,
+      "description": "购买测试种子 x1",
+      "type": "expense",
+      "timestamp": 1758277392,
+      "date": "2025-09-19 18:23:12"
+    },
+    {
+      "id": "69c48cb6",
+      "amount": -88,
+      "description": "购买粪便 x1",
+      "type": "expense",
+      "timestamp": 1758277384,
+      "date": "2025-09-19 18:23:04"
+    },
+    {
+      "id": "d5beb18b",
+      "amount": -52,
+      "description": "浇水(测试种子)",
+      "type": "expense",
+      "timestamp": 1758275990,
+      "date": "2025-09-19 17:59:50"
+    },
+    {
+      "id": "296c04a3",
+      "amount": -10,
+      "description": "购买测试种子 x1",
+      "type": "expense",
+      "timestamp": 1758275980,
+      "date": "2025-09-19 17:59:40"
+    },
+    {
+      "id": "62292a57",
+      "amount": -52,
+      "description": "浇水(番茄种子)",
+      "type": "expense",
+      "timestamp": 1758275721,
+      "date": "2025-09-19 17:55:21"
+    },
+    {
+      "id": "bc8db748",
+      "amount": -52,
+      "description": "浇水(测试种子)",
+      "type": "expense",
+      "timestamp": 1758275691,
+      "date": "2025-09-19 17:54:51"
+    },
+    {
+      "id": "bf031d45",
+      "amount": -15,
+      "description": "购买番茄种子 x1",
+      "type": "expense",
+      "timestamp": 1758275229,
+      "date": "2025-09-19 17:47:09"
+    },
+    {
+      "id": "0d3d995e",
+      "amount": -10,
+      "description": "购买测试种子 x1",
+      "type": "expense",
+      "timestamp": 1758275208,
+      "date": "2025-09-19 17:46:48"
+    },
+    {
+      "id": "8fb9675c",
+      "amount": 19,
+      "description": "寻宝日记格子奖励(第6格)",
+      "type": "income",
+      "timestamp": 1758274054,
+      "date": "2025-09-19 17:27:34"
+    },
+    {
+      "id": "e4d77dff",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758274054,
+      "date": "2025-09-19 17:27:34"
+    },
+    {
+      "id": "b9ba5fba",
+      "amount": 77,
+      "description": "寻宝日记格子奖励(第50格)",
+      "type": "income",
+      "timestamp": 1758274051,
+      "date": "2025-09-19 17:27:31"
+    },
+    {
+      "id": "12a09d6e",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758274051,
+      "date": "2025-09-19 17:27:31"
+    },
+    {
+      "id": "bd3c6315",
+      "amount": 5,
+      "description": "寻宝日记格子奖励(第48格)",
+      "type": "income",
+      "timestamp": 1758274048,
+      "date": "2025-09-19 17:27:28"
+    },
+    {
+      "id": "ae6d1108",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758274048,
+      "date": "2025-09-19 17:27:28"
+    },
+    {
+      "id": "3cea46d6",
+      "amount": 66,
+      "description": "寻宝日记格子奖励(第44格)",
+      "type": "income",
+      "timestamp": 1758274044,
+      "date": "2025-09-19 17:27:24"
+    },
+    {
+      "id": "0c876223",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758274044,
+      "date": "2025-09-19 17:27:24"
+    },
+    {
+      "id": "f3c33f32",
+      "amount": 84,
+      "description": "寻宝日记格子奖励(第40格)",
+      "type": "income",
+      "timestamp": 1758274041,
+      "date": "2025-09-19 17:27:21"
+    },
+    {
+      "id": "586eceae",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758274041,
+      "date": "2025-09-19 17:27:21"
+    },
+    {
+      "id": "f2449fc9",
+      "amount": -49,
+      "description": "寻宝日记格子奖励(第37格)",
+      "type": "expense",
+      "timestamp": 1758274038,
+      "date": "2025-09-19 17:27:18"
+    },
+    {
+      "id": "33ccd99a",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758274038,
+      "date": "2025-09-19 17:27:18"
+    },
+    {
+      "id": "00b33d9f",
+      "amount": -14,
+      "description": "寻宝日记格子奖励(第35格)",
+      "type": "expense",
+      "timestamp": 1758274034,
+      "date": "2025-09-19 17:27:14"
+    },
+    {
+      "id": "235f89b9",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758274034,
+      "date": "2025-09-19 17:27:14"
+    },
+    {
+      "id": "160ebbbe",
+      "amount": 112,
+      "description": "寻宝日记格子奖励(第33格)",
+      "type": "income",
+      "timestamp": 1758274031,
+      "date": "2025-09-19 17:27:11"
+    },
+    {
+      "id": "10860afd",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758274031,
+      "date": "2025-09-19 17:27:11"
+    },
+    {
+      "id": "460f6e5f",
+      "amount": 59,
+      "description": "寻宝日记格子奖励(第32格)",
+      "type": "income",
+      "timestamp": 1758274028,
+      "date": "2025-09-19 17:27:08"
+    },
+    {
+      "id": "0c9d67b8",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758274028,
+      "date": "2025-09-19 17:27:08"
+    },
+    {
+      "id": "dc6c572f",
+      "amount": -32,
+      "description": "寻宝日记格子奖励(第30格)",
+      "type": "expense",
+      "timestamp": 1758274024,
+      "date": "2025-09-19 17:27:04"
+    },
+    {
+      "id": "bbeeef3d",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758274024,
+      "date": "2025-09-19 17:27:04"
+    },
+    {
+      "id": "f4154d52",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758274016,
+      "date": "2025-09-19 17:26:56"
+    },
+    {
+      "id": "2b31d9e0",
+      "amount": -43,
+      "description": "寻宝日记格子奖励(第25格)",
+      "type": "expense",
+      "timestamp": 1758274012,
+      "date": "2025-09-19 17:26:52"
+    },
+    {
+      "id": "5228c382",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758274012,
+      "date": "2025-09-19 17:26:52"
+    },
+    {
+      "id": "a13abc7b",
+      "amount": 23,
+      "description": "寻宝日记格子奖励(第22格)",
+      "type": "income",
+      "timestamp": 1758274009,
+      "date": "2025-09-19 17:26:49"
+    },
+    {
+      "id": "5e0ac413",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758274009,
+      "date": "2025-09-19 17:26:49"
+    },
+    {
+      "id": "9db422d3",
+      "amount": 34,
+      "description": "寻宝日记格子奖励(第21格)",
+      "type": "income",
+      "timestamp": 1758274005,
+      "date": "2025-09-19 17:26:45"
+    },
+    {
+      "id": "3926f9c9",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758274005,
+      "date": "2025-09-19 17:26:45"
+    },
+    {
+      "id": "334748fc",
+      "amount": 1314,
+      "description": "寻宝日记宝藏格子奖励(第15格)",
+      "type": "income",
+      "timestamp": 1758273999,
+      "date": "2025-09-19 17:26:39"
+    },
+    {
+      "id": "5d43c37e",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758273999,
+      "date": "2025-09-19 17:26:39"
+    },
+    {
+      "id": "f32f0751",
+      "amount": 40,
+      "description": "寻宝日记格子奖励(第9格)",
+      "type": "income",
+      "timestamp": 1758273995,
+      "date": "2025-09-19 17:26:35"
+    },
+    {
+      "id": "e0bcc83d",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758273995,
+      "date": "2025-09-19 17:26:35"
+    },
+    {
+      "id": "8820fd3f",
+      "amount": 25,
+      "description": "寻宝日记格子奖励(第4格)",
+      "type": "income",
+      "timestamp": 1758273992,
+      "date": "2025-09-19 17:26:32"
+    },
+    {
+      "id": "d27d3364",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758273992,
+      "date": "2025-09-19 17:26:32"
+    },
+    {
+      "id": "784ca84e",
+      "amount": 25,
+      "description": "寻宝日记格子奖励(第3格)",
+      "type": "income",
+      "timestamp": 1758273988,
+      "date": "2025-09-19 17:26:28"
+    },
+    {
+      "id": "c2eb5af4",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758273988,
+      "date": "2025-09-19 17:26:28"
+    },
+    {
+      "id": "59512be9",
+      "amount": 44,
+      "description": "寻宝日记格子奖励(第50格)",
+      "type": "income",
+      "timestamp": 1758273985,
+      "date": "2025-09-19 17:26:25"
+    },
+    {
+      "id": "a0b82fd4",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758273985,
+      "date": "2025-09-19 17:26:25"
+    },
+    {
+      "id": "b52c16db",
+      "amount": 62,
+      "description": "寻宝日记格子奖励(第46格)",
+      "type": "income",
+      "timestamp": 1758273982,
+      "date": "2025-09-19 17:26:22"
+    },
+    {
+      "id": "9d4cdf9d",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758273982,
+      "date": "2025-09-19 17:26:22"
+    },
+    {
+      "id": "c1b14645",
+      "amount": 93,
+      "description": "寻宝日记格子奖励(第42格)",
+      "type": "income",
+      "timestamp": 1758273977,
+      "date": "2025-09-19 17:26:17"
+    },
+    {
+      "id": "6a267a67",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758273977,
+      "date": "2025-09-19 17:26:17"
+    },
+    {
+      "id": "ce183cb2",
+      "amount": 72,
+      "description": "寻宝日记格子奖励(第37格)",
+      "type": "income",
+      "timestamp": 1758273973,
+      "date": "2025-09-19 17:26:13"
+    },
+    {
+      "id": "40966f9f",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758273973,
+      "date": "2025-09-19 17:26:13"
+    },
+    {
+      "id": "c7b6fa7e",
+      "amount": 39,
+      "description": "寻宝日记格子奖励(第32格)",
+      "type": "income",
+      "timestamp": 1758273970,
+      "date": "2025-09-19 17:26:10"
+    },
+    {
+      "id": "d7d0d6db",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758273970,
+      "date": "2025-09-19 17:26:10"
+    },
+    {
+      "id": "079e7ac2",
+      "amount": 82,
+      "description": "寻宝日记格子奖励(第26格)",
+      "type": "income",
+      "timestamp": 1758273965,
+      "date": "2025-09-19 17:26:05"
+    },
+    {
+      "id": "dffafbdf",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758273965,
+      "date": "2025-09-19 17:26:05"
+    },
+    {
+      "id": "b5df6c31",
+      "amount": 85,
+      "description": "寻宝日记格子奖励(第22格)",
+      "type": "income",
+      "timestamp": 1758273962,
+      "date": "2025-09-19 17:26:02"
+    },
+    {
+      "id": "a93cb7b6",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758273962,
+      "date": "2025-09-19 17:26:02"
+    },
+    {
+      "id": "5954e3bf",
+      "amount": 31,
+      "description": "寻宝日记格子奖励(第16格)",
+      "type": "income",
+      "timestamp": 1758273958,
+      "date": "2025-09-19 17:25:58"
+    },
+    {
+      "id": "332dd7d6",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758273958,
+      "date": "2025-09-19 17:25:58"
+    },
+    {
+      "id": "93d69367",
+      "amount": -41,
+      "description": "寻宝日记格子奖励(第13格)",
+      "type": "expense",
+      "timestamp": 1758273955,
+      "date": "2025-09-19 17:25:55"
+    },
+    {
+      "id": "e9ff7886",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758273955,
+      "date": "2025-09-19 17:25:55"
+    },
+    {
+      "id": "d0fb2f34",
+      "amount": -1,
+      "description": "寻宝日记格子奖励(第10格)",
+      "type": "expense",
+      "timestamp": 1758273952,
+      "date": "2025-09-19 17:25:52"
+    },
+    {
+      "id": "7439db67",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758273951,
+      "date": "2025-09-19 17:25:51"
+    },
+    {
+      "id": "d20df2fd",
+      "amount": 91,
+      "description": "寻宝日记格子奖励(第7格)",
+      "type": "income",
+      "timestamp": 1758273948,
+      "date": "2025-09-19 17:25:48"
+    },
+    {
+      "id": "a25f9374",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758273948,
+      "date": "2025-09-19 17:25:48"
+    },
+    {
+      "id": "93dd5d17",
+      "amount": 3,
+      "description": "寻宝日记格子奖励(第4格)",
+      "type": "income",
+      "timestamp": 1758273945,
+      "date": "2025-09-19 17:25:45"
+    },
+    {
+      "id": "66b03cb5",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758273944,
+      "date": "2025-09-19 17:25:44"
+    },
+    {
+      "id": "bbd0af31",
+      "amount": 26,
+      "description": "寻宝日记格子奖励(第2格)",
+      "type": "income",
+      "timestamp": 1758273941,
+      "date": "2025-09-19 17:25:41"
+    },
+    {
+      "id": "784af1c6",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758273941,
+      "date": "2025-09-19 17:25:41"
+    },
+    {
+      "id": "f856e8e0",
+      "amount": 25,
+      "description": "猜数字游戏奖励(第7次猜中)",
+      "type": "income",
+      "timestamp": 1758273916,
+      "date": "2025-09-19 17:25:16"
+    },
+    {
+      "id": "88b7f933",
+      "amount": -52,
+      "description": "购买游戏机会",
+      "type": "expense",
+      "timestamp": 1758273896,
+      "date": "2025-09-19 17:24:56"
+    },
+    {
+      "id": "b1cab16b",
+      "amount": 52,
+      "description": "猜数字游戏奖励(第5次猜中)",
+      "type": "income",
+      "timestamp": 1758273890,
+      "date": "2025-09-19 17:24:50"
+    },
+    {
+      "id": "c1b288a3",
+      "amount": 52,
+      "description": "猜数字游戏奖励(第4次猜中)",
+      "type": "income",
+      "timestamp": 1758273818,
+      "date": "2025-09-19 17:23:38"
+    },
+    {
+      "id": "fa0b72c3",
+      "amount": 520,
+      "description": "猜数字游戏奖励(第1次猜中)",
+      "type": "income",
+      "timestamp": 1758273749,
+      "date": "2025-09-19 17:22:29"
+    },
+    {
+      "id": "99168e43",
+      "amount": -52,
+      "description": "购买游戏机会",
+      "type": "expense",
+      "timestamp": 1758273104,
+      "date": "2025-09-19 17:11:44"
+    },
+    {
+      "id": "74b3696a",
+      "amount": 17,
+      "description": "每日问卷-随机奖励",
+      "type": "income",
+      "timestamp": 1758271938,
+      "date": "2025-09-19 16:52:18"
+    },
+    {
+      "id": "ec6474f3",
+      "amount": 6,
+      "description": "每日问卷-乐观奖励(连续1天)",
+      "type": "income",
+      "timestamp": 1758271938,
+      "date": "2025-09-19 16:52:18"
+    },
+    {
+      "id": "2246a8c3",
+      "amount": 15,
+      "description": "每日问卷-留言奖励",
+      "type": "income",
+      "timestamp": 1758271938,
+      "date": "2025-09-19 16:52:18"
+    },
+    {
+      "id": "e2e5b55a",
+      "amount": 15,
+      "description": "每日问卷-心情分享奖励",
+      "type": "income",
+      "timestamp": 1758271938,
+      "date": "2025-09-19 16:52:18"
+    },
+    {
+      "id": "a15199b3",
+      "amount": 10,
+      "description": "每日问卷-健身奖励",
+      "type": "income",
+      "timestamp": 1758271938,
+      "date": "2025-09-19 16:52:18"
+    },
+    {
+      "id": "d44a8dfb",
+      "amount": 8,
+      "description": "每日问卷-打卡奖励",
+      "type": "income",
+      "timestamp": 1758271938,
+      "date": "2025-09-19 16:52:18"
+    },
+    {
+      "id": "ccf552e9",
+      "amount": 10,
+      "description": "每日问卷-按时吃药奖励",
+      "type": "income",
+      "timestamp": 1758271938,
+      "date": "2025-09-19 16:52:18"
+    },
+    {
+      "id": "639bff1c",
+      "amount": -520,
+      "description": "单次抽奖-premium",
+      "type": "expense",
+      "timestamp": 1758271513,
+      "date": "2025-09-19 16:45:13"
+    },
+    {
+      "id": "4524e31a",
+      "amount": 520,
+      "description": "寻宝日记完圈奖励-宝宝币大奖",
+      "type": "income",
+      "timestamp": 1758270808,
+      "date": "2025-09-19 16:33:28"
+    },
+    {
+      "id": "1a0a2628",
+      "amount": 35,
+      "description": "寻宝日记格子奖励(第1格)",
+      "type": "income",
+      "timestamp": 1758270804,
+      "date": "2025-09-19 16:33:24"
+    },
+    {
+      "id": "3638dc9a",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758270804,
+      "date": "2025-09-19 16:33:24"
+    },
+    {
+      "id": "2aa76278",
+      "amount": 20,
+      "description": "寻宝日记格子奖励(第48格)",
+      "type": "income",
+      "timestamp": 1758270801,
+      "date": "2025-09-19 16:33:21"
+    },
+    {
+      "id": "e219d266",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758270801,
+      "date": "2025-09-19 16:33:21"
+    },
+    {
+      "id": "253d09ae",
+      "amount": -27,
+      "description": "寻宝日记格子奖励(第46格)",
+      "type": "expense",
+      "timestamp": 1758270797,
+      "date": "2025-09-19 16:33:17"
+    },
+    {
+      "id": "519476de",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758270797,
+      "date": "2025-09-19 16:33:17"
+    },
+    {
+      "id": "2e8dd887",
+      "amount": 600,
+      "description": "厨师端充值",
+      "type": "income",
+      "timestamp": 1758270791,
+      "date": "2025-09-19 16:33:11"
+    },
+    {
+      "id": "cbf63f03",
+      "amount": -46,
+      "description": "寻宝日记格子奖励(第43格)",
+      "type": "expense",
+      "timestamp": 1758270776,
+      "date": "2025-09-19 16:32:56"
+    },
+    {
+      "id": "5898fef1",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758270775,
+      "date": "2025-09-19 16:32:55"
+    },
+    {
+      "id": "10049e48",
+      "amount": 36,
+      "description": "寻宝日记格子奖励(第40格)",
+      "type": "income",
+      "timestamp": 1758270772,
+      "date": "2025-09-19 16:32:52"
+    },
+    {
+      "id": "9f20d9cd",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758270772,
+      "date": "2025-09-19 16:32:52"
+    },
+    {
+      "id": "7b06a754",
+      "amount": -21,
+      "description": "寻宝日记格子奖励(第36格)",
+      "type": "expense",
+      "timestamp": 1758270768,
+      "date": "2025-09-19 16:32:48"
+    },
+    {
+      "id": "7b36697f",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758270768,
+      "date": "2025-09-19 16:32:48"
+    },
+    {
+      "id": "cb894076",
+      "amount": 31,
+      "description": "寻宝日记格子奖励(第33格)",
+      "type": "income",
+      "timestamp": 1758270764,
+      "date": "2025-09-19 16:32:44"
+    },
+    {
+      "id": "dfd9f076",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758270764,
+      "date": "2025-09-19 16:32:44"
+    },
+    {
+      "id": "b2482005",
+      "amount": 81,
+      "description": "寻宝日记格子奖励(第28格)",
+      "type": "income",
+      "timestamp": 1758270755,
+      "date": "2025-09-19 16:32:35"
+    },
+    {
+      "id": "d9fcb7c7",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758270755,
+      "date": "2025-09-19 16:32:35"
+    },
+    {
+      "id": "e98de978",
+      "amount": 82,
+      "description": "寻宝日记格子奖励(第24格)",
+      "type": "income",
+      "timestamp": 1758270748,
+      "date": "2025-09-19 16:32:28"
+    },
+    {
+      "id": "ce9bdb98",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758270748,
+      "date": "2025-09-19 16:32:28"
+    },
+    {
+      "id": "7010b3a2",
+      "amount": 3,
+      "description": "寻宝日记格子奖励(第23格)",
+      "type": "income",
+      "timestamp": 1758270745,
+      "date": "2025-09-19 16:32:25"
+    },
+    {
+      "id": "9edc6687",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758270745,
+      "date": "2025-09-19 16:32:25"
+    },
+    {
+      "id": "117411a9",
+      "amount": -30,
+      "description": "寻宝日记格子奖励(第19格)",
+      "type": "expense",
+      "timestamp": 1758270741,
+      "date": "2025-09-19 16:32:21"
+    },
+    {
+      "id": "20985e75",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758270741,
+      "date": "2025-09-19 16:32:21"
+    },
+    {
+      "id": "188bafbb",
+      "amount": 33,
+      "description": "寻宝日记格子奖励(第14格)",
+      "type": "income",
+      "timestamp": 1758270738,
+      "date": "2025-09-19 16:32:18"
+    },
+    {
+      "id": "341f8c34",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758270738,
+      "date": "2025-09-19 16:32:18"
+    },
+    {
+      "id": "acee6a0a",
+      "amount": 20,
+      "description": "寻宝日记格子奖励(第12格)",
+      "type": "income",
+      "timestamp": 1758270735,
+      "date": "2025-09-19 16:32:15"
+    },
+    {
+      "id": "b0d9e856",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758270735,
+      "date": "2025-09-19 16:32:15"
+    },
+    {
+      "id": "45504a2e",
+      "amount": 85,
+      "description": "寻宝日记格子奖励(第11格)",
+      "type": "income",
+      "timestamp": 1758270731,
+      "date": "2025-09-19 16:32:11"
+    },
+    {
+      "id": "3094d1a9",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758270731,
+      "date": "2025-09-19 16:32:11"
+    },
+    {
+      "id": "8ced89f8",
+      "amount": -26,
+      "description": "寻宝日记格子奖励(第6格)",
+      "type": "expense",
+      "timestamp": 1758270727,
+      "date": "2025-09-19 16:32:07"
+    },
+    {
+      "id": "ee6d1115",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758270727,
+      "date": "2025-09-19 16:32:07"
+    },
+    {
+      "id": "7f6019ef",
+      "amount": 20,
+      "description": "寻宝日记格子奖励(第5格)",
+      "type": "income",
+      "timestamp": 1758270724,
+      "date": "2025-09-19 16:32:04"
+    },
+    {
+      "id": "129d5704",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758270724,
+      "date": "2025-09-19 16:32:04"
+    },
+    {
+      "id": "f20b23a1",
+      "amount": -18,
+      "description": "寻宝日记格子奖励(第1格)",
+      "type": "expense",
+      "timestamp": 1758270715,
+      "date": "2025-09-19 16:31:55"
+    },
+    {
+      "id": "49407bc8",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758270715,
+      "date": "2025-09-19 16:31:55"
+    },
+    {
+      "id": "fab1992a",
+      "amount": 37,
+      "description": "寻宝日记格子奖励(第50格)",
+      "type": "income",
+      "timestamp": 1758270711,
+      "date": "2025-09-19 16:31:51"
+    },
+    {
+      "id": "727c45f1",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758270711,
+      "date": "2025-09-19 16:31:51"
+    },
+    {
+      "id": "8d370c7b",
+      "amount": -9,
+      "description": "寻宝日记格子奖励(第44格)",
+      "type": "expense",
+      "timestamp": 1758270649,
+      "date": "2025-09-19 16:30:49"
+    },
+    {
+      "id": "9647cd49",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758270649,
+      "date": "2025-09-19 16:30:49"
+    },
+    {
+      "id": "b5bc77db",
+      "amount": 600,
+      "description": "厨师端充值",
+      "type": "income",
+      "timestamp": 1758270633,
+      "date": "2025-09-19 16:30:33"
+    },
+    {
+      "id": "9be5649a",
+      "amount": -34,
+      "description": "寻宝日记格子奖励(第39格)",
+      "type": "expense",
+      "timestamp": 1758270622,
+      "date": "2025-09-19 16:30:22"
+    },
+    {
+      "id": "211317fe",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758270622,
+      "date": "2025-09-19 16:30:22"
+    },
+    {
+      "id": "cc315107",
+      "amount": -44,
+      "description": "寻宝日记格子奖励(第33格)",
+      "type": "expense",
+      "timestamp": 1758270618,
+      "date": "2025-09-19 16:30:18"
+    },
+    {
+      "id": "7507d0a0",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758270618,
+      "date": "2025-09-19 16:30:18"
+    },
+    {
+      "id": "f967da77",
+      "amount": -39,
+      "description": "寻宝日记格子奖励(第32格)",
+      "type": "expense",
+      "timestamp": 1758270338,
+      "date": "2025-09-19 16:25:38"
+    },
+    {
+      "id": "665f254a",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758270338,
+      "date": "2025-09-19 16:25:38"
+    },
+    {
+      "id": "b5fe1493",
+      "amount": 85,
+      "description": "寻宝日记格子奖励(第31格)",
+      "type": "income",
+      "timestamp": 1758270334,
+      "date": "2025-09-19 16:25:34"
+    },
+    {
+      "id": "e248779d",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758270334,
+      "date": "2025-09-19 16:25:34"
+    },
+    {
+      "id": "0da62956",
+      "amount": 86,
+      "description": "寻宝日记格子奖励(第28格)",
+      "type": "income",
+      "timestamp": 1758270323,
+      "date": "2025-09-19 16:25:23"
+    },
+    {
+      "id": "376833bf",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758270323,
+      "date": "2025-09-19 16:25:23"
+    },
+    {
+      "id": "72f2e235",
+      "amount": 500,
+      "description": "厨师端充值",
+      "type": "income",
+      "timestamp": 1758270314,
+      "date": "2025-09-19 16:25:14"
+    },
+    {
+      "id": "f008965f",
+      "amount": -520,
+      "description": "寻宝日记裂开格子惩罚(第25格)",
+      "type": "expense",
+      "timestamp": 1758269880,
+      "date": "2025-09-19 16:18:00"
+    },
+    {
+      "id": "8fb73764",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758269880,
+      "date": "2025-09-19 16:18:00"
+    },
+    {
+      "id": "c9067a55",
+      "amount": 21,
+      "description": "寻宝日记格子奖励(第21格)",
+      "type": "income",
+      "timestamp": 1758269876,
+      "date": "2025-09-19 16:17:56"
+    },
+    {
+      "id": "e5a087ef",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758269876,
+      "date": "2025-09-19 16:17:56"
+    },
+    {
+      "id": "6dbc9c7a",
+      "amount": -46,
+      "description": "寻宝日记格子奖励(第15格)",
+      "type": "expense",
+      "timestamp": 1758269837,
+      "date": "2025-09-19 16:17:17"
+    },
+    {
+      "id": "fd1ebbb2",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758269836,
+      "date": "2025-09-19 16:17:16"
+    },
+    {
+      "id": "8475e7cb",
+      "amount": 99,
+      "description": "寻宝日记格子奖励(第12格)",
+      "type": "income",
+      "timestamp": 1758269831,
+      "date": "2025-09-19 16:17:11"
+    },
+    {
+      "id": "5145522e",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758269831,
+      "date": "2025-09-19 16:17:11"
+    },
+    {
+      "id": "20c28540",
+      "amount": 58,
+      "description": "寻宝日记格子奖励(第9格)",
+      "type": "income",
+      "timestamp": 1758269752,
+      "date": "2025-09-19 16:15:52"
+    },
+    {
+      "id": "045300e0",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758269752,
+      "date": "2025-09-19 16:15:52"
+    },
+    {
+      "id": "2d9a0dd0",
+      "amount": 15,
+      "description": "寻宝日记格子奖励(第5格)",
+      "type": "income",
+      "timestamp": 1758269064,
+      "date": "2025-09-19 16:04:24"
+    },
+    {
+      "id": "49e510e0",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758269064,
+      "date": "2025-09-19 16:04:24"
+    },
+    {
+      "id": "bc1f3603",
+      "amount": 15,
+      "description": "寻宝日记格子奖励(第50格)",
+      "type": "income",
+      "timestamp": 1758269059,
+      "date": "2025-09-19 16:04:19"
+    },
+    {
+      "id": "8a8d187c",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758269059,
+      "date": "2025-09-19 16:04:19"
+    },
+    {
+      "id": "a961ab1d",
+      "amount": 84,
+      "description": "寻宝日记格子奖励(第44格)",
+      "type": "income",
+      "timestamp": 1758269053,
+      "date": "2025-09-19 16:04:13"
+    },
+    {
+      "id": "1406cd7e",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758269053,
+      "date": "2025-09-19 16:04:13"
+    },
+    {
+      "id": "2b10c438",
+      "amount": 34,
+      "description": "寻宝日记格子奖励(第41格)",
+      "type": "income",
+      "timestamp": 1758269046,
+      "date": "2025-09-19 16:04:06"
+    },
+    {
+      "id": "057fe330",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758269046,
+      "date": "2025-09-19 16:04:06"
+    },
+    {
+      "id": "b4f9ec50",
+      "amount": 70,
+      "description": "寻宝日记格子奖励(第36格)",
+      "type": "income",
+      "timestamp": 1758269043,
+      "date": "2025-09-19 16:04:03"
+    },
+    {
+      "id": "ab557e9c",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758269043,
+      "date": "2025-09-19 16:04:03"
+    },
+    {
+      "id": "d06dad39",
+      "amount": 36,
+      "description": "寻宝日记格子奖励(第32格)",
+      "type": "income",
+      "timestamp": 1758269039,
+      "date": "2025-09-19 16:03:59"
+    },
+    {
+      "id": "e6ac64e2",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758269039,
+      "date": "2025-09-19 16:03:59"
+    },
+    {
+      "id": "609fe2ee",
+      "amount": 83,
+      "description": "寻宝日记格子奖励(第31格)",
+      "type": "income",
+      "timestamp": 1758269035,
+      "date": "2025-09-19 16:03:55"
+    },
+    {
+      "id": "721b4369",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758269035,
+      "date": "2025-09-19 16:03:55"
+    },
+    {
+      "id": "ead1666a",
+      "amount": -25,
+      "description": "寻宝日记格子奖励(第25格)",
+      "type": "expense",
+      "timestamp": 1758269032,
+      "date": "2025-09-19 16:03:52"
+    },
+    {
+      "id": "e1b3d17b",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758269032,
+      "date": "2025-09-19 16:03:52"
+    },
+    {
+      "id": "a8ce9265",
+      "amount": -38,
+      "description": "寻宝日记格子奖励(第22格)",
+      "type": "expense",
+      "timestamp": 1758269028,
+      "date": "2025-09-19 16:03:48"
+    },
+    {
+      "id": "fdd3d8b1",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758269028,
+      "date": "2025-09-19 16:03:48"
+    },
+    {
+      "id": "c0c1224a",
+      "amount": 520,
+      "description": "厨师端充值",
+      "type": "income",
+      "timestamp": 1758269015,
+      "date": "2025-09-19 16:03:35"
+    },
+    {
+      "id": "0ac39b15",
+      "amount": -51,
+      "description": "寻宝日记格子奖励(第18格)",
+      "type": "expense",
+      "timestamp": 1758268948,
+      "date": "2025-09-19 16:02:28"
+    },
+    {
+      "id": "b0f24836",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758268948,
+      "date": "2025-09-19 16:02:28"
+    },
+    {
+      "id": "1d0c576a",
+      "amount": 91,
+      "description": "寻宝日记格子奖励(第16格)",
+      "type": "income",
+      "timestamp": 1758268937,
+      "date": "2025-09-19 16:02:17"
+    },
+    {
+      "id": "7aece0aa",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758268937,
+      "date": "2025-09-19 16:02:17"
+    },
+    {
+      "id": "03a62b31",
+      "amount": 100,
+      "description": "厨师端充值",
+      "type": "income",
+      "timestamp": 1758268931,
+      "date": "2025-09-19 16:02:11"
+    },
+    {
+      "id": "41091e47",
+      "amount": -46,
+      "description": "寻宝日记格子奖励(第13格)",
+      "type": "expense",
+      "timestamp": 1758268475,
+      "date": "2025-09-19 15:54:35"
+    },
+    {
+      "id": "1b8a144d",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758268475,
+      "date": "2025-09-19 15:54:35"
+    },
+    {
+      "id": "f2f56221",
+      "amount": 32,
+      "description": "寻宝日记格子奖励(第9格)",
+      "type": "income",
+      "timestamp": 1758268472,
+      "date": "2025-09-19 15:54:32"
+    },
+    {
+      "id": "d3410c5b",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758268472,
+      "date": "2025-09-19 15:54:32"
+    },
+    {
+      "id": "4cf72e1e",
+      "amount": 81,
+      "description": "寻宝日记格子奖励(第6格)",
+      "type": "income",
+      "timestamp": 1758268468,
+      "date": "2025-09-19 15:54:28"
+    },
+    {
+      "id": "56e9e2f5",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758268468,
+      "date": "2025-09-19 15:54:28"
+    },
+    {
+      "id": "f4eb747d",
+      "amount": 1,
+      "description": "厨师端充值",
+      "type": "income",
+      "timestamp": 1758268463,
+      "date": "2025-09-19 15:54:23"
+    },
+    {
+      "id": "5266b30e",
+      "amount": 48,
+      "description": "寻宝日记格子奖励(第3格)",
+      "type": "income",
+      "timestamp": 1758268451,
+      "date": "2025-09-19 15:54:11"
+    },
+    {
+      "id": "03c5ab9e",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758268451,
+      "date": "2025-09-19 15:54:11"
+    },
+    {
+      "id": "cfcf3380",
+      "amount": -3,
+      "description": "寻宝日记格子奖励(第2格)",
+      "type": "expense",
+      "timestamp": 1758268436,
+      "date": "2025-09-19 15:53:56"
+    },
+    {
+      "id": "203e1d41",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758268436,
+      "date": "2025-09-19 15:53:56"
+    },
+    {
+      "id": "03a262e9",
+      "amount": 23,
+      "description": "寻宝日记格子奖励(第47格)",
+      "type": "income",
+      "timestamp": 1758268432,
+      "date": "2025-09-19 15:53:52"
+    },
+    {
+      "id": "043c827b",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758268432,
+      "date": "2025-09-19 15:53:52"
+    },
+    {
+      "id": "cb8c2312",
+      "amount": 47,
+      "description": "寻宝日记格子奖励(第42格)",
+      "type": "income",
+      "timestamp": 1758268428,
+      "date": "2025-09-19 15:53:48"
+    },
+    {
+      "id": "e87f3fc8",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758268428,
+      "date": "2025-09-19 15:53:48"
+    },
+    {
+      "id": "dbd60232",
+      "amount": 36,
+      "description": "寻宝日记格子奖励(第39格)",
+      "type": "income",
+      "timestamp": 1758268424,
+      "date": "2025-09-19 15:53:44"
+    },
+    {
+      "id": "2ba3bb0d",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758268424,
+      "date": "2025-09-19 15:53:44"
+    },
+    {
+      "id": "89ee407d",
+      "amount": -9,
+      "description": "寻宝日记格子奖励(第36格)",
+      "type": "expense",
+      "timestamp": 1758268421,
+      "date": "2025-09-19 15:53:41"
+    },
+    {
+      "id": "a669b78c",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758268421,
+      "date": "2025-09-19 15:53:41"
+    },
+    {
+      "id": "c73fd91a",
+      "amount": 25,
+      "description": "寻宝日记格子奖励(第33格)",
+      "type": "income",
+      "timestamp": 1758268417,
+      "date": "2025-09-19 15:53:37"
+    },
+    {
+      "id": "98e1cb28",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758268417,
+      "date": "2025-09-19 15:53:37"
+    },
+    {
+      "id": "87acaaa1",
+      "amount": 75,
+      "description": "寻宝日记格子奖励(第31格)",
+      "type": "income",
+      "timestamp": 1758268413,
+      "date": "2025-09-19 15:53:33"
+    },
+    {
+      "id": "81a073c5",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758268413,
+      "date": "2025-09-19 15:53:33"
+    },
+    {
+      "id": "9cc5e3aa",
+      "amount": 86,
+      "description": "寻宝日记格子奖励(第29格)",
+      "type": "income",
+      "timestamp": 1758268409,
+      "date": "2025-09-19 15:53:29"
+    },
+    {
+      "id": "3c584d69",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758268409,
+      "date": "2025-09-19 15:53:29"
+    },
+    {
+      "id": "926e58a9",
+      "amount": -7,
+      "description": "寻宝日记格子奖励(第27格)",
+      "type": "expense",
+      "timestamp": 1758268406,
+      "date": "2025-09-19 15:53:26"
+    },
+    {
+      "id": "f97dc136",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758268406,
+      "date": "2025-09-19 15:53:26"
+    },
+    {
+      "id": "118e8ae3",
+      "amount": 52,
+      "description": "寻宝日记格子奖励(第22格)",
+      "type": "income",
+      "timestamp": 1758268402,
+      "date": "2025-09-19 15:53:22"
+    },
+    {
+      "id": "0d9d3cb0",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758268402,
+      "date": "2025-09-19 15:53:22"
+    },
+    {
+      "id": "dc9a524d",
+      "amount": 8,
+      "description": "寻宝日记格子奖励(第17格)",
+      "type": "income",
+      "timestamp": 1758268399,
+      "date": "2025-09-19 15:53:19"
+    },
+    {
+      "id": "dac0553d",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758268399,
+      "date": "2025-09-19 15:53:19"
+    },
+    {
+      "id": "6a7f3d19",
+      "amount": 71,
+      "description": "寻宝日记格子奖励(第16格)",
+      "type": "income",
+      "timestamp": 1758268395,
+      "date": "2025-09-19 15:53:15"
+    },
+    {
+      "id": "0a34d7fa",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758268395,
+      "date": "2025-09-19 15:53:15"
+    },
+    {
+      "id": "a48b356d",
+      "amount": 23,
+      "description": "寻宝日记格子奖励(第10格)",
+      "type": "income",
+      "timestamp": 1758268392,
+      "date": "2025-09-19 15:53:12"
+    },
+    {
+      "id": "7f0c5092",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758268392,
+      "date": "2025-09-19 15:53:12"
+    },
+    {
+      "id": "db6a8914",
+      "amount": 94,
+      "description": "寻宝日记格子奖励(第5格)",
+      "type": "income",
+      "timestamp": 1758267804,
+      "date": "2025-09-19 15:43:24"
+    },
+    {
+      "id": "5a8259c6",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758267804,
+      "date": "2025-09-19 15:43:24"
+    },
+    {
+      "id": "1840dd99",
+      "amount": 26,
+      "description": "寻宝日记格子奖励(第49格)",
+      "type": "income",
+      "timestamp": 1758267800,
+      "date": "2025-09-19 15:43:20"
+    },
+    {
+      "id": "141cb748",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758267800,
+      "date": "2025-09-19 15:43:20"
+    },
+    {
+      "id": "61696e47",
+      "amount": 72,
+      "description": "寻宝日记格子奖励(第48格)",
+      "type": "income",
+      "timestamp": 1758267797,
+      "date": "2025-09-19 15:43:17"
+    },
+    {
+      "id": "e2d67798",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758267797,
+      "date": "2025-09-19 15:43:17"
+    },
+    {
+      "id": "3667037f",
+      "amount": 67,
+      "description": "寻宝日记格子奖励(第42格)",
+      "type": "income",
+      "timestamp": 1758267793,
+      "date": "2025-09-19 15:43:13"
+    },
+    {
+      "id": "415579f8",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758267793,
+      "date": "2025-09-19 15:43:13"
+    },
+    {
+      "id": "f0903ef9",
+      "amount": 81,
+      "description": "寻宝日记格子奖励(第36格)",
+      "type": "income",
+      "timestamp": 1758267789,
+      "date": "2025-09-19 15:43:09"
+    },
+    {
+      "id": "a3cd3308",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758267789,
+      "date": "2025-09-19 15:43:09"
+    },
+    {
+      "id": "b8b76c24",
+      "amount": -7,
+      "description": "寻宝日记格子奖励(第32格)",
+      "type": "expense",
+      "timestamp": 1758267784,
+      "date": "2025-09-19 15:43:04"
+    },
+    {
+      "id": "8a0112cd",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758267784,
+      "date": "2025-09-19 15:43:04"
+    },
+    {
+      "id": "cd1cb486",
+      "amount": 71,
+      "description": "寻宝日记格子奖励(第26格)",
+      "type": "income",
+      "timestamp": 1758267780,
+      "date": "2025-09-19 15:43:00"
+    },
+    {
+      "id": "85548708",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758267780,
+      "date": "2025-09-19 15:43:00"
+    },
+    {
+      "id": "e79a27be",
+      "amount": 72,
+      "description": "寻宝日记格子奖励(第22格)",
+      "type": "income",
+      "timestamp": 1758267775,
+      "date": "2025-09-19 15:42:55"
+    },
+    {
+      "id": "4143ae3e",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758267775,
+      "date": "2025-09-19 15:42:55"
+    },
+    {
+      "id": "2c90c5cf",
+      "amount": -13,
+      "description": "寻宝日记格子奖励(第18格)",
+      "type": "expense",
+      "timestamp": 1758267770,
+      "date": "2025-09-19 15:42:50"
+    },
+    {
+      "id": "0d5bfb8a",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758267770,
+      "date": "2025-09-19 15:42:50"
+    },
+    {
+      "id": "4f2f116f",
+      "amount": -9,
+      "description": "寻宝日记格子奖励(第12格)",
+      "type": "expense",
+      "timestamp": 1758267767,
+      "date": "2025-09-19 15:42:47"
+    },
+    {
+      "id": "d2978a95",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758267767,
+      "date": "2025-09-19 15:42:47"
+    },
+    {
+      "id": "0a17f0a4",
+      "amount": 69,
+      "description": "寻宝日记格子奖励(第6格)",
+      "type": "income",
+      "timestamp": 1758267761,
+      "date": "2025-09-19 15:42:41"
+    },
+    {
+      "id": "c203634b",
+      "amount": -52,
+      "description": "购买寻宝日记骰子",
+      "type": "expense",
+      "timestamp": 1758267761,
+      "date": "2025-09-19 15:42:41"
+    },
+    {
+      "id": "5a4cd0b7",
+      "amount": -5200,
+      "description": "单次抽奖-ultimate",
+      "type": "expense",
+      "timestamp": 1758262810,
+      "date": "2025-09-19 14:20:10"
+    },
+    {
+      "id": "631847b2",
+      "amount": 5200,
+      "description": "厨师端充值",
+      "type": "income",
+      "timestamp": 1758262802,
+      "date": "2025-09-19 14:20:02"
+    },
+    {
+      "id": "1974d036",
+      "amount": -5200,
+      "description": "单次抽奖-ultimate",
+      "type": "expense",
+      "timestamp": 1758261334,
+      "date": "2025-09-19 13:55:34"
+    },
+    {
+      "id": "b06d20f0",
+      "amount": 5200,
+      "description": "厨师端充值",
+      "type": "income",
+      "timestamp": 1758261323,
+      "date": "2025-09-19 13:55:23"
+    },
+    {
+      "id": "ea2cc6ff",
+      "amount": -520,
+      "description": "单次抽奖-premium",
+      "type": "expense",
+      "timestamp": 1758261307,
+      "date": "2025-09-19 13:55:07"
+    },
+    {
+      "id": "fa574fd9",
+      "amount": 600,
+      "description": "厨师端充值",
+      "type": "income",
+      "timestamp": 1758261301,
+      "date": "2025-09-19 13:55:01"
+    },
+    {
+      "id": "663670ef",
+      "amount": -52,
+      "description": "购买菜品订单",
+      "type": "expense",
+      "timestamp": 1758261291,
+      "date": "2025-09-19 13:54:51"
+    },
+    {
+      "id": "89fd4350",
+      "amount": -520,
+      "description": "单次抽奖-premium",
+      "type": "expense",
+      "timestamp": 1758260069,
+      "date": "2025-09-19 13:34:29"
+    },
+    {
+      "id": "6c1dac1a",
+      "amount": 600,
+      "description": "抽奖奖励-宝宝币奖励",
+      "type": "income",
+      "timestamp": 1758260065,
+      "date": "2025-09-19 13:34:25"
+    },
+    {
+      "id": "a2cd9e8a",
+      "amount": -520,
+      "description": "单次抽奖-premium",
+      "type": "expense",
+      "timestamp": 1758260065,
+      "date": "2025-09-19 13:34:25"
+    },
+    {
+      "id": "1ca7488a",
+      "amount": -520,
+      "description": "单次抽奖-premium",
+      "type": "expense",
+      "timestamp": 1758259606,
+      "date": "2025-09-19 13:26:46"
+    },
+    {
+      "id": "37dd82f2",
+      "amount": 5,
+      "description": "补签奖励(2025-09-18)",
+      "type": "income",
+      "timestamp": 1758259585,
+      "date": "2025-09-19 13:26:25"
+    },
+    {
+      "id": "cc38178e",
+      "amount": 5,
+      "description": "补签奖励(2025-09-15)",
+      "type": "income",
+      "timestamp": 1758259576,
+      "date": "2025-09-19 13:26:16"
+    },
+    {
+      "id": "83bbde7f",
+      "amount": 5,
+      "description": "补签奖励(2025-09-11)",
+      "type": "income",
+      "timestamp": 1758259569,
+      "date": "2025-09-19 13:26:09"
+    },
+    {
+      "id": "9424cf24",
+      "amount": 70,
+      "description": "抽奖奖励-宝宝币奖励",
+      "type": "income",
+      "timestamp": 1758259554,
+      "date": "2025-09-19 13:25:54"
+    },
+    {
+      "id": "861899ea",
+      "amount": 25,
+      "description": "抽奖奖励-宝宝币奖励",
+      "type": "income",
+      "timestamp": 1758259554,
+      "date": "2025-09-19 13:25:54"
+    },
+    {
+      "id": "95d3ccca",
+      "amount": 25,
+      "description": "抽奖奖励-宝宝币奖励",
+      "type": "income",
+      "timestamp": 1758259554,
+      "date": "2025-09-19 13:25:54"
+    },
+    {
+      "id": "eb6c1665",
+      "amount": 25,
+      "description": "抽奖奖励-宝宝币奖励",
+      "type": "income",
+      "timestamp": 1758259554,
+      "date": "2025-09-19 13:25:54"
+    },
+    {
+      "id": "6b9ff4fc",
+      "amount": -10,
+      "description": "抽奖奖励-宝宝币扣除",
+      "type": "expense",
+      "timestamp": 1758259554,
+      "date": "2025-09-19 13:25:54"
+    },
+    {
+      "id": "6be7deec",
+      "amount": 25,
+      "description": "抽奖奖励-宝宝币奖励",
+      "type": "income",
+      "timestamp": 1758259554,
+      "date": "2025-09-19 13:25:54"
+    },
+    {
+      "id": "ab538843",
+      "amount": -520,
+      "description": "十连抽奖-normal",
+      "type": "expense",
+      "timestamp": 1758259554,
+      "date": "2025-09-19 13:25:54"
+    },
+    {
+      "id": "96f27aa4",
+      "amount": -52,
+      "description": "单次抽奖-normal",
+      "type": "expense",
+      "timestamp": 1758259523,
+      "date": "2025-09-19 13:25:23"
+    },
+    {
+      "id": "42f98bc5",
+      "amount": -10,
+      "description": "抽奖奖励-宝宝币扣除",
+      "type": "expense",
+      "timestamp": 1758259516,
+      "date": "2025-09-19 13:25:16"
+    },
+    {
+      "id": "13da5bb4",
+      "amount": -52,
+      "description": "单次抽奖-normal",
+      "type": "expense",
+      "timestamp": 1758259516,
+      "date": "2025-09-19 13:25:16"
+    },
+    {
+      "id": "f34837a1",
+      "amount": 25,
+      "description": "抽奖奖励-宝宝币奖励",
+      "type": "income",
+      "timestamp": 1758259513,
+      "date": "2025-09-19 13:25:13"
+    },
+    {
+      "id": "686adbaf",
+      "amount": -52,
+      "description": "单次抽奖-normal",
+      "type": "expense",
+      "timestamp": 1758259513,
+      "date": "2025-09-19 13:25:13"
+    },
+    {
+      "id": "42e8e7bb",
+      "amount": 25,
+      "description": "抽奖奖励-宝宝币奖励",
+      "type": "income",
+      "timestamp": 1758259509,
+      "date": "2025-09-19 13:25:09"
+    },
+    {
+      "id": "d8e86f29",
+      "amount": -52,
+      "description": "单次抽奖-normal",
+      "type": "expense",
+      "timestamp": 1758259509,
+      "date": "2025-09-19 13:25:09"
+    },
+    {
+      "id": "310bda59",
+      "amount": 5,
+      "description": "每日签到奖励(连续1天)",
+      "type": "income",
+      "timestamp": 1758258688,
+      "date": "2025-09-19 13:11:28"
+    }
+  ],
+  "checkin_consecutive_days": 9,
+  "checkin_dates": [
+    "2025-09-18",
+    "2025-09-19"
+  ],
+  "lottery_attempts": 3,
+  "lottery_attempts_date": "2025-09-19",
+  "lottery_history": [],
+  "coupons": [
+    {
+      "id": "test0001",
+      "type": "discount",
+      "value": 0.9,
+      "description": "连续签到7天奖励",
+      "expires": "2025-10-18",
+      "used": true,
+      "created_date": "2025-09-18",
+      "used_date": "2025-09-19"
+    },
+    {
+      "id": "test0002",
+      "type": "free",
+      "value": 1,
+      "description": "连续签到30天奖励",
+      "expires": "2025-11-18",
+      "used": true,
+      "created_date": "2025-09-18",
+      "used_date": "2025-09-19"
+    },
+    {
+      "id": "6e071905",
+      "type": "discount",
+      "value": 0.8,
+      "description": "8折优惠券",
+      "expires": "2025-10-19",
+      "used": true,
+      "created_date": "2025-09-19",
+      "source": "lottery",
+      "used_date": "2025-09-19"
+    },
+    {
+      "id": "c617fa88",
+      "type": "discount",
+      "value": 0.6,
+      "description": "6折优惠券",
+      "expires": "2025-10-19",
+      "used": true,
+      "created_date": "2025-09-19",
+      "source": "lottery",
+      "used_date": "2025-09-19"
+    },
+    {
+      "id": "5bae412a",
+      "type": "discount",
+      "value": 0.9,
+      "description": "9折优惠券",
+      "expires": "2025-10-19",
+      "used": true,
+      "created_date": "2025-09-19",
+      "source": "treasure_hunt",
+      "used_date": "2025-09-19"
+    },
+    {
+      "id": "3afb729a",
+      "type": "discount",
+      "value": 0.9,
+      "description": "9折优惠券",
+      "expires": "2025-10-19",
+      "used": true,
+      "created_date": "2025-09-19",
+      "source": "treasure_hunt",
+      "used_date": "2025-09-19"
+    },
+    {
+      "id": "3203f89f",
+      "type": "discount",
+      "value": 0.9,
+      "description": "9折优惠券",
+      "expires": "2025-10-19",
+      "used": true,
+      "created_date": "2025-09-19",
+      "source": "treasure_hunt",
+      "used_date": "2025-09-19"
+    },
+    {
+      "id": "10c508f0",
+      "type": "discount",
+      "value": 0.9,
+      "description": "9折优惠券",
+      "expires": "2025-10-19",
+      "used": true,
+      "created_date": "2025-09-19",
+      "source": "treasure_hunt",
+      "used_date": "2025-09-19"
+    },
+    {
+      "id": "83e0508d",
+      "type": "discount",
+      "value": 0.9,
+      "description": "9折优惠券",
+      "expires": "2025-10-19",
+      "used": true,
+      "created_date": "2025-09-19",
+      "source": "treasure_hunt",
+      "used_date": "2025-09-19"
+    },
+    {
+      "id": "551ddb30",
+      "type": "discount",
+      "value": 0.9,
+      "description": "九折优惠券",
+      "expires": "2025-10-19",
+      "used": true,
+      "created_date": "2025-09-19",
+      "source": "lottery",
+      "used_date": "2025-09-19"
+    },
+    {
+      "id": "a6599acb",
+      "type": "free",
+      "value": 1.0,
+      "description": "免单券",
+      "expires": "2025-10-19",
+      "used": true,
+      "created_date": "2025-09-19",
+      "source": "lottery",
+      "used_date": "2025-09-19"
+    },
+    {
+      "id": "8e20e2a9",
+      "type": "discount",
+      "value": 0.9,
+      "description": "9折优惠券",
+      "expires": "2025-10-19",
+      "used": true,
+      "created_date": "2025-09-19",
+      "source": "treasure_hunt",
+      "used_date": "2025-09-19"
+    },
+    {
+      "id": "b8633207",
+      "type": "discount",
+      "value": 0.9,
+      "description": "九折优惠券",
+      "expires": "2025-10-19",
+      "used": true,
+      "created_date": "2025-09-19",
+      "source": "lottery",
+      "used_date": "2025-09-20"
+    },
+    {
+      "id": "32df0838",
+      "type": "discount",
+      "value": 0.9,
+      "description": "九折优惠券",
+      "expires": "2025-10-19",
+      "used": false,
+      "created_date": "2025-09-19",
+      "source": "lottery"
+    },
+    {
+      "id": "584143ce",
+      "type": "discount",
+      "value": 0.9,
+      "description": "九折优惠券",
+      "expires": "2025-10-19",
+      "used": false,
+      "created_date": "2025-09-19",
+      "source": "lottery"
+    },
+    {
+      "id": "7b40066b",
+      "type": "discount",
+      "value": 0.9,
+      "description": "九折优惠券",
+      "expires": "2025-10-19",
+      "used": false,
+      "created_date": "2025-09-19",
+      "source": "lottery"
+    },
+    {
+      "id": "67504bf2",
+      "type": "free",
+      "value": 1.0,
+      "description": "免单券",
+      "expires": "2025-10-19",
+      "used": false,
+      "created_date": "2025-09-19",
+      "source": "lottery"
+    },
+    {
+      "id": "5bf99394",
+      "type": "free",
+      "value": 1.0,
+      "description": "免单券",
+      "expires": "2025-10-19",
+      "used": false,
+      "created_date": "2025-09-19",
+      "source": "lottery"
+    },
+    {
+      "id": "0669fd17",
+      "type": "free",
+      "value": 1.0,
+      "description": "免单券",
+      "expires": "2025-10-19",
+      "used": false,
+      "created_date": "2025-09-19",
+      "source": "lottery"
+    },
+    {
+      "id": "6dc64786",
+      "type": "free",
+      "value": 1.0,
+      "description": "免单券",
+      "expires": "2025-10-19",
+      "used": false,
+      "created_date": "2025-09-19",
+      "source": "lottery"
+    },
+    {
+      "id": "bc218156",
+      "type": "free",
+      "value": 1.0,
+      "description": "免单券",
+      "expires": "2025-10-19",
+      "used": false,
+      "created_date": "2025-09-19",
+      "source": "lottery"
+    },
+    {
+      "id": "d0158b8d",
+      "type": "free",
+      "value": 1.0,
+      "description": "免单券",
+      "expires": "2025-10-19",
+      "used": false,
+      "created_date": "2025-09-19",
+      "source": "lottery"
+    },
+    {
+      "id": "d63eb969",
+      "type": "free",
+      "value": 1.0,
+      "description": "免单券",
+      "expires": "2025-10-19",
+      "used": false,
+      "created_date": "2025-09-19",
+      "source": "lottery"
+    },
+    {
+      "id": "f69b0962",
+      "type": "discount",
+      "value": 0.9,
+      "description": "九折优惠券",
+      "expires": "2025-10-20",
+      "used": false,
+      "created_date": "2025-09-20",
+      "source": "lottery"
+    },
+    {
+      "id": "fc84c768",
+      "type": "discount",
+      "value": 0.9,
+      "description": "九折优惠券",
+      "expires": "2025-10-20",
+      "used": false,
+      "created_date": "2025-09-20",
+      "source": "lottery"
+    },
+    {
+      "id": "d3cfb06b",
+      "type": "discount",
+      "value": 0.9,
+      "description": "九折优惠券",
+      "expires": "2025-10-20",
+      "used": false,
+      "created_date": "2025-09-20",
+      "source": "lottery"
+    },
+    {
+      "id": "5b5493ae",
+      "type": "discount",
+      "value": 0.9,
+      "description": "九折优惠券",
+      "expires": "2025-10-20",
+      "used": false,
+      "created_date": "2025-09-20",
+      "source": "lottery"
+    },
+    {
+      "id": "871f3ac8",
+      "type": "discount",
+      "value": 0.9,
+      "description": "九折优惠券",
+      "expires": "2025-10-20",
+      "used": false,
+      "created_date": "2025-09-20",
+      "source": "lottery"
+    },
+    {
+      "id": "3d42258b",
+      "type": "discount",
+      "value": 0.9,
+      "description": "九折优惠券",
+      "expires": "2025-10-20",
+      "used": false,
+      "created_date": "2025-09-20",
+      "source": "lottery"
+    },
+    {
+      "id": "ff3af02f",
+      "type": "discount",
+      "value": 0.9,
+      "description": "九折优惠券",
+      "expires": "2025-10-20",
+      "used": false,
+      "created_date": "2025-09-20",
+      "source": "lottery"
+    },
+    {
+      "id": "8091a909",
+      "type": "discount",
+      "value": 0.9,
+      "description": "九折优惠券",
+      "expires": "2025-10-20",
+      "used": false,
+      "created_date": "2025-09-20",
+      "source": "lottery"
+    },
+    {
+      "id": "37167f51",
+      "type": "discount",
+      "value": 0.9,
+      "description": "九折优惠券",
+      "expires": "2025-10-20",
+      "used": false,
+      "created_date": "2025-09-20",
+      "source": "lottery"
+    }
+  ],
+  "guess_game_attempts": 0,
+  "guess_game_date": "2025-09-19",
+  "guess_game_history": {
+    "2025-09-19": {
+      "games_played": 6,
+      "total_reward": 726
+    }
+  },
+  "inventory": [],
+  "make_up_cards": 0,
+  "extra_game_chances": 2,
+  "daily_questionnaire_completed": {
+    "2025-09-19": true
+  },
+  "optimism_streak": 1,
+  "check_in_history": {
+    "2025-09-19": 5,
+    "2025-09-11": 5,
+    "2025-09-15": 5,
+    "2025-09-18": 5,
+    "2025-09-20": 10
+  },
+  "consecutive_days": 2,
+  "total_check_ins": 5,
+  "daily_guess_games": 0,
+  "last_game_date": "2025-09-20",
+  "treasure_hunt": {
+    "current_position": 37,
+    "map_rewards": [
+      -34,
+      0,
+      72,
+      -2,
+      114,
+      -37,
+      -25,
+      76,
+      107,
+      -32,
+      -19,
+      -13,
+      -11,
+      53,
+      94,
+      10,
+      -520,
+      77,
+      79,
+      0,
+      69,
+      68,
+      -51,
+      101,
+      37,
+      44,
+      86,
+      94,
+      -7,
+      17,
+      80,
+      -52,
+      23,
+      -14,
+      85,
+      63,
+      95,
+      1314,
+      9,
+      87,
+      27,
+      -14,
+      -46,
+      117,
+      -1,
+      -2,
+      40,
+      -26,
+      -23,
+      117
+    ],
+    "completed_rounds": 8,
+    "total_earned": 5675,
+    "last_reset_date": "2025-09-19",
+    "completion_rewards_claimed": [
+      {
+        "reward": {
+          "type": "coupon",
+          "value": 0.9,
+          "name": "9折优惠券",
+          "description": "获得9折优惠券"
+        },
+        "claimed_date": "2025-09-19 15:43:43"
+      },
+      {
+        "reward": {
+          "type": "coupon",
+          "value": 0.9,
+          "name": "9折优惠券",
+          "description": "获得9折优惠券"
+        },
+        "claimed_date": "2025-09-19 16:04:43"
+      },
+      {
+        "reward": {
+          "type": "coupon",
+          "value": 0.9,
+          "name": "9折优惠券",
+          "description": "获得9折优惠券"
+        },
+        "claimed_date": "2025-09-19 16:04:46"
+      },
+      {
+        "reward": {
+          "type": "balance",
+          "value": 520,
+          "name": "宝宝币大奖",
+          "description": "获得520个宝宝币"
+        },
+        "claimed_date": "2025-09-19 16:33:28"
+      },
+      {
+        "reward": {
+          "type": "physical_item",
+          "value": "milk_tea_card",
+          "name": "奶茶卡",
+          "description": "一杯奶茶卡（实物）"
+        },
+        "claimed_date": "2025-09-19 16:33:30"
+      },
+      {
+        "reward": {
+          "type": "coupon",
+          "value": 0.9,
+          "name": "9折优惠券",
+          "description": "获得9折优惠券"
+        },
+        "claimed_date": "2025-09-19 17:27:46"
+      },
+      {
+        "reward": {
+          "type": "coupon",
+          "value": 0.9,
+          "name": "9折优惠券",
+          "description": "获得9折优惠券"
+        },
+        "claimed_date": "2025-09-19 17:27:48"
+      },
+      {
+        "reward": {
+          "type": "coupon",
+          "value": 0.9,
+          "name": "9折优惠券",
+          "description": "获得9折优惠券"
+        },
+        "claimed_date": "2025-09-19 23:30:22"
+      }
+    ],
+    "special_types": [
+      "normal",
+      "normal",
+      "normal",
+      "normal",
+      "normal",
+      "normal",
+      "normal",
+      "normal",
+      "normal",
+      "normal",
+      "normal",
+      "normal",
+      "normal",
+      "normal",
+      "normal",
+      "normal",
+      "crack",
+      "normal",
+      "normal",
+      "normal",
+      "normal",
+      "normal",
+      "normal",
+      "normal",
+      "normal",
+      "normal",
+      "normal",
+      "normal",
+      "normal",
+      "normal",
+      "normal",
+      "normal",
+      "normal",
+      "normal",
+      "normal",
+      "normal",
+      "normal",
+      "treasure",
+      "normal",
+      "normal",
+      "normal",
+      "normal",
+      "normal",
+      "normal",
+      "normal",
+      "normal",
+      "normal",
+      "normal",
+      "normal",
+      "normal"
+    ]
+  },
+  "medicine_streak": 0,
+  "checkin_streak": 0,
+  "exercise_streak": 0,
+  "farm": {
+    "seeds_inventory": {},
+    "planted_crops": [],
+    "last_farm_visit": null,
+    "farm_slots": 6,
+    "fertilizer": 0,
+    "daily_poop_count": 1,
+    "last_poop_date": "2025-09-20"
+  }
+}

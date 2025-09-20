@@ -67,19 +67,7 @@ instance/
 .webassets-cache
 
 # 订单文件（如果包含敏感信息）
-orders/
 web/orders/*.json
-
-# 用户数据文件（部署时会重新生成）
-web/user_data.json
-web/user_data.json.backup
-web/questionnaire_responses.json
-
-# 测试和调试文件
-web/test_*.py
-web/debug_*.py
-web/clear_*.py
-web/utils.py
 
 # 上传的临时文件
 uploads/
