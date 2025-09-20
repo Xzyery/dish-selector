@@ -27,6 +27,9 @@
                         <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#balanceModal">
                             <i class="fas fa-wallet me-1"></i>管理余额
                         </button>
+                        <button class="btn btn-success ms-2" data-bs-toggle="modal" data-bs-target="#couponModal">
+                            <i class="fas fa-ticket-alt me-1"></i>管理优惠券
+                        </button>
                         <button class="btn btn-warning ms-2" onclick="resetQuestionnaire()">
                             <i class="fas fa-redo me-1"></i>重置问卷
                         </button>
@@ -550,6 +553,114 @@
                         <i class="fas fa-save me-1"></i>确认操作
                     </button>
                 </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 优惠券管理模态框 -->
+<div class="modal fade" id="couponModal" tabindex="-1" aria-labelledby="couponModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-success text-white">
+                <h5 class="modal-title" id="couponModalLabel">
+                    <i class="fas fa-ticket-alt me-2"></i>客户优惠券管理
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <!-- 优惠券操作选择 -->
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <div class="card border-success">
+                            <div class="card-body text-center">
+                                <h5 class="card-title text-success">
+                                    <i class="fas fa-plus-circle me-2"></i>添加优惠券
+                                </h5>
+                                <button class="btn btn-success" onclick="showAddCouponForm()">
+                                    <i class="fas fa-gift me-1"></i>添加新优惠券
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card border-danger">
+                            <div class="card-body text-center">
+                                <h5 class="card-title text-danger">
+                                    <i class="fas fa-trash-alt me-2"></i>清空优惠券
+                                </h5>
+                                <button class="btn btn-danger" onclick="clearAllCoupons()">
+                                    <i class="fas fa-times-circle me-1"></i>清空所有优惠券
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 添加优惠券表单 -->
+                <div id="addCouponForm" style="display: none;">
+                    <div class="card">
+                        <div class="card-header bg-light">
+                            <h6 class="mb-0">
+                                <i class="fas fa-plus me-2"></i>添加新优惠券
+                            </h6>
+                        </div>
+                        <div class="card-body">
+                            <form id="couponForm">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="couponType" class="form-label">优惠券类型</label>
+                                            <select class="form-select" id="couponType" required>
+                                                <option value="">请选择类型</option>
+                                                <option value="discount">折扣券</option>
+                                                <option value="free">免单券</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3" id="discountValueDiv" style="display: none;">
+                                            <label for="discountValue" class="form-label">折扣比例</label>
+                                            <select class="form-select" id="discountValue">
+                                                <option value="0.5">5折</option>
+                                                <option value="0.6">6折</option>
+                                                <option value="0.8">8折</option>
+                                                <option value="0.9">9折</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="couponQuantity" class="form-label">数量</label>
+                                            <input type="number" class="form-control" id="couponQuantity" 
+                                                   min="1" max="10" value="1" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="expiryDays" class="form-label">有效期（天）</label>
+                                            <input type="number" class="form-control" id="expiryDays" 
+                                                   min="1" max="365" value="30" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="d-flex gap-2">
+                                    <button type="button" class="btn btn-success" onclick="addCoupons()">
+                                        <i class="fas fa-plus me-1"></i>添加优惠券
+                                    </button>
+                                    <button type="button" class="btn btn-secondary" onclick="hideAddCouponForm()">
+                                        <i class="fas fa-times me-1"></i>取消
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 操作结果显示 -->
+                <div id="couponOperationResult" class="mt-3" style="display: none;"></div>
             </div>
         </div>
     </div>
@@ -1211,6 +1322,146 @@ function deleteSeed(seedId) {
     .catch(error => {
         console.error('Error:', error);
         alert('删除失败');
+    });
+}
+
+// 优惠券管理相关函数
+function showAddCouponForm() {
+    document.getElementById('addCouponForm').style.display = 'block';
+    document.getElementById('couponOperationResult').style.display = 'none';
+}
+
+function hideAddCouponForm() {
+    document.getElementById('addCouponForm').style.display = 'none';
+    document.getElementById('couponForm').reset();
+    document.getElementById('discountValueDiv').style.display = 'none';
+}
+
+// 监听优惠券类型变化
+document.addEventListener('DOMContentLoaded', function() {
+    const couponTypeSelect = document.getElementById('couponType');
+    if (couponTypeSelect) {
+        couponTypeSelect.addEventListener('change', function() {
+            const discountValueDiv = document.getElementById('discountValueDiv');
+            if (this.value === 'discount') {
+                discountValueDiv.style.display = 'block';
+            } else {
+                discountValueDiv.style.display = 'none';
+            }
+        });
+    }
+});
+
+function addCoupons() {
+    const type = document.getElementById('couponType').value;
+    const quantity = parseInt(document.getElementById('couponQuantity').value);
+    const expiryDays = parseInt(document.getElementById('expiryDays').value);
+    
+    if (!type || !quantity || !expiryDays) {
+        alert('请填写完整信息');
+        return;
+    }
+    
+    let value = 1.0;
+    if (type === 'discount') {
+        value = parseFloat(document.getElementById('discountValue').value);
+        if (!value) {
+            alert('请选择折扣比例');
+            return;
+        }
+    }
+    
+    const requestData = {
+        type: type,
+        value: value,
+        quantity: quantity,
+        expiry_days: expiryDays
+    };
+    
+    fetch('/chef/add_coupons', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(requestData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        const resultDiv = document.getElementById('couponOperationResult');
+        if (data.success) {
+            resultDiv.innerHTML = `
+                <div class="alert alert-success">
+                    <i class="fas fa-check-circle me-2"></i>
+                    ${data.message}
+                </div>
+            `;
+            hideAddCouponForm();
+        } else {
+            resultDiv.innerHTML = `
+                <div class="alert alert-danger">
+                    <i class="fas fa-exclamation-circle me-2"></i>
+                    ${data.message}
+                </div>
+            `;
+        }
+        resultDiv.style.display = 'block';
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        const resultDiv = document.getElementById('couponOperationResult');
+        resultDiv.innerHTML = `
+            <div class="alert alert-danger">
+                <i class="fas fa-exclamation-circle me-2"></i>
+                操作失败，请重试
+            </div>
+        `;
+        resultDiv.style.display = 'block';
+    });
+}
+
+function clearAllCoupons() {
+    if (!confirm('确定要清空所有优惠券吗？此操作无法撤销！')) {
+        return;
+    }
+    
+    fetch('/chef/clear_all_coupons', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({})
+    })
+    .then(response => response.json())
+    .then(data => {
+        const resultDiv = document.getElementById('couponOperationResult');
+        if (data.success) {
+            resultDiv.innerHTML = `
+                <div class="alert alert-success">
+                    <i class="fas fa-check-circle me-2"></i>
+                    ${data.message}
+                </div>
+            `;
+        } else {
+            resultDiv.innerHTML = `
+                <div class="alert alert-danger">
+                    <i class="fas fa-exclamation-circle me-2"></i>
+                    ${data.message}
+                </div>
+            `;
+        }
+        resultDiv.style.display = 'block';
+        hideAddCouponForm();
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        const resultDiv = document.getElementById('couponOperationResult');
+        resultDiv.innerHTML = `
+            <div class="alert alert-danger">
+                <i class="fas fa-exclamation-circle me-2"></i>
+                操作失败，请重试
+            </div>
+        `;
+        resultDiv.style.display = 'block';
     });
 }
 </script>

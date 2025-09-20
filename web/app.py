@@ -2341,6 +2341,26 @@ def delete_inventory_item():
         item_to_delete = inventory[item_index]
         item_name = item_to_delete.get('name', '未知物品')
         
+        # 如果是优惠券，同时从coupons列表中删除对应的优惠券
+        if item_to_delete.get('type') == 'coupon':
+            coupon_id = item_to_delete.get('coupon_id')
+            if coupon_id:
+                # 通过coupon_id找到并删除对应的优惠券
+                user_data['coupons'] = [c for c in user_data['coupons'] if c.get('id') != coupon_id]
+            else:
+                # 如果没有coupon_id，尝试通过名称匹配删除第一个未使用的同类型优惠券
+                coupon_name = item_to_delete.get('name', '')
+                for i, coupon in enumerate(user_data.get('coupons', [])):
+                    if not coupon.get('used', False):
+                        # 根据优惠券名称匹配
+                        if ((coupon_name == '6折优惠券' and coupon.get('value') == 0.6) or
+                            (coupon_name == '8折优惠券' and coupon.get('value') == 0.8) or
+                            (coupon_name == '9折优惠券' and coupon.get('value') == 0.9) or
+                            (coupon_name == '5折优惠券' and coupon.get('value') == 0.5) or
+                            (coupon_name == '免费优惠券' and coupon.get('type') == 'free')):
+                            user_data['coupons'].pop(i)
+                            break
+        
         # 删除物品
         del inventory[item_index]
         
@@ -2935,6 +2955,101 @@ def delete_seed():
         return jsonify({
             'success': False,
             'message': str(e)
+        })
+
+@app.route('/chef/add_coupons', methods=['POST'])
+def chef_add_coupons():
+    """厨师端添加优惠券"""
+    try:
+        data = request.get_json()
+        coupon_type = data.get('type')
+        value = data.get('value', 1.0)
+        quantity = data.get('quantity', 1)
+        expiry_days = data.get('expiry_days', 30)
+        
+        if coupon_type not in ['discount', 'free']:
+            return jsonify({'success': False, 'message': '无效的优惠券类型'})
+        
+        if quantity < 1 or quantity > 10:
+            return jsonify({'success': False, 'message': '优惠券数量必须在1-10之间'})
+        
+        user_data = load_user_data()
+        
+        # 生成优惠券
+        added_count = 0
+        for i in range(quantity):
+            # 创建优惠券
+            coupon_id = str(uuid.uuid4())[:8]
+            expires = (datetime.now() + timedelta(days=expiry_days)).strftime('%Y-%m-%d')
+            
+            coupon = {
+                'id': coupon_id,
+                'type': coupon_type,
+                'value': value,
+                'description': '厨师端发放' + ('免单券' if coupon_type == 'free' else f'{int(value*10)}折优惠券'),
+                'expires': expires,
+                'used': False,
+                'created_date': datetime.now().strftime('%Y-%m-%d'),
+                'source': 'chef'
+            }
+            
+            # 添加到优惠券列表
+            user_data['coupons'].append(coupon)
+            
+            # 添加到背包
+            coupon_name = '免费优惠券' if coupon_type == 'free' else f'{int(value*10)}折优惠券'
+            add_item_to_inventory(user_data, {
+                'type': 'coupon',
+                'name': coupon_name,
+                'description': f'厨师端发放的{coupon_name}，有效期至{expires}',
+                'category': 'discount_item',
+                'coupon_id': coupon_id
+            })
+            
+            added_count += 1
+        
+        save_user_data(user_data)
+        
+        coupon_name = '免单券' if coupon_type == 'free' else f'{int(value*10)}折优惠券'
+        return jsonify({
+            'success': True,
+            'message': f'成功添加 {added_count} 张{coupon_name}！'
+        })
+        
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'message': f'添加优惠券失败: {str(e)}'
+        })
+
+@app.route('/chef/clear_all_coupons', methods=['POST'])
+def chef_clear_all_coupons():
+    """厨师端清空所有优惠券"""
+    try:
+        user_data = load_user_data()
+        
+        # 统计清空前的优惠券数量
+        total_coupons = len(user_data.get('coupons', []))
+        
+        # 清空优惠券列表
+        user_data['coupons'] = []
+        
+        # 从背包中移除所有优惠券类型的物品
+        original_inventory_count = len(user_data.get('inventory', []))
+        user_data['inventory'] = [item for item in user_data.get('inventory', []) if item.get('type') != 'coupon']
+        removed_inventory_items = original_inventory_count - len(user_data['inventory'])
+        
+        save_user_data(user_data)
+        
+        return jsonify({
+            'success': True,
+            'message': f'成功清空 {total_coupons} 张优惠券！同时从背包中移除了 {removed_inventory_items} 个相关物品。'
+        })
+        
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'message': f'清空优惠券失败: {str(e)}'
         })
 
 if __name__ == '__main__':
