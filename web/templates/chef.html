@@ -13,15 +13,48 @@
                         <i class="fas fa-chef-hat text-success me-3"></i>
                         厨师管理端
                     </h1>
+                    <div class="chef-info d-flex align-items-center gap-3">
+                        <div class="balance-display">
+                            <div class="card bg-warning text-dark">
+                                <div class="card-body text-center py-2">
+                                    <h6 class="mb-0">
+                                        <i class="fas fa-coins me-1"></i>
+                                        客户余额: {{ user_balance }} 宝宝币
+                                    </h6>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#balanceModal">
+                            <i class="fas fa-wallet me-1"></i>管理余额
+                        </button>
+                        <button class="btn btn-warning ms-2" onclick="resetQuestionnaire()">
+                            <i class="fas fa-redo me-1"></i>重置问卷
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="d-flex justify-content-between align-items-center">
                     <div class="chef-actions">
                         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addDishModal">
                             <i class="fas fa-plus me-2"></i>添加菜品
                         </button>
-                        <button class="btn btn-info ms-2" onclick="generateCustomerLink()">
-                            <i class="fas fa-link me-2"></i>生成客户链接
+                        <button class="btn btn-success ms-2" data-bs-toggle="modal" data-bs-target="#batchAddDishModal">
+                            <i class="fas fa-layer-group me-2"></i>批量添加
+                        </button>
+                        <button class="btn btn-info ms-2" data-bs-toggle="modal" data-bs-target="#seedStoreModal">
+                            <i class="fas fa-seedling me-2"></i>种子商店管理
                         </button>
                         <button class="btn btn-outline-secondary ms-2" onclick="refreshOrders()">
                             <i class="fas fa-sync-alt me-2"></i>刷新订单
+                        </button>
+                    </div>
+                    <div class="questionnaire-actions">
+                        <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#questionnaireModal">
+                            <i class="fas fa-clipboard-list me-2"></i>查看问卷
                         </button>
                     </div>
                 </div>
@@ -55,6 +88,10 @@
                                                 <div class="card-body py-2">
                                                     <h6 class="card-title mb-1">{{ dish.name }}</h6>
                                                     <p class="card-text">
+                                                        <span class="badge bg-warning text-dark">
+                                                            <i class="fas fa-coins me-1"></i>{{ dish.price | default(52) }} 宝宝币
+                                                        </span>
+                                                        <br>
                                                         <small class="text-muted">编号: {{ loop.index }}</small>
                                                     </p>
                                                     <form method="POST" action="{{ url_for('delete_dish') }}" class="d-inline">
@@ -114,26 +151,67 @@
                                             
                                             <div class="order-dishes mb-3">
                                                 <h6 class="mb-2">
-                                                    <i class="fas fa-list me-1"></i>点餐详情:
+                                                    <i class="fas fa-list me-1"></i>
+                                                    {% if order.source == 'inventory' %}
+                                                        使用物品详情:
+                                                    {% else %}
+                                                        点餐详情:
+                                                    {% endif %}
                                                 </h6>
-                                                {% set dish_counts = {} %}
-                                                {% for dish in order.dishes %}
-                                                    {% if dish_counts.update({dish: dish_counts.get(dish, 0) + 1}) %}{% endif %}
-                                                {% endfor %}
                                                 
-                                                <ul class="list-unstyled mb-0">
-                                                    {% for dish, count in dish_counts.items() %}
-                                                    <li class="mb-1">
-                                                        <span class="badge bg-light text-dark me-2">{{ count }}</span>
-                                                        {{ dish }}
-                                                    </li>
+                                                {% if order.source == 'inventory' and order.get('items') and order.get('items')|length > 0 %}
+                                                    <!-- 显示背包物品使用详情 -->
+                                                    <ul class="list-unstyled mb-0">
+                                                        {% for item in order.get('items', []) %}
+                                                        <li class="mb-1">
+                                                            <span class="badge bg-info text-white me-2">{{ item.quantity }}</span>
+                                                            <strong>{{ item.name }}</strong>
+                                                            {% if item.description %}
+                                                                <br><small class="text-muted">{{ item.description }}</small>
+                                                            {% endif %}
+                                                            <span class="badge bg-success ms-2">来源: 背包物品</span>
+                                                        </li>
+                                                        {% endfor %}
+                                                    </ul>
+                                                    <div class="mt-2">
+                                                        <small class="text-muted">
+                                                            支付方式: {{ order.payment_method if order.payment_method else '免费' }}
+                                                        </small>
+                                                    </div>
+                                                {% elif order.dishes and order.dishes|length > 0 %}
+                                                    <!-- 显示普通点餐详情 -->
+                                                    {% set dish_counts = {} %}
+                                                    {% for dish in order.dishes %}
+                                                        {% if dish_counts.update({dish: dish_counts.get(dish, 0) + 1}) %}{% endif %}
                                                     {% endfor %}
-                                                </ul>
-                                                <div class="mt-2">
-                                                    <small class="text-muted">
-                                                        总计: {{ order.dishes|length }} 道菜
-                                                    </small>
-                                                </div>
+                                                    
+                                                    <ul class="list-unstyled mb-0">
+                                                        {% for dish, count in dish_counts.items() %}
+                                                        <li class="mb-1">
+                                                            <span class="badge bg-light text-dark me-2">{{ count }}</span>
+                                                            {{ dish }}
+                                                        </li>
+                                                        {% endfor %}
+                                                    </ul>
+                                                    <div class="mt-2">
+                                                        <small class="text-muted">
+                                                            {% if order.dishes %}
+                                                                总计: {{ order.dishes|length }} 道菜
+                                                            {% elif order.get('items') %}
+                                                                总计: {{ order.get('items')|length }} 件物品
+                                                            {% endif %}
+                                                            {% if order.coupon_used %}
+                                                                | 使用优惠券: {{ order.coupon_used }}
+                                                            {% endif %}
+                                                        </small>
+                                                    </div>
+                                                {% else %}
+                                                    <!-- 没有dishes或items的情况 -->
+                                                    <div class="alert alert-warning">
+                                                        <i class="fas fa-exclamation-triangle me-1"></i>
+                                                        订单数据异常，请检查订单详情
+                                                    </div>
+                                                {% endif %}
                                             </div>
                                             
                                             <form method="POST" action="{{ url_for('complete_order') }}" class="d-inline">
@@ -163,6 +241,187 @@
     </div>
 </div>
 
+<!-- 批量添加菜品模态框 -->
+<div class="modal fade" id="batchAddDishModal" tabindex="-1" aria-labelledby="batchAddDishModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header bg-success text-white">
+                <h5 class="modal-title" id="batchAddDishModalLabel">
+                    <i class="fas fa-layer-group me-2"></i>批量添加菜品
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <form method="POST" action="{{ url_for('batch_add_dishes') }}" enctype="multipart/form-data" id="batchAddForm">
+                <div class="modal-body">
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            <div class="alert alert-info">
+                                <i class="fas fa-info-circle me-2"></i>
+                                <strong>批量添加说明：</strong>一次可以添加多道菜品，每道菜品需要填写名称和上传图片。
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="dishItems">
+                        <!-- 初始菜品项 -->
+                        <div class="dish-item border rounded p-3 mb-3" data-index="0">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <h6 class="mb-0">
+                                    <i class="fas fa-utensils me-1"></i>菜品 #1
+                                </h6>
+                                <button type="button" class="btn btn-outline-danger btn-sm" onclick="removeDishItem(0)" style="display: none;">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label class="form-label">
+                                        菜品名称 <span class="text-danger">*</span>
+                                    </label>
+                                    <input type="text" class="form-control" name="dish_names[]" required 
+                                           placeholder="请输入菜品名称">
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="form-label">
+                                        价格 (宝宝币)
+                                    </label>
+                                    <input type="number" class="form-control" name="dish_prices[]" 
+                                           value="52" min="0" placeholder="52">
+                                </div>
+                                <div class="col-md-5">
+                                    <label class="form-label">
+                                        菜品图片 <span class="text-danger">*</span>
+                                    </label>
+                                    <input type="file" class="form-control" name="dish_images[]" 
+                                           accept="image/*" required onchange="previewBatchImage(this, 0)">
+                                </div>
+                            </div>
+                            
+                            <div class="row mt-2">
+                                <div class="col-12">
+                                    <div class="image-preview" id="batchPreview_0" style="display: none;">
+                                        <img src="" alt="预览图" class="img-fluid rounded border" style="max-height: 150px;">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center">
+                        <button type="button" class="btn btn-outline-primary" onclick="addDishItem()">
+                            <i class="fas fa-plus me-2"></i>添加更多菜品
+                        </button>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <i class="fas fa-times me-1"></i>取消
+                    </button>
+                    <button type="submit" class="btn btn-success">
+                        <i class="fas fa-save me-1"></i>批量保存
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- 种子商店管理模态框 -->
+<div class="modal fade" id="seedStoreModal" tabindex="-1" aria-labelledby="seedStoreModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header bg-info text-white">
+                <h5 class="modal-title" id="seedStoreModalLabel">
+                    <i class="fas fa-seedling me-2"></i>种子商店管理
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row mb-3">
+                    <div class="col-12">
+                        <button class="btn btn-success" onclick="showAddSeedForm()">
+                            <i class="fas fa-plus me-2"></i>添加新种子
+                        </button>
+                        <button class="btn btn-primary ms-2" onclick="loadSeedStore()">
+                            <i class="fas fa-sync-alt me-2"></i>刷新
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- 添加种子表单 -->
+                <div id="addSeedForm" style="display: none;" class="border rounded p-3 mb-3 bg-light">
+                    <h6><i class="fas fa-plus me-2"></i>添加新种子</h6>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label class="form-label">种子ID</label>
+                            <input type="text" id="seedId" class="form-control" placeholder="如: carrot_seed">
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label">种子名称</label>
+                            <input type="text" id="seedName" class="form-control" placeholder="如: 胡萝卜种子">
+                        </div>
+                        <div class="col-md-2">
+                            <label class="form-label">价格(宝宝币)</label>
+                            <input type="number" id="seedPrice" class="form-control" min="1" value="10">
+                        </div>
+                        <div class="col-md-2">
+                            <label class="form-label">浇水次数</label>
+                            <input type="number" id="waterCount" class="form-control" min="1" value="1">
+                        </div>
+                        <div class="col-md-2">
+                            <label class="form-label">施肥次数</label>
+                            <input type="number" id="fertilizerCount" class="form-control" min="1" value="1">
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-4">
+                            <label class="form-label">种子描述</label>
+                            <input type="text" id="seedDescription" class="form-control" placeholder="种子的详细描述">
+                        </div>
+                        <div class="col-md-2">
+                            <label class="form-label">图标</label>
+                            <input type="text" id="seedIcon" class="form-control" placeholder="🌱" value="🌱">
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label">果实名称</label>
+                            <input type="text" id="harvestName" class="form-control" placeholder="如: 新鲜胡萝卜">
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label">果实描述</label>
+                            <input type="text" id="harvestDescription" class="form-control" placeholder="果实描述">
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <button class="btn btn-success" onclick="saveSeed()">
+                                <i class="fas fa-save me-2"></i>保存种子
+                            </button>
+                            <button class="btn btn-secondary ms-2" onclick="hideAddSeedForm()">
+                                <i class="fas fa-times me-2"></i>取消
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 种子列表 -->
+                <div id="seedsList">
+                    <div class="text-center">
+                        <button class="btn btn-outline-primary" onclick="loadSeedStore()">
+                            <i class="fas fa-seedling me-2"></i>点击加载种子商店
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <i class="fas fa-times me-1"></i>关闭
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- 添加菜品模态框 -->
 <div class="modal fade" id="addDishModal" tabindex="-1" aria-labelledby="addDishModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -181,6 +440,15 @@
                         </label>
                         <input type="text" class="form-control" id="dish_name" name="dish_name" required 
                                placeholder="请输入菜品名称">
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="dish_price" class="form-label">
+                            <i class="fas fa-coins me-1"></i>菜品价格 (宝宝币)
+                        </label>
+                        <input type="number" class="form-control" id="dish_price" name="dish_price" 
+                               value="52" min="0" placeholder="请输入价格">
+                        <div class="form-text">默认价格为52宝宝币</div>
                     </div>
                     
                     <div class="mb-3">
@@ -240,10 +508,127 @@
         </div>
     </div>
 </div>
+
+<!-- 余额管理模态框 -->
+<div class="modal fade" id="balanceModal" tabindex="-1" aria-labelledby="balanceModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-warning text-dark">
+                <h5 class="modal-title" id="balanceModalLabel">
+                    <i class="fas fa-wallet me-2"></i>客户宝宝币管理
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="current-balance mb-3">
+                    <h6>当前余额：<span class="text-warning">{{ user_balance }} 宝宝币</span></h6>
+                </div>
+                
+                <form method="POST" action="{{ url_for('update_balance') }}">
+                    <div class="mb-3">
+                        <label for="amount" class="form-label">操作金额</label>
+                        <input type="number" class="form-control" id="amount" name="amount" 
+                               min="1" required placeholder="请输入金额">
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">操作类型</label>
+                        <div class="btn-group w-100" role="group">
+                            <input type="radio" class="btn-check" name="action" id="add_balance" value="add" required>
+                            <label class="btn btn-outline-success" for="add_balance">
+                                <i class="fas fa-plus me-1"></i>增加余额
+                            </label>
+                            
+                            <input type="radio" class="btn-check" name="action" id="subtract_balance" value="subtract" required>
+                            <label class="btn btn-outline-danger" for="subtract_balance">
+                                <i class="fas fa-minus me-1"></i>扣除余额
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary w-100">
+                        <i class="fas fa-save me-1"></i>确认操作
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 问卷查看模态框 -->
+<div class="modal fade" id="questionnaireModal" tabindex="-1" aria-labelledby="questionnaireModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header bg-warning text-dark">
+                <h5 class="modal-title" id="questionnaireModalLabel">
+                    <i class="fas fa-clipboard-list me-2"></i>客户问卷回答记录
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body" style="max-height: 70vh; overflow-y: auto;">
+                {% if questionnaire_responses %}
+                    {% for response in questionnaire_responses %}
+                    <div class="questionnaire-response mb-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h6 class="mb-0">
+                                    <i class="fas fa-calendar me-1"></i>
+                                    {{ response.date }} 
+                                    <span class="badge bg-success ms-2">
+                                        <i class="fas fa-coins me-1"></i>
+                                        +{{ response.total_reward }} 宝宝币
+                                    </span>
+                                </h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h6>必答题目：</h6>
+                                        <ul class="list-unstyled">
+                                            <li><strong>按时吃药：</strong> {{ response.responses.medicine }}</li>
+                                            <li><strong>完成打卡：</strong> {{ response.responses.checkin }}</li>
+                                            <li><strong>健身运动：</strong> {{ response.responses.exercise }}</li>
+                                            <li><strong>保持乐观：</strong> {{ response.responses.optimism }}</li>
+                                            <li><strong>随机奖励：</strong> {{ response.responses.random_reward }} 宝宝币</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h6>选答题目：</h6>
+                                        {% if response.responses.mood %}
+                                        <div class="mb-2">
+                                            <strong>心情分享：</strong>
+                                            <p class="text-muted small">{{ response.responses.mood }}</p>
+                                        </div>
+                                        {% endif %}
+                                        {% if response.responses.message %}
+                                        <div class="mb-2">
+                                            <strong>想说的话：</strong>
+                                            <p class="text-muted small">{{ response.responses.message }}</p>
+                                        </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="text-center py-5">
+                        <i class="fas fa-clipboard text-muted" style="font-size: 3rem;"></i>
+                        <h5 class="mt-3 text-muted">暂无问卷记录</h5>
+                        <p class="text-muted">客户还未填写过问卷</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
 
 {% block scripts %}
 <script>
+let dishItemIndex = 1; // 从1开始，因为已经有一个初始项目
+
 // 图片预览功能
 function previewImage(input) {
     const preview = document.getElementById('imagePreview');
@@ -260,6 +645,176 @@ function previewImage(input) {
         preview.style.display = 'none';
     }
 }
+
+// 批量添加图片预览功能
+function previewBatchImage(input, index) {
+    const preview = document.getElementById(`batchPreview_${index}`);
+    const previewImg = preview.querySelector('img');
+    
+    if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            previewImg.src = e.target.result;
+            preview.style.display = 'block';
+        };
+        reader.readAsDataURL(input.files[0]);
+    } else {
+        preview.style.display = 'none';
+    }
+}
+
+// 添加新的菜品项
+function addDishItem() {
+    const dishItems = document.getElementById('dishItems');
+    const newIndex = dishItemIndex++;
+    
+    const newDishItem = document.createElement('div');
+    newDishItem.className = 'dish-item border rounded p-3 mb-3';
+    newDishItem.setAttribute('data-index', newIndex);
+    
+    newDishItem.innerHTML = `
+        <div class="d-flex justify-content-between align-items-center mb-2">
+            <h6 class="mb-0">
+                <i class="fas fa-utensils me-1"></i>菜品 #${newIndex + 1}
+            </h6>
+            <button type="button" class="btn btn-outline-danger btn-sm" onclick="removeDishItem(${newIndex})">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-4">
+                <label class="form-label">
+                    菜品名称 <span class="text-danger">*</span>
+                </label>
+                <input type="text" class="form-control" name="dish_names[]" required 
+                       placeholder="请输入菜品名称">
+            </div>
+            <div class="col-md-3">
+                <label class="form-label">
+                    价格 (宝宝币)
+                </label>
+                <input type="number" class="form-control" name="dish_prices[]" 
+                       value="52" min="0" placeholder="52">
+            </div>
+            <div class="col-md-5">
+                <label class="form-label">
+                    菜品图片 <span class="text-danger">*</span>
+                </label>
+                <input type="file" class="form-control" name="dish_images[]" 
+                       accept="image/*" required onchange="previewBatchImage(this, ${newIndex})">
+            </div>
+        </div>
+        
+        <div class="row mt-2">
+            <div class="col-12">
+                <div class="image-preview" id="batchPreview_${newIndex}" style="display: none;">
+                    <img src="" alt="预览图" class="img-fluid rounded border" style="max-height: 150px;">
+                </div>
+            </div>
+        </div>
+    `;
+    
+    dishItems.appendChild(newDishItem);
+    
+    // 显示第一个项目的删除按钮
+    updateRemoveButtons();
+}
+
+// 删除菜品项
+function removeDishItem(index) {
+    const dishItem = document.querySelector(`[data-index="${index}"]`);
+    if (dishItem) {
+        dishItem.remove();
+        updateRemoveButtons();
+        updateDishNumbers();
+    }
+}
+
+// 更新删除按钮显示状态
+function updateRemoveButtons() {
+    const dishItems = document.querySelectorAll('.dish-item');
+    dishItems.forEach((item, index) => {
+        const removeBtn = item.querySelector('.btn-outline-danger');
+        if (dishItems.length > 1) {
+            removeBtn.style.display = 'inline-block';
+        } else {
+            removeBtn.style.display = 'none';
+        }
+    });
+}
+
+// 更新菜品编号
+function updateDishNumbers() {
+    const dishItems = document.querySelectorAll('.dish-item');
+    dishItems.forEach((item, index) => {
+        const title = item.querySelector('h6');
+        title.innerHTML = `<i class="fas fa-utensils me-1"></i>菜品 #${index + 1}`;
+    });
+}
+
+// 重置批量添加表单
+function resetBatchForm() {
+    const dishItems = document.getElementById('dishItems');
+    // 清空所有项目
+    dishItems.innerHTML = '';
+    
+    // 重新添加初始项目
+    dishItemIndex = 1;
+    const initialItem = document.createElement('div');
+    initialItem.className = 'dish-item border rounded p-3 mb-3';
+    initialItem.setAttribute('data-index', '0');
+    
+    initialItem.innerHTML = `
+        <div class="d-flex justify-content-between align-items-center mb-2">
+            <h6 class="mb-0">
+                <i class="fas fa-utensils me-1"></i>菜品 #1
+            </h6>
+            <button type="button" class="btn btn-outline-danger btn-sm" onclick="removeDishItem(0)" style="display: none;">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-4">
+                <label class="form-label">
+                    菜品名称 <span class="text-danger">*</span>
+                </label>
+                <input type="text" class="form-control" name="dish_names[]" required 
+                       placeholder="请输入菜品名称">
+            </div>
+            <div class="col-md-3">
+                <label class="form-label">
+                    价格 (宝宝币)
+                </label>
+                <input type="number" class="form-control" name="dish_prices[]" 
+                       value="52" min="0" placeholder="52">
+            </div>
+            <div class="col-md-5">
+                <label class="form-label">
+                    菜品图片 <span class="text-danger">*</span>
+                </label>
+                <input type="file" class="form-control" name="dish_images[]" 
+                       accept="image/*" required onchange="previewBatchImage(this, 0)">
+            </div>
+        </div>
+        
+        <div class="row mt-2">
+            <div class="col-12">
+                <div class="image-preview" id="batchPreview_0" style="display: none;">
+                    <img src="" alt="预览图" class="img-fluid rounded border" style="max-height: 150px;">
+                </div>
+            </div>
+        </div>
+    `;
+    
+    dishItems.appendChild(initialItem);
+}
+
+// 监听批量添加模态框关闭事件
+document.getElementById('batchAddDishModal').addEventListener('hidden.bs.modal', function () {
+    resetBatchForm();
+});
 
 // 生成客户链接
 function generateCustomerLink() {
@@ -319,6 +874,30 @@ function refreshOrders() {
     });
 }
 
+// 重置问卷
+function resetQuestionnaire() {
+    if (confirm('确定要重置今日的问卷状态吗？这将允许用户重新填写问卷。')) {
+        fetch('/reset_questionnaire', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('问卷状态已重置，用户现在可以重新填写问卷。');
+            } else {
+                alert('重置失败：' + (data.message || '未知错误'));
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('重置失败，请重试。');
+        });
+    }
+}
+
 // 更新订单显示
 function updateOrdersDisplay(orders) {
     const container = document.getElementById('ordersContainer');
@@ -336,11 +915,67 @@ function updateOrdersDisplay(orders) {
     
     let html = '';
     orders.forEach(order => {
-        // 统计菜品数量
-        const dishCounts = {};
-        order.dishes.forEach(dish => {
-            dishCounts[dish] = (dishCounts[dish] || 0) + 1;
-        });
+        let orderContent = '';
+        let orderType = '';
+        
+        if (order.source === 'inventory' && order.items) {
+            // 背包物品订单
+            orderType = '使用物品详情:';
+            orderContent = '<ul class="list-unstyled mb-0">';
+            order.items.forEach(item => {
+                orderContent += `
+                    <li class="mb-1">
+                        <span class="badge bg-info text-white me-2">${item.quantity}</span>
+                        <strong>${item.name}</strong>
+                        ${item.description ? `<br><small class="text-muted">${item.description}</small>` : ''}
+                        <span class="badge bg-success ms-2">来源: 背包物品</span>
+                    </li>
+                `;
+            });
+            orderContent += '</ul>';
+            orderContent += `
+                <div class="mt-2">
+                    <small class="text-muted">
+                        支付方式: ${order.payment_method || '免费'}
+                    </small>
+                </div>
+            `;
+        } else if (order.dishes && order.dishes.length > 0) {
+            // 普通点餐订单
+            orderType = '点餐详情:';
+            const dishCounts = {};
+            order.dishes.forEach(dish => {
+                dishCounts[dish] = (dishCounts[dish] || 0) + 1;
+            });
+            
+            orderContent = '<ul class="list-unstyled mb-0">';
+            Object.entries(dishCounts).forEach(([dish, count]) => {
+                orderContent += `
+                    <li class="mb-1">
+                        <span class="badge bg-light text-dark me-2">${count}</span>
+                        ${dish}
+                    </li>
+                `;
+            });
+            orderContent += '</ul>';
+            orderContent += `
+                <div class="mt-2">
+                    <small class="text-muted">
+                        总计: ${order.dishes.length} 道菜
+                        ${order.coupon_used ? ` | 使用优惠券: ${order.coupon_used}` : ''}
+                    </small>
+                </div>
+            `;
+        } else {
+            // 异常订单
+            orderType = '订单详情:';
+            orderContent = `
+                <div class="alert alert-warning">
+                    <i class="fas fa-exclamation-triangle me-1"></i>
+                    订单数据异常，请检查订单详情
+                </div>
+            `;
+        }
         
         html += `
             <div class="order-item mb-3">
@@ -362,27 +997,9 @@ function updateOrdersDisplay(orders) {
                         
                         <div class="order-dishes mb-3">
                             <h6 class="mb-2">
-                                <i class="fas fa-list me-1"></i>点餐详情:
+                                <i class="fas fa-list me-1"></i>${orderType}
                             </h6>
-                            <ul class="list-unstyled mb-0">
-        `;
-        
-        Object.entries(dishCounts).forEach(([dish, count]) => {
-            html += `
-                <li class="mb-1">
-                    <span class="badge bg-light text-dark me-2">${count}</span>
-                    ${dish}
-                </li>
-            `;
-        });
-        
-        html += `
-                            </ul>
-                            <div class="mt-2">
-                                <small class="text-muted">
-                                    总计: ${order.dishes.length} 道菜
-                                </small>
-                            </div>
+                            ${orderContent}
                         </div>
                         
                         <form method="POST" action="/complete_order" class="d-inline">
@@ -409,5 +1026,192 @@ setInterval(refreshOrders, 30000);
 $(document).ready(function() {
     refreshOrders();
 });
+
+// 种子商店管理相关函数
+function showAddSeedForm() {
+    document.getElementById('addSeedForm').style.display = 'block';
+}
+
+function hideAddSeedForm() {
+    document.getElementById('addSeedForm').style.display = 'none';
+    // 清空表单
+    document.getElementById('seedId').value = '';
+    document.getElementById('seedName').value = '';
+    document.getElementById('seedPrice').value = '10';
+    document.getElementById('waterCount').value = '1';
+    document.getElementById('fertilizerCount').value = '1';
+    document.getElementById('seedDescription').value = '';
+    document.getElementById('seedIcon').value = '🌱';
+    document.getElementById('harvestName').value = '';
+    document.getElementById('harvestDescription').value = '';
+}
+
+function loadSeedStore() {
+    fetch('/chef/seeds')
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            displaySeeds(data.seeds);
+        } else {
+            alert('加载种子数据失败: ' + data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('加载种子数据失败');
+    });
+}
+
+function displaySeeds(seeds) {
+    let html = '<div class="row">';
+    
+    Object.values(seeds).forEach(seed => {
+        html += `
+            <div class="col-md-6 mb-3">
+                <div class="card ${seed.available ? '' : 'bg-light'}">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div>
+                                <h6 class="card-title">
+                                    <span class="me-2">${seed.icon}</span>
+                                    ${seed.name}
+                                    ${seed.available ? '' : '<span class="badge bg-secondary ms-2">已下架</span>'}
+                                </h6>
+                                <p class="card-text small mb-2">${seed.description}</p>
+                                <div class="text-muted small">
+                                    <div>价格: ${seed.price} 宝宝币</div>
+                                    <div>浇水: ${seed.required_water_count} 次 | 施肥: ${seed.required_fertilizer_count} 次</div>
+                                    <div>收获物: ${seed.harvest_item.name}</div>
+                                </div>
+                            </div>
+                            <div class="btn-group-vertical btn-group-sm">
+                                <button class="btn ${seed.available ? 'btn-warning' : 'btn-success'}" 
+                                        onclick="toggleSeedAvailability('${seed.id}', ${!seed.available})">
+                                    <i class="fas ${seed.available ? 'fa-eye-slash' : 'fa-eye'}"></i>
+                                    ${seed.available ? '下架' : '上架'}
+                                </button>
+                                <button class="btn btn-info" onclick="editSeed('${seed.id}')">
+                                    <i class="fas fa-edit"></i> 编辑
+                                </button>
+                                <button class="btn btn-danger" onclick="deleteSeed('${seed.id}')">
+                                    <i class="fas fa-trash"></i> 删除
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+    });
+    
+    html += '</div>';
+    document.getElementById('seedsList').innerHTML = html;
+}
+
+function saveSeed() {
+    const seedData = {
+        id: document.getElementById('seedId').value,
+        name: document.getElementById('seedName').value,
+        description: document.getElementById('seedDescription').value,
+        price: parseInt(document.getElementById('seedPrice').value),
+        required_water_count: parseInt(document.getElementById('waterCount').value),
+        required_fertilizer_count: parseInt(document.getElementById('fertilizerCount').value),
+        icon: document.getElementById('seedIcon').value,
+        harvest_item: {
+            name: document.getElementById('harvestName').value,
+            description: document.getElementById('harvestDescription').value,
+            category: 'fruit'
+        },
+        growth_stages: ['种子', '成熟'],
+        available: true
+    };
+    
+    // 验证必填字段
+    if (!seedData.id || !seedData.name || !seedData.harvest_item.name) {
+        alert('请填写所有必填字段（种子ID、种子名称、果实名称）');
+        return;
+    }
+    
+    fetch('/chef/seeds/add', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(seedData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('种子添加成功！');
+            hideAddSeedForm();
+            loadSeedStore();
+        } else {
+            alert('添加失败: ' + data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('添加失败');
+    });
+}
+
+function toggleSeedAvailability(seedId, available) {
+    fetch('/chef/seeds/toggle', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            seed_id: seedId,
+            available: available
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            loadSeedStore();
+        } else {
+            alert('操作失败: ' + data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('操作失败');
+    });
+}
+
+function editSeed(seedId) {
+    // 这里可以实现编辑功能，暂时用简单的提示
+    alert('编辑功能开发中，请先删除后重新添加');
+}
+
+function deleteSeed(seedId) {
+    if (!confirm('确定要删除这个种子吗？删除后无法恢复！')) {
+        return;
+    }
+    
+    fetch('/chef/seeds/delete', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            seed_id: seedId
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('种子删除成功！');
+            loadSeedStore();
+        } else {
+            alert('删除失败: ' + data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('删除失败');
+    });
+}
 </script>
 {% endblock %}

@@ -1,0 +1,785 @@
+{% extends "base.html" %}
+
+{% block title %}抽奖系统 - WXZY点餐系统{% endblock %}
+
+{% block content %}
+<div class="lottery-container">
+    <div class="container">
+        <!-- 页面标题和余额 -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="d-flex align-items-center">
+                        <!-- 返回按钮 -->
+                        <button class="btn btn-outline-primary me-3" onclick="goBack()" title="返回上一页">
+                            <i class="fas fa-arrow-left"></i>
+                        </button>
+                        <h1 class="display-6 text-dark mb-0">
+                            <i class="fas fa-gift text-warning me-3"></i>
+                            抽奖系统
+                        </h1>
+                    </div>
+                    <div class="balance-display">
+                        <div class="card bg-gradient-warning text-dark">
+                            <div class="card-body text-center py-2">
+                                <h5 class="mb-0 fw-bold">
+                                    <i class="fas fa-coins me-2"></i>
+                                    <span id="userBalance">{{ balance }}</span> 宝宝币
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 抽奖卡池 -->
+        <div class="row">
+            <!-- 普通抽卡 -->
+            <div class="col-lg-4 mb-4">
+                <div class="card lottery-card normal-card h-100">
+                    <div class="card-header text-center">
+                        <h4 class="mb-0">
+                            <i class="fas fa-star text-success me-2"></i>
+                            普通抽卡
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="text-center mb-3">
+                            <div class="lottery-icon">
+                                <i class="fas fa-gift-card" style="font-size: 3rem; color: #28a745;"></i>
+                            </div>
+                        </div>
+                        <div class="lottery-info">
+                            <h5 class="text-center mb-3">52 宝宝币</h5>
+                            <div class="mb-3">
+                                <button class="btn btn-sm btn-outline-info" onclick="showPrizePool('normal')">
+                                    <i class="fas fa-list me-1"></i>查看奖池
+                                </button>
+                            </div>
+                            <div class="reward-preview">
+                                <div class="reward-item">
+                                    <span class="badge bg-success">40.00%</span> 25个宝宝币
+                                </div>
+                                <div class="reward-item">
+                                    <span class="badge bg-warning">7.50%</span> 九折优惠券
+                                </div>
+                                <div class="reward-item">
+                                    <span class="badge bg-secondary">10.00%</span> 扣除20宝宝币
+                                </div>
+                                <div class="reward-item">
+                                    <span class="badge bg-info">10.25%</span> 各种碎片/实物
+                                </div>
+                                <div class="reward-item">
+                                    <span class="badge bg-primary">30.00%</span> 宝宝币10枚
+                                </div>
+                                <div class="small text-muted">点击查看奖池查看完整列表</div>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <button type="button" class="btn btn-success mb-2" onclick="drawCard('normal', false)">
+                                <i class="fas fa-gift me-2"></i>单抽 (52币)
+                            </button>
+                            <button type="button" class="btn btn-outline-success" onclick="drawCard('normal', true)">
+                                <i class="fas fa-gifts me-2"></i>十连抽 (520币)
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 高级抽卡 -->
+            <div class="col-lg-4 mb-4">
+                <div class="card lottery-card premium-card h-100">
+                    <div class="card-header text-center">
+                        <h4 class="mb-0">
+                            <i class="fas fa-star text-primary me-2"></i>
+                            <i class="fas fa-star text-primary me-2"></i>
+                            高级抽卡
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="text-center mb-3">
+                            <div class="lottery-icon">
+                                <i class="fas fa-gem" style="font-size: 3rem; color: #007bff;"></i>
+                            </div>
+                        </div>
+                        <div class="lottery-info">
+                            <h5 class="text-center mb-3">520 宝宝币</h5>
+                            <div class="mb-3">
+                                <button class="btn btn-sm btn-outline-info" onclick="showPrizePool('premium')">
+                                    <i class="fas fa-list me-1"></i>查看奖池
+                                </button>
+                            </div>
+                                <div class="reward-item">
+                                    <span class="badge bg-success">11.25%</span> 按摩15分钟
+                                </div>
+                                <div class="reward-item">
+                                    <span class="badge bg-info">50.00%</span> 200个宝宝币
+                                </div>
+                                <div class="reward-item">
+                                    <span class="badge bg-warning">20.00%</span> 扣除50宝宝币
+                                </div>
+                                <div class="reward-item">
+                                    <span class="badge bg-secondary">1.25%</span> 其他奖品
+                                </div>
+                                <div class="reward-item">
+                                    <span class="badge bg-primary">1.00%</span> 麦辣鸡腿堡2/奶茶鼠玩偶
+                                </div>
+                                <div class="reward-item">
+                                    <span class="badge bg-danger">0.50%</span> 100r衣服兑换券
+                                </div>
+                        </div>
+                        <div class="text-center">
+                            <button type="button" class="btn btn-primary mb-2" onclick="drawCard('premium', false)">
+                                <i class="fas fa-gift me-2"></i>单抽 (520币)
+                            </button>
+                            <button type="button" class="btn btn-outline-primary" onclick="drawCard('premium', true)">
+                                <i class="fas fa-gifts me-2"></i>七连抽 (3640币)
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 超级抽卡 -->
+            <div class="col-lg-4 mb-4">
+                <div class="card lottery-card ultimate-card h-100">
+                    <div class="card-header text-center">
+                        <h4 class="mb-0">
+                            <i class="fas fa-star text-warning me-2"></i>
+                            <i class="fas fa-star text-warning me-2"></i>
+                            <i class="fas fa-star text-warning me-2"></i>
+                            超级抽卡
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="text-center mb-3">
+                            <div class="lottery-icon">
+                                <i class="fas fa-crown" style="font-size: 3rem; color: #ffc107;"></i>
+                            </div>
+                        </div>
+                        <div class="lottery-info">
+                            <h5 class="text-center mb-3">1314 宝宝币</h5>
+                            <div class="mb-3">
+                                <button class="btn btn-sm btn-outline-info" onclick="showPrizePool('ultimate')">
+                                    <i class="fas fa-list me-1"></i>查看奖池
+                                </button>
+                            </div>
+                            <div class="reward-preview">
+                                <div class="reward-item">
+                                    <span class="badge bg-success">50%</span> 520个宝宝币
+                                </div>
+                                <div class="reward-item">
+                                    <span class="badge bg-warning">15%</span> 1314个宝宝币
+                                </div>
+                                <div class="reward-item">
+                                    <span class="badge bg-info">10%</span> 肠粉一顿
+                                </div>
+                                <div class="reward-item">
+                                    <span class="badge bg-danger">5%</span> 宝宝按摩30分钟
+                                </div>
+                                <div class="reward-item">
+                                    <span class="badge bg-secondary">20%</span> 其他奖品
+                                </div>
+                                <div class="small text-muted">点击查看奖池查看完整列表</div>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <button type="button" class="btn btn-warning mb-2" onclick="drawCard('ultimate', false)">
+                                <i class="fas fa-gift me-2"></i>单抽 (1314币)
+                            </button>
+                            <button type="button" class="btn btn-outline-warning" onclick="drawCard('ultimate', true)">
+                                <i class="fas fa-gifts me-2"></i>五连抽 (6570币)
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 究极抽卡 -->
+            <div class="col-lg-3 mb-4">
+                <div class="card lottery-card legendary-card h-100">
+                    <div class="card-header text-center">
+                        <h4 class="mb-0">
+                            <i class="fas fa-star text-danger me-2"></i>
+                            <i class="fas fa-star text-danger me-2"></i>
+                            <i class="fas fa-star text-danger me-2"></i>
+                            <i class="fas fa-star text-danger me-2"></i>
+                            究极抽卡
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="text-center mb-3">
+                            <div class="lottery-icon">
+                                <i class="fas fa-diamond" style="font-size: 3rem; color: #dc3545;"></i>
+                            </div>
+                        </div>
+                        <div class="lottery-info">
+                            <h5 class="text-center mb-3">5200 宝宝币</h5>
+                            <div class="mb-3">
+                                <button class="btn btn-sm btn-outline-info" onclick="showPrizePool('legendary')">
+                                    <i class="fas fa-list me-1"></i>查看奖池
+                                </button>
+                            </div>
+                            <div class="reward-preview">
+                                <div class="reward-item">
+                                    <span class="badge bg-success">40%</span> 1314个宝宝币
+                                </div>
+                                <div class="reward-item">
+                                    <span class="badge bg-warning">20%</span> 新巴克
+                                </div>
+                                <div class="reward-item">
+                                    <span class="badge bg-info">19%</span> 5200个宝宝币
+                                </div>
+                                <div class="reward-item">
+                                    <span class="badge bg-danger">5.5%</span> 按摩45分钟
+                                </div>
+                                <div class="reward-item">
+                                    <span class="badge bg-secondary">15.5%</span> 惊喜大礼
+                                </div>
+                                <div class="small text-muted">点击查看奖池查看完整列表</div>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <button type="button" class="btn btn-danger mb-2" onclick="drawCard('legendary', false)">
+                                <i class="fas fa-gift me-2"></i>单抽 (5200币)
+                            </button>
+                            <button type="button" class="btn btn-outline-danger" onclick="drawCard('legendary', true)">
+                                <i class="fas fa-gifts me-2"></i>三连抽 (15600币)
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 抽奖结果模态框 -->
+        <div class="modal fade" id="resultModal" tabindex="-1">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">抽奖结果</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="drawResults" class="row"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">关闭</button>
+                        <a href="/inventory_page" class="btn btn-primary">查看宝包</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 奖池详情模态框 -->
+        <div class="modal fade" id="prizePoolModal" tabindex="-1">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="prizePoolTitle">奖池详情</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="prizePoolContent">
+                            <!-- 动态加载奖池内容 -->
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">关闭</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.lottery-container {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 50%, #f1f5f9 100%);
+    padding: 2rem 0;
+}
+
+.lottery-card {
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    border: none;
+    border-radius: 20px;
+    transition: transform 0.3s ease;
+    background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
+}
+
+.lottery-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+}
+
+.normal-card .card-header {
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%) !important;
+    color: white !important;
+    border-radius: 20px 20px 0 0 !important;
+}
+
+.premium-card .card-header {
+    background: linear-gradient(135deg, #007bff 0%, #6610f2 100%) !important;
+    color: white !important;
+    border-radius: 20px 20px 0 0 !important;
+}
+
+.ultimate-card .card-header {
+    background: linear-gradient(135deg, #ffc107 0%, #fd7e14 100%) !important;
+    color: white !important;
+    border-radius: 20px 20px 0 0 !important;
+}
+
+.legendary-card .card-header {
+    background: linear-gradient(135deg, #dc3545 0%, #c82333 100%) !important;
+    color: white !important;
+    border-radius: 20px 20px 0 0 !important;
+}
+
+.lottery-icon {
+    margin: 1rem 0;
+}
+
+.reward-list {
+    max-height: 200px;
+    overflow-y: auto;
+    margin-bottom: 1rem;
+}
+
+.reward-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0.5rem 0;
+    font-size: 0.9rem;
+}
+
+.prize-pool-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem;
+    margin-bottom: 0.5rem;
+    background: rgba(0,0,0,0.05);
+    border-radius: 8px;
+    border-left: 4px solid;
+}
+
+.prize-pool-item.physical-item {
+    border-left-color: #e74c3c;
+}
+
+.prize-pool-item.fragment-item {
+    border-left-color: #9b59b6;
+}
+
+.prize-pool-item.balance-item {
+    border-left-color: #f39c12;
+}
+
+.prize-pool-item.coupon-item {
+    border-left-color: #3498db;
+}
+
+.prize-pool-item.special-item {
+    border-left-color: #2ecc71;
+}
+
+.prize-description {
+    flex: 1;
+    margin-right: 1rem;
+}
+
+.prize-name {
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.prize-desc {
+    font-size: 0.875rem;
+    color: #666;
+    margin: 0;
+}
+
+.balance-display .card {
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    background: linear-gradient(145deg, #ffc107 0%, #ff8f00 100%) !important;
+}
+
+.btn-outline-light {
+    border: 2px solid rgba(255,255,255,0.6);
+    color: #ffffff;
+    font-weight: 600;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.btn-outline-light:hover {
+    background-color: rgba(255,255,255,0.2);
+    border-color: #ffffff;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(255,255,255,0.2);
+}
+
+.btn-outline-primary {
+    border: 2px solid #007bff;
+    color: #007bff;
+    font-weight: 600;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-primary:hover {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0,123,255,0.3);
+}
+
+.btn-success {
+    background: linear-gradient(135deg, #28a745 0%, #1e7e34 100%);
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-success:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(40,167,69,0.3);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0,123,255,0.3);
+}
+
+.btn-warning {
+    background: linear-gradient(135deg, #ffc107 0%, #e0a800 100%);
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    color: #212529;
+    transition: all 0.3s ease;
+}
+
+.btn-warning:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(255,193,7,0.3);
+    color: #212529;
+}
+
+.btn-outline-success, .btn-outline-primary, .btn-outline-warning {
+    border-width: 2px;
+    font-weight: 600;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-success:hover, .btn-outline-primary:hover, .btn-outline-warning:hover {
+    transform: translateY(-2px);
+}
+
+.draw-result {
+    text-align: center;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    border-radius: 15px;
+    border: 2px solid #ddd;
+    transition: all 0.3s ease;
+}
+
+.draw-result.rare {
+    background: linear-gradient(135deg, #ffc107 0%, #fd7e14 100%);
+    color: white;
+    border-color: #fd7e14;
+    box-shadow: 0 4px 15px rgba(255,193,7,0.3);
+}
+
+.draw-result.epic {
+    background: linear-gradient(135deg, #6610f2 0%, #e83e8c 100%);
+    color: white;
+    border-color: #e83e8c;
+    box-shadow: 0 4px 15px rgba(102,16,242,0.3);
+}
+
+.draw-result.legendary {
+    background: linear-gradient(135deg, #dc3545 0%, #fd7e14 100%);
+    color: white;
+    border-color: #fd7e14;
+    box-shadow: 0 4px 15px rgba(220,53,69,0.3);
+}
+
+.modal-content {
+    border-radius: 20px;
+    border: none;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+}
+
+.modal-header {
+    border-radius: 20px 20px 0 0;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-bottom: none;
+}
+
+.modal-footer {
+    border-radius: 0 0 20px 20px;
+    border-top: 1px solid #dee2e6;
+}
+</style>
+
+<script>
+// 奖池数据
+const prizePoolData = {
+    normal: [
+        { name: '面包', probability: 1.25, type: 'physical-item', description: '面包（实际物品）' },
+        { name: '德湘厨兑换券碎片', probability: 1.50, type: 'fragment-item', description: '德湘厨兑换券碎片（在背包中10个合成一个实际物品才能使用）' },
+        { name: '金戈戈碎片', probability: 1.50, type: 'fragment-item', description: '金戈戈碎片（在背包中10个合成一个实际物品才能使用）' },
+        { name: '黑咖啡一杯', probability: 1.25, type: 'physical-item', description: '黑咖啡一杯（实际物品）' },
+        { name: '麦辣鸡腿堡碎片', probability: 2.50, type: 'fragment-item', description: '麦辣鸡腿堡碎片（在背包中10个合成一个实际物品才能使用）' },
+        { name: '奥尔良鸡腿堡碎片', probability: 2.50, type: 'fragment-item', description: '奥尔良鸡腿堡碎片（在背包中10个合成一个实际物品才能使用）' },
+        { name: '奶茶一杯', probability: 1.00, type: 'physical-item', description: '奶茶一杯（实际物品）' },
+        { name: '紫菜卷', probability: 1.00, type: 'physical-item', description: '紫菜卷（实际物品）' },
+        { name: '九折优惠券', probability: 7.50, type: 'coupon-item', description: '九折优惠券' },
+        { name: '宝宝币25个', probability: 40.00, type: 'balance-item', description: '获得25个宝宝币' },
+        { name: '扣除20宝宝币', probability: 10.00, type: 'balance-item', description: '扣除20个宝宝币' },
+        { name: '宝宝币10枚', probability: 30.00, type: 'balance-item', description: '获得10个宝宝币' }
+    ],
+    premium: [
+        { name: '按摩15分钟', probability: 11.25, type: 'physical-item', description: '按摩15分钟（实际物品）' },
+        { name: '番茄成品', probability: 1.25, type: 'physical-item', description: '番茄成品（实际物品）' },
+        { name: '扣除50宝宝币', probability: 20.00, type: 'balance-item', description: '扣除50宝宝币' },
+        { name: '芒果，西瓜', probability: 1.25, type: 'physical-item', description: '芒果，西瓜（实际物品）' },
+        { name: '香蕉，火龙果', probability: 1.25, type: 'physical-item', description: '香蕉，火龙果（实际物品）' },
+        { name: '100r衣服兑换券（实际物品）惊喜大礼', probability: 0.5, type: 'physical-item', description: '100r衣服兑换券（实际物品）惊喜大礼' },
+        { name: '按摩30分钟', probability: 1.25, type: 'physical-item', description: '按摩30分钟（实际物品）' },
+        { name: '六折优惠券', probability: 1.25, type: 'coupon-item', description: '六折优惠券' },
+        { name: '免单券', probability: 1.25, type: 'coupon-item', description: '免单券' },
+        { name: '外卖盲盒', probability: 1.25, type: 'physical-item', description: '外卖盲盒（实际物品）' },
+        { name: '200个宝宝币', probability: 52.5, type: 'balance-item', description: '获得200个宝宝币' },
+        { name: '麦辣鸡腿堡2', probability: 1.0, type: 'physical-item', description: '麦辣鸡腿堡2（实际物品可直接使用）' },
+        { name: '奶茶鼠玩偶', probability: 1.0, type: 'fragment-item', description: '奶茶鼠玩偶（在背包中5个合成一个实际物品才能使用）' },
+        { name: '荒野乱斗乱斗金券🤪', probability: 1.25, type: 'fragment-item', description: '荒野乱斗乱斗金券🤪（在背包中5个合成一个实际物品才能使用）' },
+        { name: '星巴克一杯', probability: 1.25, type: 'fragment-item', description: '星巴克一杯（在背包中4个合成一个实际物品才能使用）' },
+        { name: '寿司郎碎片', probability: 1.25, type: 'fragment-item', description: '寿司郎碎片（在背包中9个合成一个实际物品才能使用）' },
+        { name: '水牛奶一箱', probability: 1.25, type: 'fragment-item', description: '水牛奶一箱（在背包中4个合成一个实际物品才能使用）' }
+    ],
+    ultimate: [
+        { name: '寿司郎一顿', probability: 1.5, type: 'physical-item', description: '寿司郎一顿（实际物品）' },
+        { name: '鸡胸肉套餐', probability: 2.5, type: 'physical-item', description: '鸡胸肉套餐（实际物品）' },
+        { name: '100r衣服兑换券', probability: 1.0, type: 'physical-item', description: '100r衣服兑换券（实际物品）' },
+        { name: '520个宝宝币', probability: 50.0, type: 'balance-item', description: '获得520个宝宝币' },
+        { name: '免单券', probability: 2.5, type: 'coupon-item', description: '免单券' },
+        { name: '5200个宝宝币', probability: 2.5, type: 'balance-item', description: '获得5200个宝宝币' },
+        { name: '1314个宝宝币', probability: 15.0, type: 'balance-item', description: '获得1314个宝宝币' },
+        { name: '52个宝宝币', probability: 6.5, type: 'balance-item', description: '获得52个宝宝币' },
+        { name: '补签卡', probability: 1.0, type: 'special-item', description: '获得1张补签卡' },
+        { name: '水牛奶', probability: 3.0, type: 'physical-item', description: '水牛奶（实际物品）' },
+        { name: '宝宝按摩30分钟', probability: 5.0, type: 'physical-item', description: '宝宝按摩30分钟（实际物品）' },
+        { name: '肠粉一顿', probability: 10.0, type: 'physical-item', description: '肠粉一顿（实际物品）' }
+    ],
+    legendary: [
+        { name: '寿司郎一餐', probability: 5.0, type: 'physical-item', description: '寿司郎一餐（实际物品）' },
+        { name: '5200宝宝币', probability: 19.0, type: 'balance-item', description: '获得5200个宝宝币' },
+        { name: '1314宝宝币', probability: 40.0, type: 'balance-item', description: '获得1314个宝宝币' },
+        { name: '13140宝宝币', probability: 2.5, type: 'balance-item', description: '获得13140个宝宝币' },
+        { name: '奶茶鼠玩偶', probability: 3.0, type: 'physical-item', description: '奶茶鼠玩偶（实际物品）' },
+        { name: '新巴克', probability: 20.0, type: 'physical-item', description: '新巴克（实际物品）' },
+        { name: '按摩45分钟', probability: 5.5, type: 'physical-item', description: '按摩45分钟（实际物品）' },
+        { name: '惊喜大礼', probability: 5.0, type: 'special-item', description: '神秘惊喜大礼' }
+    ]
+};
+
+function showPrizePool(poolType) {
+    const modal = new bootstrap.Modal(document.getElementById('prizePoolModal'));
+    const title = document.getElementById('prizePoolTitle');
+    const content = document.getElementById('prizePoolContent');
+    
+    // 设置标题
+    const titles = {
+        'normal': '普通抽奖奖池',
+        'premium': '高级抽奖奖池',
+        'ultimate': '超级抽奖奖池',
+        'legendary': '究极抽奖奖池'
+    };
+    title.textContent = titles[poolType];
+    
+    // 生成奖池内容
+    const prizes = prizePoolData[poolType];
+    let html = '<div class="row">';
+    
+    prizes.forEach(prize => {
+        // 对于惊喜大礼（switch碎片），根据用户状态显示不同内容
+        let displayName = prize.name;
+        let displayDesc = prize.description;
+        
+        if (prize.name === '惊喜大礼' && hasSwitchFragments) {
+            displayName = '🎮 神秘游戏设备碎片';
+            displayDesc = '神秘的游戏设备碎片，收集12个即可合成完整设备';
+        }
+        
+        html += `
+            <div class="col-md-6 col-lg-4 mb-3">
+                <div class="prize-pool-item ${prize.type}">
+                    <div class="prize-description">
+                        <div class="prize-name">${displayName}</div>
+                        <p class="prize-desc">${displayDesc}</p>
+                    </div>
+                    <span class="badge bg-primary">${prize.probability}%</span>
+                </div>
+            </div>
+        `;
+    });
+    
+    html += '</div>';
+    content.innerHTML = html;
+    
+    modal.show();
+}
+
+let currentBalance = {{ balance }};
+let hasSwitchFragments = {{ has_switch_fragments|lower }};
+
+function goBack() {
+    // 检查是否有历史记录可以返回
+    if (window.history.length > 1) {
+        window.history.back();
+    } else {
+        // 如果没有历史记录，返回到客户端主页
+        window.location.href = '/customer';
+    }
+}
+
+function drawCard(type, tenDraw) {
+    const costs = {'normal': 52, 'premium': 520, 'ultimate': 1314, 'legendary': 5200};
+    let maxDraw = 10;
+    if (type === 'premium') maxDraw = 7;
+    if (type === 'ultimate') maxDraw = 5;
+    if (type === 'legendary') maxDraw = 3; // 究极三连抽
+    const drawCount = tenDraw ? maxDraw : 1;
+    const cost = costs[type] * drawCount;
+
+    if (currentBalance < cost) {
+        showToast('宝宝币不足！', 'error');
+        return;
+    }
+
+    // 确认抽奖
+    let drawText = '单次';
+    if (tenDraw) {
+        if (type === 'premium') drawText = '7连';
+        else if (type === 'ultimate') drawText = '5连';
+        else if (type === 'legendary') drawText = '三连';
+        else drawText = '十连';
+    }
+    const confirmMessage = `确定要进行${drawText}抽奖吗？\n费用：${cost}个宝宝币`;
+    if (!confirm(confirmMessage)) {
+        return;
+    }
+
+    fetch('/lottery_draw', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            type: type,
+            ten_draw: tenDraw
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            currentBalance = data.new_balance;
+            document.getElementById('userBalance').textContent = currentBalance;
+            showDrawResults(data.results, tenDraw);
+        } else {
+            showToast(data.message || '抽奖失败', 'error');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showToast('抽奖失败，请重试', 'error');
+    });
+}
+
+function showDrawResults(results, tenDraw) {
+    const resultsContainer = document.getElementById('drawResults');
+    resultsContainer.innerHTML = '';
+    
+    results.forEach((result, index) => {
+        const resultDiv = document.createElement('div');
+        resultDiv.className = 'col-md-6 mb-3';
+        
+        let cardClass = '';
+        if (result.name.includes('520') || result.name.includes('Switch') || result.name.includes('寿司郎')) {
+            cardClass = 'legendary';
+        } else if (result.name.includes('荒野乱斗') || result.name.includes('5折') || result.name.includes('600')) {
+            cardClass = 'epic';
+        } else if (result.name.includes('优惠券') || result.name.includes('70')) {
+            cardClass = 'rare';
+        }
+        
+        resultDiv.innerHTML = `
+            <div class="draw-result ${cardClass}">
+                <h6>${result.name.includes('switch碎片') ? (hasSwitchFragments ? '🎮 神秘游戏设备碎片' : '🎁 惊喜大礼') : result.name}</h6>
+                <p class="mb-0">${result.name.includes('switch碎片') ? (hasSwitchFragments ? '神秘的游戏设备碎片，收集12个即可合成完整设备' : '神秘的惊喜大礼，获得后将揭开谜底') : result.description}</p>
+            </div>
+        `;
+        
+        resultsContainer.appendChild(resultDiv);
+    });
+    
+    const modal = new bootstrap.Modal(document.getElementById('resultModal'));
+    modal.show();
+}
+
+function showToast(message, type = 'info') {
+    // 创建 toast 元素
+    const toastHtml = `
+        <div class="toast align-items-center text-white bg-${type === 'error' ? 'danger' : 'success'} border-0" role="alert">
+            <div class="d-flex">
+                <div class="toast-body">${message}</div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+            </div>
+        </div>
+    `;
+    
+    // 添加到页面
+    let toastContainer = document.getElementById('toastContainer');
+    if (!toastContainer) {
+        toastContainer = document.createElement('div');
+        toastContainer.id = 'toastContainer';
+        toastContainer.className = 'toast-container position-fixed top-0 end-0 p-3';
+        toastContainer.style.zIndex = '9999';
+        document.body.appendChild(toastContainer);
+    }
+    
+    toastContainer.insertAdjacentHTML('beforeend', toastHtml);
+    const toastElement = toastContainer.lastElementChild;
+    const toast = new bootstrap.Toast(toastElement);
+    toast.show();
+    
+    // 3秒后自动移除
+    setTimeout(() => {
+        toastElement.remove();
+    }, 3000);
+}
+</script>
+{% endblock %}

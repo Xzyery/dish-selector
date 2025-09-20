@@ -1,0 +1,523 @@
+{% extends "base.html" %}
+
+{% block title %}每日任务 - WXZY点餐系统{% endblock %}
+
+{% block content %}
+<div class="daily-tasks-container">
+    <div class="container">
+        <!-- 页面标题和余额 -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="d-flex align-items-center">
+                        <!-- 返回按钮 -->
+                        <button class="btn btn-outline-primary me-3" onclick="goBack()" title="返回上一页">
+                            <i class="fas fa-arrow-left"></i>
+                        </button>
+                        <h1 class="display-6 text-dark mb-0">
+                            <i class="fas fa-tasks text-warning me-3"></i>
+                            每日任务
+                        </h1>
+                    </div>
+                    <div class="balance-display">
+                        <div class="card bg-gradient-warning text-dark">
+                            <div class="card-body text-center py-2">
+                                <h5 class="mb-0 fw-bold">
+                                    <i class="fas fa-coins me-2"></i>
+                                    {{ balance }} 宝宝币
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 导航按钮 -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="d-flex gap-2 flex-wrap justify-content-center">
+                    <a href="{{ url_for('customer') }}" class="btn btn-outline-primary">
+                        <i class="fas fa-arrow-left me-1"></i>返回点餐
+                    </a>
+                    <a href="{{ url_for('lottery_page') }}" class="btn btn-warning">
+                        <i class="fas fa-gift me-1"></i>抽奖系统
+                    </a>
+                    <a href="{{ url_for('inventory_page') }}" class="btn btn-info">
+                        <i class="fas fa-backpack me-1"></i>我的宝包
+                    </a>
+                    <button type="button" class="btn btn-outline-secondary" onclick="location.reload()">
+                        <i class="fas fa-sync-alt me-1"></i>刷新页面
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 任务模块 -->
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <!-- 每日问卷模块 -->
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header bg-gradient-primary text-white">
+                        <h4 class="mb-0">
+                            <i class="fas fa-clipboard-list me-2"></i>
+                            每日问卷调查
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        {% if questionnaire_completed %}
+                            <div class="alert alert-success text-center">
+                                <i class="fas fa-check-circle me-2"></i>
+                                <strong>今日问卷已完成！</strong>
+                                <p class="mb-0 mt-2">明天00:00后可以重新填写问卷获得奖励</p>
+                            </div>
+                        {% else %}
+                            <div class="text-center">
+                                <h5 class="mb-3">
+                                    <i class="fas fa-gift me-2 text-warning"></i>
+                                    完成问卷获得宝宝币奖励
+                                </h5>
+                                <p class="text-muted mb-3">
+                                    回答几个简单问题，获得丰厚的宝宝币奖励！
+                                </p>
+                                <div class="reward-preview mb-3">
+                                    <div class="row">
+                                        <div class="col-6 col-md-3">
+                                            <div class="small-reward-card">
+                                                <i class="fas fa-pills text-success"></i>
+                                                <span>按时吃药</span>
+                                                <strong>+10</strong>
+                                            </div>
+                                        </div>
+                                        <div class="col-6 col-md-3">
+                                            <div class="small-reward-card">
+                                                <i class="fas fa-check-square text-primary"></i>
+                                                <span>完成打卡</span>
+                                                <strong>+8</strong>
+                                            </div>
+                                        </div>
+                                        <div class="col-6 col-md-3">
+                                            <div class="small-reward-card">
+                                                <i class="fas fa-dumbbell text-warning"></i>
+                                                <span>健身运动</span>
+                                                <strong>+10</strong>
+                                            </div>
+                                        </div>
+                                        <div class="col-6 col-md-3">
+                                            <div class="small-reward-card">
+                                                <i class="fas fa-random text-danger"></i>
+                                                <span>随机奖励</span>
+                                                <strong>???</strong>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a href="{{ url_for('questionnaire') }}" class="btn btn-primary btn-lg">
+                                    <i class="fas fa-play me-2"></i>开始填写问卷
+                                </a>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <!-- 开心农场模块 -->
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header bg-gradient-success text-white">
+                        <h4 class="mb-0">
+                            <i class="fas fa-seedling me-2"></i>
+                            开心农场
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="text-center">
+                            <h5 class="mb-3">
+                                <i class="fas fa-carrot me-2 text-warning"></i>
+                                种植作物获得丰厚奖励
+                            </h5>
+                            <p class="text-muted mb-3">
+                                购买种子，种植浇水，收获作物获得宝宝币和物品奖励！
+                            </p>
+                            <div class="reward-preview mb-3">
+                                <div class="row">
+                                    <div class="col-6 col-md-3">
+                                        <div class="small-reward-card">
+                                            <i class="fas fa-shopping-basket text-success"></i>
+                                            <span>种子商店</span>
+                                            <strong>购买种子</strong>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-3">
+                                        <div class="small-reward-card">
+                                            <i class="fas fa-seedling text-primary"></i>
+                                            <span>种植作物</span>
+                                            <strong>3x3农田</strong>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-3">
+                                        <div class="small-reward-card">
+                                            <i class="fas fa-tint text-info"></i>
+                                            <span>浇水护理</span>
+                                            <strong>52币/次</strong>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-3">
+                                        <div class="small-reward-card">
+                                            <i class="fas fa-apple-alt text-warning"></i>
+                                            <span>收获成果</span>
+                                            <strong>获得奖励</strong>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="game-features mb-3">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <small class="text-muted">
+                                            <i class="fas fa-clock me-1"></i>
+                                            作物需要定期浇水
+                                        </small>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <small class="text-muted">
+                                            <i class="fas fa-exclamation-triangle me-1"></i>
+                                            3天不浇水作物会枯死
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="{{ url_for('farm') }}" class="btn btn-success btn-lg">
+                                <i class="fas fa-tractor me-2"></i>进入农场
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 每日签到模块 -->
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header bg-gradient-warning text-white">
+                        <h4 class="mb-0">
+                            <i class="fas fa-calendar-check me-2"></i>
+                            每日签到
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="text-center">
+                            <h5 class="mb-3">
+                                <i class="fas fa-fire me-2 text-danger"></i>
+                                坚持签到获得连续奖励
+                            </h5>
+                            <p class="text-muted mb-3">
+                                每日签到获得宝宝币，连续签到解锁优惠券！
+                            </p>
+                            <div class="reward-preview mb-3">
+                                <div class="row">
+                                    <div class="col-6 col-md-3">
+                                        <div class="small-reward-card">
+                                            <i class="fas fa-coins text-warning"></i>
+                                            <span>每日签到</span>
+                                            <strong>1-5币</strong>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-3">
+                                        <div class="small-reward-card">
+                                            <i class="fas fa-fire text-danger"></i>
+                                            <span>连续奖励</span>
+                                            <strong>递增</strong>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-3">
+                                        <div class="small-reward-card">
+                                            <i class="fas fa-percentage text-success"></i>
+                                            <span>7天奖励</span>
+                                            <strong>9折券</strong>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-3">
+                                        <div class="small-reward-card">
+                                            <i class="fas fa-gift text-purple"></i>
+                                            <span>30天奖励</span>
+                                            <strong>免单券</strong>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="{{ url_for('check_in_page') }}" class="btn btn-success btn-lg">
+                                <i class="fas fa-hand-point-up me-2"></i>进入签到中心
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 猜数字游戏模块 -->
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header bg-gradient-warning text-white">
+                        <h4 class="mb-0">
+                            <i class="fas fa-dice me-2"></i>
+                            猜数字游戏
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="text-center">
+                            <h5 class="mb-3">
+                                <i class="fas fa-bullseye me-2 text-warning"></i>
+                                挑战你的运气和智慧
+                            </h5>
+                            <p class="text-muted mb-3">
+                                猜出1-52之间的数字，越少次数猜中奖励越高！
+                            </p>
+                            <div class="reward-preview mb-3">
+                                <div class="row">
+                                    <div class="col-6 col-md-3">
+                                        <div class="small-reward-card">
+                                            <i class="fas fa-trophy text-warning"></i>
+                                            <span>第1次猜中</span>
+                                            <strong>520币</strong>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-3">
+                                        <div class="small-reward-card">
+                                            <i class="fas fa-medal text-silver"></i>
+                                            <span>第2次猜中</span>
+                                            <strong>100币</strong>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-3">
+                                        <div class="small-reward-card">
+                                            <i class="fas fa-award text-bronze"></i>
+                                            <span>第3次猜中</span>
+                                            <strong>52币</strong>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-3">
+                                        <div class="small-reward-card">
+                                            <i class="fas fa-star text-info"></i>
+                                            <span>第4-7次</span>
+                                            <strong>52/25币</strong>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="game-limit-info mb-3">
+                                <small class="text-muted">
+                                    <i class="fas fa-clock me-1"></i>
+                                    每天可以玩10局游戏
+                                </small>
+                            </div>
+                            <a href="{{ url_for('guess_game') }}" class="btn btn-warning btn-lg">
+                                <i class="fas fa-gamepad me-2"></i>开始游戏
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 寻宝日记游戏模块 -->
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header bg-gradient-info text-white">
+                        <h4 class="mb-0">
+                            <i class="fas fa-map-marked-alt me-2"></i>
+                            寻宝日记
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="text-center">
+                            <h5 class="mb-3">
+                                <i class="fas fa-treasure-chest me-2 text-info"></i>
+                                探索50格寻宝地图
+                            </h5>
+                            <p class="text-muted mb-3">
+                                投掷骰子在地图上冒险，收集宝宝币和特殊奖励！每局都有宝藏格子(+1314宝宝币)和危险的裂开格子(-520宝宝币)！
+                            </p>
+                            <div class="reward-preview mb-3">
+                                <div class="row">
+                                    <div class="col-6 col-md-3">
+                                        <div class="small-reward-card">
+                                            <i class="fas fa-dice text-primary"></i>
+                                            <span>52币购买骰子</span>
+                                            <strong>1-6步</strong>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-3">
+                                        <div class="small-reward-card">
+                                            <i class="fas fa-coins text-warning"></i>
+                                            <span>格子奖励</span>
+                                            <strong>-52~+119币</strong>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-3">
+                                        <div class="small-reward-card">
+                                            <i class="fas fa-gem text-warning"></i>
+                                            <span>宝藏格子</span>
+                                            <strong>+1314币</strong>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-3">
+                                        <div class="small-reward-card">
+                                            <i class="fas fa-skull-crossbones text-danger"></i>
+                                            <span>裂开格子</span>
+                                            <strong>-520币</strong>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-3">
+                                        <div class="small-reward-card">
+                                            <i class="fas fa-trophy text-success"></i>
+                                            <span>完圈奖励</span>
+                                            <strong>优惠券/实物</strong>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-3">
+                                        <div class="small-reward-card">
+                                            <i class="fas fa-sync-alt text-info"></i>
+                                            <span>奖励刷新</span>
+                                            <strong>完圈重置</strong>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="game-features mb-3">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <small class="text-muted">
+                                            <i class="fas fa-gem me-1"></i>
+                                            每局1个宝藏格子(+1314币)
+                                        </small>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <small class="text-muted">
+                                            <i class="fas fa-skull-crossbones me-1"></i>
+                                            每局1个裂开格子(-1314币)
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="{{ url_for('treasure_hunt') }}" class="btn btn-info btn-lg">
+                                <i class="fas fa-compass me-2"></i>开始寻宝
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 更多任务模块（暂时锁定） -->
+                <div class="card shadow-sm mb-4 opacity-50">
+                    <div class="card-header bg-secondary text-white">
+                        <h4 class="mb-0">
+                            <i class="fas fa-lock me-2"></i>
+                            成就系统
+                            <span class="badge bg-light text-dark ms-2">即将开放</span>
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <p class="text-muted text-center mb-0">
+                            完成各种成就解锁特殊奖励，敬请期待...
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.daily-tasks-container {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 50%, #e0c3fc 100%);
+    padding: 2rem 0;
+}
+
+.bg-gradient-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+}
+
+.bg-gradient-success {
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%) !important;
+}
+
+.bg-gradient-warning {
+    background: linear-gradient(135deg, #ffc107 0%, #fd7e14 100%) !important;
+}
+
+.bg-gradient-info {
+    background: linear-gradient(135deg, #17a2b8 0%, #6f42c1 100%) !important;
+}
+
+.btn-outline-primary {
+    border: 2px solid #007bff;
+    color: #007bff;
+    font-weight: 600;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-primary:hover {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0,123,255,0.3);
+}
+
+.small-reward-card {
+    background: white;
+    border-radius: 10px;
+    padding: 1rem;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    margin-bottom: 1rem;
+}
+
+.small-reward-card i {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.small-reward-card span {
+    display: block;
+    font-size: 0.8rem;
+    color: #666;
+    margin-bottom: 0.25rem;
+}
+
+.small-reward-card strong {
+    color: #28a745;
+    font-size: 1.1rem;
+}
+
+.text-purple {
+    color: #6f42c1 !important;
+}
+
+.text-silver {
+    color: #6c757d !important;
+}
+
+.text-bronze {
+    color: #cd7f32 !important;
+}
+
+.balance-display .card {
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.btn {
+    border-radius: 10px;
+}
+
+.card {
+    border-radius: 15px;
+    border: none;
+}
+</style>
+
+<script>
+function goBack() {
+    // 检查是否有历史记录可以返回
+    if (window.history.length > 1) {
+        window.history.back();
+    } else {
+        // 如果没有历史记录，返回到客户端主页
+        window.location.href = '/customer';
+    }
+}
+</script>
+{% endblock %}

@@ -1,0 +1,607 @@
+{% extends "base.html" %}
+
+{% block title %}签到中心 - WXZY点餐系统{% endblock %}
+
+{% block content %}
+<div class="check-in-container">
+    <div class="container">
+        <!-- 页面标题和余额 -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="d-flex align-items-center">
+                        <!-- 返回按钮 -->
+                        <button class="btn btn-outline-primary me-3" onclick="goBack()" title="返回上一页">
+                            <i class="fas fa-arrow-left"></i>
+                        </button>
+                        <h1 class="display-6 text-dark mb-0">
+                            <i class="fas fa-calendar-check text-primary me-3"></i>
+                            签到中心
+                        </h1>
+                    </div>
+                    <div class="balance-display">
+                        <div class="card bg-warning text-dark">
+                            <div class="card-body text-center py-2">
+                                <h5 class="mb-0">
+                                    <i class="fas fa-coins me-2"></i>
+                                    {{ balance }} 宝宝币
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 签到统计 -->
+        <div class="row mb-4">
+            <div class="col-md-4">
+                <div class="stat-card consecutive">
+                    <div class="stat-icon">
+                        <i class="fas fa-fire"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>{{ consecutive_days }}</h3>
+                        <p>连续签到天数</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="stat-card total">
+                    <div class="stat-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>{{ total_check_ins }}</h3>
+                        <p>本月总签到天数</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="stat-card coupons">
+                    <div class="stat-icon">
+                        <i class="fas fa-ticket-alt"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>{{ available_coupons }}</h3>
+                        <p>可用优惠券</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 签到按钮 -->
+        <div class="row mb-4">
+            <div class="col-12 text-center">
+                {% if can_check_in %}
+                    <button type="button" class="btn btn-primary btn-lg check-in-btn" onclick="checkIn()">
+                        <i class="fas fa-hand-point-up me-2"></i>
+                        今日签到
+                    </button>
+                    <p class="mt-2 text-muted">点击按钮完成今日签到，获得宝宝币奖励！</p>
+                {% else %}
+                    <button type="button" class="btn btn-success btn-lg" disabled>
+                        <i class="fas fa-check me-2"></i>
+                        今日已签到
+                    </button>
+                    <p class="mt-2 text-success">今天已经签到了，明天再来吧！</p>
+                {% endif %}
+            </div>
+        </div>
+        
+        <!-- 月历 -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card shadow-lg border-0">
+                    <div class="card-header bg-gradient-primary text-white text-center">
+                        <h4 class="mb-0">
+                            <i class="fas fa-calendar me-2"></i>
+                            {{ current_month }} 签到日历
+                        </h4>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="calendar-container">
+                            <div class="calendar-header">
+                                <div class="weekday">日</div>
+                                <div class="weekday">一</div>
+                                <div class="weekday">二</div>
+                                <div class="weekday">三</div>
+                                <div class="weekday">四</div>
+                                <div class="weekday">五</div>
+                                <div class="weekday">六</div>
+                            </div>
+                            <div class="calendar-grid">
+                                {% for week in calendar_weeks %}
+                                    {% for day in week %}
+                                        <div class="calendar-day 
+                                            {% if day.is_current_month %}current-month{% endif %}
+                                            {% if day.is_today %}today{% endif %}
+                                            {% if day.checked_in %}checked-in{% endif %}
+                                            {% if day.is_future %}future{% endif %}">
+                                            <span class="day-number">{{ day.day }}</span>
+                                            {% if day.checked_in %}
+                                                <i class="fas fa-check check-icon"></i>
+                                                <span class="reward-amount">+{{ day.reward }}</span>
+                                            {% endif %}
+                                        </div>
+                                    {% endfor %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 优惠券展示 -->
+        {% if user_coupons %}
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card shadow-lg border-0">
+                    <div class="card-header bg-gradient-success text-white">
+                        <h4 class="mb-0">
+                            <i class="fas fa-gift me-2"></i>
+                            我的优惠券
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            {% for coupon in user_coupons %}
+                                <div class="col-md-6 col-lg-4 mb-3">
+                                    <div class="coupon-card {% if coupon.used %}used{% endif %}">
+                                        <div class="coupon-header">
+                                            <h5>{{ coupon.description }}</h5>
+                                            {% if coupon.type == 'discount' %}
+                                                <span class="coupon-value">{{ (coupon.value * 100)|int }}折</span>
+                                            {% elif coupon.type == 'free' %}
+                                                <span class="coupon-value">免单</span>
+                                            {% endif %}
+                                        </div>
+                                        <div class="coupon-body">
+                                            <p class="coupon-expires">
+                                                <i class="fas fa-clock me-1"></i>
+                                                有效期至: {{ coupon.expires }}
+                                            </p>
+                                            {% if coupon.used %}
+                                                <span class="badge bg-secondary">已使用</span>
+                                            {% else %}
+                                                <span class="badge bg-success">可使用</span>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        
+        <!-- 签到奖励说明 -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card shadow border-0">
+                    <div class="card-header bg-light">
+                        <h5 class="mb-0">
+                            <i class="fas fa-info-circle me-2"></i>
+                            签到奖励规则
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="reward-rule">
+                                    <div class="rule-icon">
+                                        <i class="fas fa-coins text-warning"></i>
+                                    </div>
+                                    <div class="rule-content">
+                                        <h6>每日签到</h6>
+                                        <p>首次签到获得5个宝宝币，之后每天随机获得1-5个宝宝币</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="reward-rule">
+                                    <div class="rule-icon">
+                                        <i class="fas fa-percentage text-success"></i>
+                                    </div>
+                                    <div class="rule-content">
+                                        <h6>连续7天</h6>
+                                        <p>连续签到7天获得9折优惠券，可在点餐时使用</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="reward-rule">
+                                    <div class="rule-icon">
+                                        <i class="fas fa-gift text-danger"></i>
+                                    </div>
+                                    <div class="rule-content">
+                                        <h6>连续30天</h6>
+                                        <p>连续签到30天获得免单券，可免费享用一次点餐</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-center mt-3">
+            <a href="{{ url_for('daily_tasks') }}" class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left me-1"></i>返回任务中心
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- 签到成功模态框 -->
+<div class="modal fade" id="checkInModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-success text-white">
+                <h5 class="modal-title">
+                    <i class="fas fa-check-circle me-2"></i>
+                    签到成功！
+                </h5>
+            </div>
+            <div class="modal-body text-center">
+                <div class="success-animation mb-3">
+                    <i class="fas fa-trophy text-warning" style="font-size: 3rem;"></i>
+                </div>
+                <h4 id="rewardMessage">恭喜获得 <span id="rewardAmount"></span> 宝宝币！</h4>
+                <p id="consecutiveMessage" class="text-muted"></p>
+                <div id="bonusReward" class="mt-3" style="display: none;">
+                    <div class="alert alert-warning">
+                        <i class="fas fa-gift me-2"></i>
+                        <span id="bonusMessage"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">太棒了！</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.check-in-container {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 50%, #f1f5f9 100%);
+    padding: 2rem 0;
+}
+
+.btn-outline-primary {
+    border: 2px solid #3b82f6;
+    color: #3b82f6;
+    font-weight: 600;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.btn-outline-primary:hover {
+    background-color: #3b82f6;
+    border-color: #3b82f6;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(59,130,246,0.3);
+}
+
+.bg-gradient-primary {
+    background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%) !important;
+}
+
+.bg-gradient-success {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+}
+
+.stat-card {
+    background: white;
+    border-radius: 15px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    text-align: center;
+    transition: transform 0.3s ease;
+    margin-bottom: 1rem;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+}
+
+.stat-card.consecutive {
+    border-left: 5px solid #ff6b6b;
+}
+
+.stat-card.total {
+    border-left: 5px solid #4ecdc4;
+}
+
+.stat-card.coupons {
+    border-left: 5px solid #45b7d1;
+}
+
+.stat-icon {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.consecutive .stat-icon i { color: #ff6b6b; }
+.total .stat-icon i { color: #4ecdc4; }
+.coupons .stat-icon i { color: #45b7d1; }
+
+.stat-content h3 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin: 0;
+    color: #333;
+}
+
+.stat-content p {
+    margin: 0;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.check-in-btn {
+    background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
+    border: none;
+    padding: 1rem 3rem;
+    font-size: 1.2rem;
+    border-radius: 50px;
+    animation: pulse 2s infinite;
+    color: white;
+}
+
+.check-in-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+    color: white;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+    100% { transform: scale(1); }
+}
+
+.calendar-container {
+    padding: 1rem;
+}
+
+.calendar-header {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 1px;
+    margin-bottom: 1rem;
+}
+
+.weekday {
+    text-align: center;
+    font-weight: bold;
+    color: #666;
+    padding: 0.5rem;
+    background: #f8f9fa;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+}
+
+.calendar-day {
+    aspect-ratio: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background: #f8f9fa;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    min-height: 60px;
+}
+
+.calendar-day.current-month {
+    background: white;
+    border: 1px solid #e9ecef;
+}
+
+.calendar-day.today {
+    background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+    color: white;
+    font-weight: bold;
+}
+
+.calendar-day.checked-in {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+}
+
+.calendar-day.future {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.day-number {
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.check-icon {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    font-size: 0.8rem;
+}
+
+.reward-amount {
+    font-size: 0.7rem;
+    position: absolute;
+    bottom: 2px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.coupon-card {
+    background: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 100%);
+    border-radius: 15px;
+    padding: 1rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.coupon-card.used {
+    background: #e9ecef;
+    opacity: 0.7;
+}
+
+.coupon-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.coupon-value {
+    background: white;
+    color: #333;
+    padding: 0.5rem 1rem;
+    border-radius: 25px;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.coupon-expires {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.reward-rule {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.rule-icon {
+    font-size: 2rem;
+    margin-right: 1rem;
+    width: 60px;
+    text-align: center;
+}
+
+.rule-content h6 {
+    margin: 0 0 0.5rem 0;
+    color: #333;
+}
+
+.rule-content p {
+    margin: 0;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.success-animation i {
+    animation: bounce 1s ease-in-out;
+}
+
+@keyframes bounce {
+    0%, 60%, 75%, 90%, 100% {
+        animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+    }
+    0% {
+        opacity: 0;
+        transform: translate3d(0, -3000px, 0);
+    }
+    60% {
+        opacity: 1;
+        transform: translate3d(0, 25px, 0);
+    }
+    75% {
+        transform: translate3d(0, -10px, 0);
+    }
+    90% {
+        transform: translate3d(0, 5px, 0);
+    }
+    100% {
+        transform: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .stat-card {
+        margin-bottom: 1rem;
+    }
+    
+    .calendar-day {
+        min-height: 50px;
+    }
+    
+    .day-number {
+        font-size: 0.9rem;
+    }
+    
+    .reward-amount {
+        font-size: 0.6rem;
+    }
+}
+</style>
+
+<script>
+// 返回上一页功能
+function goBack() {
+    if (window.history.length > 1) {
+        window.history.back();
+    } else {
+        window.location.href = "/customer";
+    }
+}
+
+function checkIn() {
+    fetch('/check_in', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // 显示奖励信息
+            document.getElementById('rewardAmount').textContent = data.reward;
+            document.getElementById('consecutiveMessage').textContent = 
+                `连续签到 ${data.consecutive_days} 天`;
+            
+            // 显示额外奖励（如果有）
+            if (data.bonus_reward) {
+                document.getElementById('bonusMessage').textContent = data.bonus_message;
+                document.getElementById('bonusReward').style.display = 'block';
+            } else {
+                document.getElementById('bonusReward').style.display = 'none';
+            }
+            
+            // 显示模态框
+            const modal = new bootstrap.Modal(document.getElementById('checkInModal'));
+            modal.show();
+            
+            // 3秒后刷新页面
+            setTimeout(() => {
+                location.reload();
+            }, 3000);
+        } else {
+            alert(data.message || '签到失败，请稍后重试');
+        }
+    })
+    .catch(error => {
+        console.error('签到失败:', error);
+        alert('签到失败，请检查网络连接');
+    });
+}
+</script>
+{% endblock %}

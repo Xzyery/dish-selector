@@ -1,0 +1,799 @@
+{% extends "base.html" %}
+
+{% block title %}开心农场{% endblock %}
+
+{% block extra_head %}
+<style>
+.farm-container {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #a8e6cf 0%, #dcedc8 50%, #f1f8e9 100%);
+    padding: 2rem 0;
+}
+
+.farm-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin: 2rem 0;
+}
+
+.farm-slot {
+    aspect-ratio: 1;
+    border: 3px dashed #8bc34a;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #f8f9fa;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    min-height: 150px;
+}
+
+.farm-slot:hover {
+    border-color: #4caf50;
+    background: #e8f5e8;
+    transform: translateY(-2px);
+}
+
+.farm-slot.occupied {
+    border-style: solid;
+    background: #e8f5e8;
+    cursor: default;
+}
+
+.farm-slot.growing {
+    border-color: #4caf50;
+}
+
+.farm-slot.mature {
+    border-color: #ff9800;
+    background: #fff3e0;
+}
+
+.farm-slot.dead {
+    border-color: #f44336;
+    background: #ffebee;
+}
+
+.crop-info {
+    text-align: center;
+    padding: 0.5rem;
+}
+
+.crop-icon {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.crop-name {
+    font-weight: bold;
+    margin-bottom: 0.25rem;
+}
+
+.crop-status {
+    font-size: 0.8rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 15px;
+    color: white;
+}
+
+.crop-status.growing {
+    background: #4caf50;
+}
+
+.crop-status.mature {
+    background: #ff9800;
+}
+
+.crop-status.dead {
+    background: #f44336;
+}
+
+.seed-shop {
+    background: white;
+    border-radius: 15px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    margin-bottom: 2rem;
+}
+
+.seed-item {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    transition: all 0.3s ease;
+}
+
+.seed-item:hover {
+    border-color: #4caf50;
+    box-shadow: 0 2px 8px rgba(76, 175, 80, 0.2);
+}
+
+.seed-icon {
+    font-size: 1.5rem;
+    margin-right: 0.5rem;
+}
+
+.inventory-section {
+    background: white;
+    border-radius: 15px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    margin-bottom: 2rem;
+}
+
+.inventory-item {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem;
+    border-bottom: 1px solid #eee;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.balance-display {
+    background: linear-gradient(135deg, #4caf50, #8bc34a);
+    color: white;
+    border-radius: 15px;
+    padding: 1rem;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.empty-slot-icon {
+    font-size: 2rem;
+    color: #ccc;
+    margin-bottom: 0.5rem;
+}
+
+.empty-slot-text {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+    .farm-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .farm-slot {
+        min-height: 120px;
+    }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="farm-container">
+    <div class="container">
+        <!-- 余额显示 -->
+        <div class="balance-display">
+            <h4 class="mb-0">
+                <i class="fas fa-coins me-2"></i>
+                <span id="userBalance">{{ balance }}</span> 宝宝币
+            </h4>
+        </div>
+
+        <!-- 农场标题 -->
+        <div class="text-center mb-4">
+            <h1 class="text-success">
+                <i class="fas fa-seedling me-2"></i>
+                开心农场
+            </h1>
+            <p class="text-muted">种植、浇水、收获，体验农场乐趣</p>
+        </div>
+
+        <!-- 种子商店 -->
+        <div class="seed-shop">
+            <h3 class="text-success mb-3">
+                <i class="fas fa-store me-2"></i>
+                种子商店
+            </h3>
+            <div class="row">
+                {% for seed_id, seed in seeds.items() %}
+                {% if seed.available %}
+                <div class="col-md-6 mb-3">
+                    <div class="seed-item">
+                        <div class="d-flex align-items-center mb-2">
+                            <span class="seed-icon">{{ seed.icon }}</span>
+                            <div class="flex-grow-1">
+                                <h5 class="mb-1">{{ seed.name }}</h5>
+                                <p class="text-muted mb-1">{{ seed.description }}</p>
+                                <small class="text-info">浇水 {{ seed.required_water_count }} 次成熟</small>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="h5 text-success mb-0">{{ seed.price }} 宝宝币</span>
+                            <button class="btn btn-success" onclick="buySeed('{{ seed_id }}', '{{ seed.name }}', {{ seed.price }})">
+                                <i class="fas fa-shopping-cart me-1"></i>购买
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- 种子库存 -->
+        <div class="inventory-section">
+            <h3 class="text-primary mb-3">
+                <i class="fas fa-warehouse me-2"></i>
+                种子库存
+            </h3>
+            <div id="seedInventory">
+                {% if farm_data.seeds_inventory %}
+                    {% for seed_id, quantity in farm_data.seeds_inventory.items() %}
+                    <div class="inventory-item">
+                        <span class="seed-icon">{{ seeds[seed_id].icon }}</span>
+                        <div class="flex-grow-1">
+                            <strong>{{ seeds[seed_id].name }}</strong>
+                            <span class="text-muted ms-2">x{{ quantity }}</span>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <p class="text-muted">暂无种子库存，去商店购买一些种子吧！</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- 粪便库存 -->
+        <div class="inventory-section">
+            <h3 class="text-warning mb-3">
+                <i class="fas fa-mountain me-2"></i>
+                粪便库存
+            </h3>
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <div>
+                    <span class="fs-4">💩</span>
+                    <span class="ms-2">粪便：<strong id="fertilizerCount">{{ farm_data.fertilizer }}</strong> 个</span>
+                </div>
+                <div>
+                    <button class="btn btn-warning btn-sm" onclick="buyFertilizer()">
+                        <i class="fas fa-shopping-cart me-1"></i>
+                        购买粪便 (88宝宝币/个)
+                    </button>
+                </div>
+            </div>
+            
+            <!-- 农场打卡功能 -->
+            <div class="border-top pt-3">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <span class="text-muted">今日农场打卡：<strong id="dailyPoopCount">{{ farm_data.daily_poop_count|default(0) }}</strong>/3 次</span>
+                    </div>
+                    <div>
+                        <button class="btn btn-success btn-sm" onclick="farmPoop()">
+                            <i class="fas fa-toilet me-1"></i>
+                            农场打卡 (免费获得粪便)
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 农场种植区 -->
+        <div class="text-center mb-3">
+            <h3 class="text-success">
+                <i class="fas fa-leaf me-2"></i>
+                种植区域
+            </h3>
+            <p class="text-muted">点击空地播种，点击作物进行操作</p>
+        </div>
+
+        <div class="farm-grid" id="farmGrid">
+            {% for i in range(farm_data.farm_slots) %}
+            <div class="farm-slot" data-slot="{{ i }}" onclick="handleSlotClick({{ i }})">
+                {% set crop = farm_data.planted_crops | selectattr('slot_index', 'equalto', i) | first %}
+                {% if crop %}
+                    <div class="crop-info">
+                        <div class="crop-icon">{{ seeds[crop.seed_id].icon }}</div>
+                        <div class="crop-name">{{ seeds[crop.seed_id].name }}</div>
+                        <div class="crop-status {{ crop.status }}">
+                            {% if crop.status == 'growing' %}
+                                生长中 ({{ crop.water_count }}/{{ seeds[crop.seed_id].required_water_count }}水, {{ crop.fertilizer_count|default(0) }}/{{ seeds[crop.seed_id].required_fertilizer_count }}肥)
+                                <br>
+                                {% set current_date = moment().strftime('%Y-%m-%d') if moment else none %}
+                                <small class="text-muted">
+                                    浇水：<span id="water-status-{{ crop.id }}">检查中...</span> | 
+                                    施肥：<span id="fertilizer-status-{{ crop.id }}">检查中...</span>
+                                </small>
+                            {% elif crop.status == 'mature' %}
+                                已成熟
+                            {% elif crop.status == 'dead' %}
+                                已死亡
+                            {% endif %}
+                        </div>
+                        <div class="action-buttons">
+                            {% if crop.status == 'growing' %}
+                                <button class="btn btn-primary btn-sm" 
+                                        onclick="event.stopPropagation(); waterCrop('{{ crop.id }}')"
+                                        id="water-btn-{{ crop.id }}">
+                                    <i class="fas fa-tint me-1"></i>浇水 (52币)
+                                </button>
+                                <button class="btn btn-warning btn-sm" 
+                                        onclick="event.stopPropagation(); fertilizeCrop('{{ crop.id }}')"
+                                        id="fertilizer-btn-{{ crop.id }}">
+                                    <i class="fas fa-mountain me-1"></i>施肥 (1粪便)
+                                </button>
+                                <button class="btn btn-secondary btn-sm" onclick="event.stopPropagation(); shovelCrop('{{ crop.id }}')">
+                                    <i class="fas fa-tools me-1"></i>铁铲
+                                </button>
+                            {% elif crop.status == 'mature' %}
+                                <button class="btn btn-warning btn-sm" onclick="event.stopPropagation(); harvestCrop('{{ crop.id }}')">
+                                    <i class="fas fa-hand-paper me-1"></i>收获
+                                </button>
+                            {% elif crop.status == 'dead' %}
+                                <button class="btn btn-danger btn-sm" onclick="event.stopPropagation(); removeDeadCrop('{{ crop.id }}')">
+                                    <i class="fas fa-trash me-1"></i>清理
+                                </button>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="empty-slot-icon">🌱</div>
+                    <div class="empty-slot-text">点击播种</div>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- 返回按钮 -->
+        <div class="text-center mt-4">
+            <a href="{{ url_for('daily_tasks') }}" class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left me-1"></i>返回任务中心
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- 播种模态框 -->
+<div class="modal fade" id="plantModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-success text-white">
+                <h5 class="modal-title">
+                    <i class="fas fa-seedling me-2"></i>选择种子
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body" id="plantModalBody">
+                <!-- 动态内容 -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+let currentBalance = {{ balance }};
+let selectedSlot = null;
+let seedsInventory = {{ farm_data.seeds_inventory | tojson }};
+let seedsData = {{ seeds | tojson }};
+let farmData = {{ farm_data | tojson }};
+
+// 初始化页面，检查每日操作状态
+document.addEventListener('DOMContentLoaded', function() {
+    checkDailyOperationStatus();
+});
+
+function checkDailyOperationStatus() {
+    const today = new Date().toISOString().split('T')[0]; // 获取今天的日期 YYYY-MM-DD
+    
+    farmData.planted_crops.forEach(crop => {
+        if (crop.status === 'growing') {
+            // 检查浇水状态
+            const waterStatusEl = document.getElementById(`water-status-${crop.id}`);
+            const waterBtnEl = document.getElementById(`water-btn-${crop.id}`);
+            
+            if (crop.last_watered === today) {
+                if (waterStatusEl) waterStatusEl.textContent = '今日已浇';
+                if (waterBtnEl) {
+                    waterBtnEl.disabled = true;
+                    waterBtnEl.classList.add('disabled');
+                    waterBtnEl.title = '今日已浇水';
+                }
+            } else {
+                if (waterStatusEl) waterStatusEl.textContent = '可浇水';
+            }
+            
+            // 检查施肥状态
+            const fertilizerStatusEl = document.getElementById(`fertilizer-status-${crop.id}`);
+            const fertilizerBtnEl = document.getElementById(`fertilizer-btn-${crop.id}`);
+            
+            if (crop.last_fertilized === today) {
+                if (fertilizerStatusEl) fertilizerStatusEl.textContent = '今日已施';
+                if (fertilizerBtnEl) {
+                    fertilizerBtnEl.disabled = true;
+                    fertilizerBtnEl.classList.add('disabled');
+                    fertilizerBtnEl.title = '今日已施肥';
+                }
+            } else {
+                if (fertilizerStatusEl) fertilizerStatusEl.textContent = '可施肥';
+            }
+        }
+    });
+}
+
+function buySeed(seedId, seedName, price) {
+    if (currentBalance < price) {
+        showToast(`宝宝币不足！需要${price}个宝宝币购买${seedName}`, 'error');
+        return;
+    }
+    
+    if (!confirm(`确定要花费${price}个宝宝币购买${seedName}吗？`)) {
+        return;
+    }
+    
+    fetch('/buy_seed', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            seed_id: seedId,
+            quantity: 1
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            currentBalance = data.new_balance;
+            document.getElementById('userBalance').textContent = currentBalance;
+            showToast(data.message, 'success');
+            
+            // 更新种子库存显示
+            updateSeedInventory(data.seeds_inventory);
+        } else {
+            showToast(data.message, 'error');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showToast('购买失败，请重试', 'error');
+    });
+}
+
+function handleSlotClick(slotIndex) {
+    const slot = document.querySelector(`[data-slot="${slotIndex}"]`);
+    
+    // 检查该位置是否已经有作物
+    const hasCrop = slot.querySelector('.crop-info') !== null;
+    
+    if (hasCrop) {
+        return; // 已占用的位置不处理
+    }
+    
+    selectedSlot = slotIndex;
+    showPlantModal();
+}
+
+function showPlantModal() {
+    // 显示播种模态框
+    const modalBody = document.getElementById('plantModalBody');
+    
+    let modalContent = '<div class="row">';
+    
+    // 检查是否有可用的种子
+    let hasSeeds = false;
+    for (let seedId in seedsInventory) {
+        if (seedsInventory[seedId] > 0) {
+            hasSeeds = true;
+            const seed = seedsData[seedId];
+            modalContent += `
+                <div class="col-md-6 mb-3">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <div class="h1">${seed.icon}</div>
+                            <h6 class="card-title">${seed.name}</h6>
+                            <p class="text-muted small">${seed.description}</p>
+                            <div class="badge bg-info mb-2">库存: ${seedsInventory[seedId]}个</div>
+                            <br>
+                            <button class="btn btn-success btn-sm" onclick="plantSeed('${seedId}', '${seed.name}')">
+                                <i class="fas fa-seedling me-1"></i>种植
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+    }
+    
+    if (!hasSeeds) {
+        modalContent = '<div class="text-center"><p class="text-muted">暂无可用种子，请先到商店购买种子</p></div>';
+    }
+    
+    modalContent += '</div>';
+    modalBody.innerHTML = modalContent;
+    
+    // 显示模态框
+    const modal = new bootstrap.Modal(document.getElementById('plantModal'));
+    modal.show();
+}
+
+function plantSeed(seedId, seedName) {
+    if (selectedSlot === null) {
+        showToast('请先选择种植位置', 'error');
+        return;
+    }
+    
+    fetch('/plant_seed', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            seed_id: seedId,
+            slot_index: selectedSlot
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            showToast(data.message, 'success');
+            
+            // 更新种子库存
+            if (data.seeds_inventory) {
+                seedsInventory = data.seeds_inventory;
+            }
+            
+            // 关闭模态框
+            const modal = bootstrap.Modal.getInstance(document.getElementById('plantModal'));
+            if (modal) {
+                modal.hide();
+            }
+            
+            // 重置选中的位置
+            selectedSlot = null;
+            
+            // 刷新页面显示最新状态
+            setTimeout(() => location.reload(), 1000);
+        } else {
+            showToast(data.message, 'error');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showToast('播种失败，请重试', 'error');
+    });
+}
+
+function waterCrop(cropId) {
+    if (currentBalance < 52) {
+        showToast('宝宝币不足！浇水需要52个宝宝币', 'error');
+        return;
+    }
+    
+    if (!confirm('确定要花费52个宝宝币浇水吗？')) {
+        return;
+    }
+    
+    fetch('/water_crop', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            crop_id: cropId
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            currentBalance = data.new_balance;
+            document.getElementById('userBalance').textContent = currentBalance;
+            showToast(data.message, 'success');
+            
+            // 刷新页面显示最新状态
+            setTimeout(() => location.reload(), 1000);
+        } else {
+            showToast(data.message, 'error');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showToast('浇水失败，请重试', 'error');
+    });
+}
+
+function harvestCrop(cropId) {
+    fetch('/harvest_crop', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            crop_id: cropId
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            showToast(data.message, 'success');
+            
+            // 刷新页面显示最新状态
+            setTimeout(() => location.reload(), 1000);
+        } else {
+            showToast(data.message, 'error');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showToast('收获失败，请重试', 'error');
+    });
+}
+
+function removeDeadCrop(cropId) {
+    if (!confirm('确定要清理这个死亡的作物吗？')) {
+        return;
+    }
+    
+    fetch('/remove_dead_crop', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            crop_id: cropId
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            showToast(data.message, 'success');
+            
+            // 刷新页面显示最新状态
+            setTimeout(() => location.reload(), 1000);
+        } else {
+            showToast(data.message, 'error');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showToast('清理失败，请重试', 'error');
+    });
+}
+
+function updateSeedInventory(seedsInventory) {
+    // 更新种子库存显示
+    const inventoryDiv = document.getElementById('seedInventory');
+    if (Object.keys(seedsInventory).length === 0) {
+        inventoryDiv.innerHTML = '<p class="text-muted">暂无种子库存，去商店购买一些种子吧！</p>';
+    } else {
+        // 这里可以动态更新库存，暂时选择刷新页面
+        setTimeout(() => location.reload(), 1500);
+    }
+}
+
+function buyFertilizer() {
+    const price = 88;
+    if (currentBalance < price) {
+        showToast(`宝宝币不足！需要${price}个宝宝币购买粪便`, 'error');
+        return;
+    }
+    
+    if (!confirm(`确定要花费${price}个宝宝币购买1个粪便吗？`)) {
+        return;
+    }
+    
+    fetch('/buy_fertilizer', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            quantity: 1
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            currentBalance = data.new_balance;
+            document.getElementById('userBalance').textContent = currentBalance;
+            document.getElementById('fertilizerCount').textContent = data.fertilizer;
+            showToast(data.message, 'success');
+        } else {
+            showToast(data.message, 'error');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showToast('购买失败，请重试', 'error');
+    });
+}
+
+function shovelCrop(cropId) {
+    if (!confirm('确定要铲除这个作物吗？铲除后无法恢复！')) {
+        return;
+    }
+    
+    fetch('/shovel_crop', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            crop_id: cropId
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            showToast(data.message, 'success');
+            // 刷新页面显示最新状态
+            setTimeout(() => location.reload(), 1000);
+        } else {
+            showToast(data.message, 'error');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showToast('铲除失败，请重试', 'error');
+    });
+}
+
+function fertilizeCrop(cropId) {
+    fetch('/fertilize_crop', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            crop_id: cropId
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            document.getElementById('fertilizerCount').textContent = data.fertilizer;
+            showToast(data.message, 'success');
+            // 刷新页面来更新作物状态
+            setTimeout(() => location.reload(), 1500);
+        } else {
+            showToast(data.message, 'error');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showToast('施肥失败，请重试', 'error');
+    });
+}
+
+function farmPoop() {
+    fetch('/farm_poop', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({})
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            document.getElementById('fertilizerCount').textContent = data.fertilizer;
+            document.getElementById('dailyPoopCount').textContent = data.daily_poop_count;
+            showToast(data.message, 'success');
+        } else {
+            showToast(data.message, 'error');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showToast('农场打卡失败，请重试', 'error');
+    });
+}
+
+function showToast(message, type = 'info') {
+    // 简单的提示实现
+    alert(message);
+}
+</script>
+{% endblock %}

@@ -1,1 +1,22 @@
-[]
+[
+  {
+    "name": "麻婆豆腐",
+    "image_path": "images/dish_1758104875_5f29f306.jpeg",
+    "price": 45
+  },
+  {
+    "name": "糖醋鱼",
+    "image_path": "images/fish.jpeg",
+    "price": 68
+  },
+  {
+    "name": "红烧肉",
+    "image_path": "images/dish_1758103848_88ab74bd.jpg",
+    "price": 58
+  },
+  {
+    "name": "青椒肉丝",
+    "image_path": "images/dish_1758104875_5f29f306.jpeg",
+    "price": 42
+  }
+]

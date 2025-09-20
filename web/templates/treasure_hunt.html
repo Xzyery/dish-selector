@@ -1,0 +1,867 @@
+{% extends "base.html" %}
+
+{% block title %}寻宝日记 - 客户端{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4" style="background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 50%, #f1f5f9 100%); min-height: 100vh;">
+    <div class="row">
+        <div class="col-lg-10 mx-auto">
+            <!-- 游戏标题和信息栏 -->
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-header text-center" style="background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%); color: white;">
+                    <h2 class="mb-0">
+                        <i class="fas fa-map-marked-alt me-2"></i>
+                        寻宝日记
+                    </h2>
+                </div>
+                <div class="card-body">
+                    <div class="row text-center">
+                        <div class="col-md-3">
+                            <div class="stat-box">
+                                <i class="fas fa-coins text-warning fs-3"></i>
+                                <div class="mt-2">
+                                    <div class="fw-bold text-primary">{{ balance }}</div>
+                                    <small class="text-muted">当前余额</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="stat-box">
+                                <i class="fas fa-map-marker-alt text-danger fs-3"></i>
+                                <div class="mt-2">
+                                    <div class="fw-bold text-primary">第{{ treasure_data.current_position + 1 }}格</div>
+                                    <small class="text-muted">当前位置</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="stat-box">
+                                <i class="fas fa-trophy text-success fs-3"></i>
+                                <div class="mt-2">
+                                    <div class="fw-bold text-primary">{{ treasure_data.completed_rounds }}</div>
+                                    <small class="text-muted">完成圈数</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="stat-box">
+                                <i class="fas fa-chart-line text-info fs-3"></i>
+                                <div class="mt-2">
+                                    <div class="fw-bold text-primary">{{ treasure_data.total_earned }}</div>
+                                    <small class="text-muted">总收益</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 控制面板 -->
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-body text-center">
+                    <div class="row align-items-center">
+                        <div class="col-md-4">
+                            <button id="buyDiceBtn" class="btn btn-warning btn-lg">
+                                <i class="fas fa-dice me-2"></i>
+                                购买骰子 (52宝宝币)
+                            </button>
+                        </div>
+                        <div class="col-md-4">
+                            <div id="diceResult" class="dice-display" style="display: none;">
+                                <div class="dice-icon">
+                                    <i class="fas fa-dice-six"></i>
+                                </div>
+                                <div class="dice-number mt-2">6</div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <button id="claimRewardBtn" class="btn btn-success btn-lg" 
+                                    {% if treasure_data.completed_rounds <= treasure_data.completion_rewards_claimed|length %}disabled{% endif %}>
+                                <i class="fas fa-gift me-2"></i>
+                                领取完圈奖励
+                                {% if treasure_data.completed_rounds > treasure_data.completion_rewards_claimed|length %}
+                                    <span class="badge bg-danger ms-2">{{ treasure_data.completed_rounds - treasure_data.completion_rewards_claimed|length }}</span>
+                                {% endif %}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 寻宝地图 -->
+            <div class="card border-0 shadow-sm">
+                <div class="card-header text-center" style="background: linear-gradient(45deg, #ff6b6b, #ffa726);">
+                    <h4 class="mb-0 text-white">
+                        <i class="fas fa-treasure-chest me-2"></i>
+                        寻宝地图 (50格环形)
+                    </h4>
+                </div>
+                <div class="card-body p-4">
+                    <div class="treasure-map">
+                        <!-- 地图信息栏 -->
+                        <div class="map-info">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-route me-2"></i>
+                                <span>50格寻宝之路 (横向滚动查看)</span>
+                            </div>
+                            <div class="map-legend">
+                                <div class="legend-item">
+                                    <i class="fas fa-user-circle text-danger"></i>
+                                    <span>当前位置</span>
+                                </div>
+                                <div class="legend-item">
+                                    <i class="fas fa-gem text-warning"></i>
+                                    <span>宝藏(+1314)</span>
+                                </div>
+                                <div class="legend-item">
+                                    <i class="fas fa-skull-crossbones text-light"></i>
+                                    <span>裂缝(-520)</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 线性地图 -->
+                        <div class="linear-map">
+                            {% for i in range(50) %}
+                                <div class="map-cell" 
+                                     data-position="{{ i }}" 
+                                     id="cell-{{ i }}"
+                                     {% if special_types[i] == 'treasure' %}
+                                        style="background: linear-gradient(45deg, #FFD700, #FFA500); border: 3px solid #FF8C00; box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);"
+                                     {% elif special_types[i] == 'crack' %}
+                                        style="background: linear-gradient(45deg, #8B0000, #DC143C); border: 3px solid #B22222; box-shadow: 0 0 15px rgba(220, 20, 60, 0.6);"
+                                     {% elif i == treasure_data.current_position %}
+                                        style="background: linear-gradient(45deg, #4CAF50, #45a049); transform: scale(1.1); box-shadow: 0 0 20px rgba(76, 175, 80, 0.8);"
+                                     {% endif %}>
+                                    
+                                    <!-- 连接线 -->
+                                    {% if i < 49 %}
+                                        <div class="connection-line"></div>
+                                    {% endif %}
+                                    
+                                    <div class="cell-number">{{ i + 1 }}</div>
+                                    <div class="cell-reward">
+                                        {% if special_types[i] == 'treasure' %}
+                                            <span class="text-warning fw-bold">+1314</span>
+                                        {% elif special_types[i] == 'crack' %}
+                                            <span class="text-light fw-bold">-520</span>
+                                        {% elif map_rewards[i] > 0 %}
+                                            <span class="text-success fw-bold">+{{ map_rewards[i] }}</span>
+                                        {% elif map_rewards[i] < 0 %}
+                                            <span class="text-danger fw-bold">{{ map_rewards[i] }}</span>
+                                        {% else %}
+                                            <span class="text-muted">0</span>
+                                        {% endif %}
+                                    </div>
+                                    
+                                    {% if i == treasure_data.current_position %}
+                                        <div class="player-icon">
+                                            <i class="fas fa-user-circle text-white"></i>
+                                        </div>
+                                    {% endif %}
+                                    
+                                    {% if special_types[i] == 'treasure' %}
+                                        <div class="special-icon treasure-icon">
+                                            <i class="fas fa-gem"></i>
+                                        </div>
+                                    {% elif special_types[i] == 'crack' %}
+                                        <div class="special-icon crack-icon">
+                                            <i class="fas fa-skull-crossbones"></i>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+                        </div>
+                        
+                        <!-- 首尾相连提示 -->
+                        <div class="text-center mt-3">
+                            <small class="text-white-50">
+                                <i class="fas fa-info-circle me-1"></i>
+                                第50格连接第1格，形成环形路径
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 返回按钮 -->
+            <div class="text-center mt-4">
+                <button onclick="goBack()" class="btn btn-outline-primary">
+                    <i class="fas fa-arrow-left me-2"></i>
+                    返回上一界面
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 结果模态框 -->
+<div class="modal fade" id="resultModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <i class="fas fa-dice me-2"></i>
+                    游戏结果
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body text-center">
+                <div id="modalContent">
+                    <!-- 动态内容 -->
+                </div>
+            </div>
+            <div class="modal-footer justify-content-center">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block styles %}
+<style>
+    .stat-box {
+        padding: 1rem;
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.8);
+        margin-bottom: 1rem;
+    }
+
+    .dice-display {
+        background: linear-gradient(45deg, #667eea, #764ba2);
+        border-radius: 15px;
+        padding: 1rem;
+        color: white;
+        display: inline-block;
+        min-width: 120px;
+    }
+
+    .dice-icon {
+        font-size: 2rem;
+    }
+
+    .dice-number {
+        font-size: 1.5rem;
+        font-weight: bold;
+    }
+
+    .treasure-map {
+        position: relative;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-radius: 15px;
+        padding: 20px;
+        overflow-x: auto;
+        overflow-y: hidden;
+    }
+
+    .linear-map {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        min-width: 2600px; /* 50格 * 52px = 2600px */
+        height: 80px;
+        position: relative;
+        background: linear-gradient(90deg, 
+            rgba(255,255,255,0.1) 0%, 
+            rgba(255,255,255,0.05) 50%, 
+            rgba(255,255,255,0.1) 100%);
+        border-radius: 10px;
+        border: 2px dashed rgba(255,255,255,0.3);
+    }
+
+    .map-cell {
+        position: relative;
+        background: rgba(255, 255, 255, 0.95);
+        border: 2px solid #e0e0e0;
+        width: 50px;
+        height: 50px;
+        margin-right: 2px;
+        text-align: center;
+        transition: all 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        border-radius: 6px;
+        flex-shrink: 0;
+    }
+
+    .map-cell:last-child {
+        margin-right: 0;
+    }
+
+    .map-cell:hover {
+        transform: scale(1.1) translateY(-3px);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        z-index: 10;
+    }
+
+    .cell-number {
+        font-weight: 900;
+        font-size: 0.7rem;
+        color: #2c3e50;
+        line-height: 1;
+        text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
+        font-family: 'Arial Black', sans-serif;
+    }
+
+    .cell-reward {
+        font-size: 0.6rem;
+        font-weight: 600;
+        margin-top: 1px;
+        line-height: 1;
+        font-family: 'Courier New', monospace;
+        text-shadow: 1px 1px 1px rgba(0,0,0,0.1);
+    }
+
+    .player-icon {
+        position: absolute;
+        top: -6px;
+        right: -6px;
+        background: linear-gradient(45deg, #ff4757, #ff3742);
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        animation: bounce 2s infinite;
+        z-index: 15;
+        font-size: 0.7rem;
+        border: 2px solid white;
+        box-shadow: 0 2px 8px rgba(255, 71, 87, 0.4);
+    }
+
+    .special-icon {
+        position: absolute;
+        top: -6px;
+        left: -6px;
+        width: 18px;
+        height: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        font-size: 0.6rem;
+        z-index: 5;
+        border: 2px solid white;
+    }
+
+    .connection-line {
+        position: absolute;
+        top: 50%;
+        right: -2px;
+        width: 2px;
+        height: 2px;
+        background: rgba(255,255,255,0.6);
+        z-index: 1;
+    }
+
+    .map-info {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+        color: white;
+        font-size: 0.9rem;
+    }
+
+    .map-legend {
+        display: flex;
+        gap: 20px;
+        align-items: center;
+    }
+
+    .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        background: rgba(255,255,255,0.1);
+        padding: 5px 10px;
+        border-radius: 15px;
+        backdrop-filter: blur(5px);
+    }
+
+    .treasure-icon {
+        background: radial-gradient(circle, #FFD700, #FFA500);
+        color: #8B4513;
+        animation: sparkle 2s ease-in-out infinite;
+        box-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
+    }
+
+    .crack-icon {
+        background: radial-gradient(circle, #8B0000, #DC143C);
+        color: #FFFFFF;
+        animation: danger-pulse 1.5s ease-in-out infinite;
+        box-shadow: 0 0 10px rgba(220, 20, 60, 0.7);
+    }
+
+    @keyframes bounce {
+        0%, 20%, 50%, 80%, 100% {
+            transform: translateY(0);
+        }
+        40% {
+            transform: translateY(-10px);
+        }
+        60% {
+            transform: translateY(-5px);
+        }
+    }
+
+    @keyframes sparkle {
+        0%, 100% {
+            transform: scale(1) rotate(0deg);
+            opacity: 1;
+        }
+        50% {
+            transform: scale(1.2) rotate(180deg);
+            opacity: 0.8;
+        }
+    }
+
+    @keyframes danger-pulse {
+        0%, 100% {
+            transform: scale(1);
+            opacity: 1;
+        }
+        50% {
+            transform: scale(1.1);
+            opacity: 0.7;
+        }
+    }
+
+    .btn:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+    }
+
+    @keyframes pulse {
+        0%, 100% {
+            opacity: 0.5;
+        }
+        50% {
+            opacity: 1;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .linear-map {
+            min-width: 2100px; /* 缩小一点适应移动端 */
+            height: 70px;
+        }
+        
+        .map-cell {
+            width: 40px;
+            height: 40px;
+        }
+        
+        .cell-number {
+            font-size: 0.6rem;
+        }
+        
+        .cell-reward {
+            font-size: 0.5rem;
+        }
+
+        .player-icon {
+            width: 16px;
+            height: 16px;
+            font-size: 0.6rem;
+        }
+
+        .special-icon {
+            width: 14px;
+            height: 14px;
+            font-size: 0.5rem;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .linear-map {
+            min-width: 1600px;
+            height: 60px;
+        }
+        
+        .map-cell {
+            width: 30px;
+            height: 30px;
+        }
+        
+        .cell-number {
+            font-size: 0.5rem;
+        }
+        
+        .cell-reward {
+            font-size: 0.4rem;
+        }
+
+        .player-icon {
+            width: 14px;
+            height: 14px;
+            font-size: 0.5rem;
+        }
+
+        .special-icon {
+            width: 12px;
+            height: 12px;
+            font-size: 0.4rem;
+        }
+
+        .treasure-map {
+            padding: 15px;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block scripts %}
+<script>
+let gameInProgress = false;
+
+$(document).ready(function() {
+    // 滚动到当前位置
+    scrollToCurrentPosition();
+    
+    // 购买骰子
+    $('#buyDiceBtn').click(function() {
+        if (gameInProgress) return;
+        
+        gameInProgress = true;
+        $(this).prop('disabled', true).html('<i class="fas fa-spinner fa-spin me-2"></i>投掷中...');
+        
+        $.ajax({
+            url: '/buy_treasure_dice',
+            method: 'POST',
+            contentType: 'application/json',
+            success: function(response) {
+                if (response.success) {
+                    showDiceResult(response);
+                    setTimeout(() => {
+                        movePlayer(response.old_position, response.new_position, response);
+                    }, 1000);
+                } else {
+                    showError(response.message);
+                    resetBuyButton();
+                }
+            },
+            error: function() {
+                showError('网络错误，请重试');
+                resetBuyButton();
+            }
+        });
+    });
+    
+    // 领取完圈奖励
+    $('#claimRewardBtn').click(function() {
+        if ($(this).prop('disabled')) return;
+        
+        $(this).prop('disabled', true).html('<i class="fas fa-spinner fa-spin me-2"></i>领取中...');
+        
+        $.ajax({
+            url: '/claim_completion_reward',
+            method: 'POST',
+            contentType: 'application/json',
+            success: function(response) {
+                if (response.success) {
+                    showCompletionReward(response);
+                    updateClaimButton(response.remaining_rewards);
+                } else {
+                    showError(response.message);
+                    resetClaimButton();
+                }
+            },
+            error: function() {
+                showError('网络错误，请重试');
+                resetClaimButton();
+            }
+        });
+    });
+});
+
+function scrollToCurrentPosition() {
+    const currentCell = $('.current-player');
+    if (currentCell.length > 0) {
+        const container = $('.treasure-map');
+        const cellPosition = currentCell.position().left;
+        const containerWidth = container.width();
+        const scrollLeft = cellPosition - (containerWidth / 2) + 25; // 25 是格子宽度的一半
+        container.animate({scrollLeft: scrollLeft}, 500);
+    }
+}
+
+function showDiceResult(response) {
+    const diceIcons = [
+        'fas fa-dice-one',
+        'fas fa-dice-two', 
+        'fas fa-dice-three',
+        'fas fa-dice-four',
+        'fas fa-dice-five',
+        'fas fa-dice-six'
+    ];
+    
+    $('#diceResult .dice-icon i').attr('class', diceIcons[response.dice_result - 1]);
+    $('#diceResult .dice-number').text(response.dice_result);
+    $('#diceResult').show().addClass('animate__animated animate__bounceIn');
+}
+
+function movePlayer(oldPos, newPos, response) {
+    // 移除旧位置的玩家图标和样式
+    const oldCell = $(`#cell-${oldPos}`);
+    oldCell.removeClass('current-player')
+           .find('.player-icon').remove();
+    
+    // 重置旧位置的样式（保持特殊格子的样式）
+    if (!oldCell.find('.special-icon').length) {
+        oldCell.css({
+            'background': 'rgba(255, 255, 255, 0.95)',
+            'border': '2px solid #e0e0e0',
+            'transform': 'none',
+            'box-shadow': '0 2px 8px rgba(0,0,0,0.1)'
+        });
+    } else {
+        // 特殊格子保持原有样式但移除玩家高亮
+        oldCell.css('transform', 'none');
+        if (oldCell.find('.treasure-icon').length) {
+            oldCell.css({
+                'background': 'linear-gradient(45deg, #FFD700, #FFA500)',
+                'border': '3px solid #FF8C00',
+                'box-shadow': '0 0 15px rgba(255, 215, 0, 0.6)'
+            });
+        } else if (oldCell.find('.crack-icon').length) {
+            oldCell.css({
+                'background': 'linear-gradient(45deg, #8B0000, #DC143C)',
+                'border': '3px solid #B22222',
+                'box-shadow': '0 0 15px rgba(220, 20, 60, 0.6)'
+            });
+        }
+    }
+    
+    // 添加新位置的玩家图标和样式
+    const newCell = $(`#cell-${newPos}`);
+    newCell.addClass('current-player')
+           .css({
+               'background': 'linear-gradient(45deg, #4CAF50, #45a049)',
+               'transform': 'scale(1.1)',
+               'box-shadow': '0 0 20px rgba(76, 175, 80, 0.8)',
+               'z-index': '20'
+           })
+           .append('<div class="player-icon"><i class="fas fa-user-circle text-white"></i></div>');
+    
+    // 滚动到新位置
+    scrollToCurrentPosition();
+    
+    // 显示结果
+    setTimeout(() => {
+        showGameResult(response);
+        resetBuyButton();
+        updateBalance(response.new_balance);
+        
+        // 如果完成一圈，更新地图奖励
+        if (response.completed_round) {
+            updateMapRewards(response.map_rewards, response.special_types);
+        }
+    }, 500);
+}
+
+function showGameResult(response) {
+    let content = `
+        <div class="mb-3">
+            <h5><i class="fas fa-dice me-2"></i>骰子点数: ${response.dice_result}</h5>
+            <p>从第${response.old_position + 1}格移动到第${response.new_position + 1}格</p>
+        </div>
+    `;
+    
+    // 根据格子类型显示不同的消息
+    if (response.grid_type === 'treasure') {
+        content += `
+            <div class="alert alert-warning" style="background: linear-gradient(45deg, #FFD700, #FFA500); color: #8B4513;">
+                <i class="fas fa-gem me-2"></i>
+                <strong>发现宝藏格子！</strong><br>
+                恭喜！获得 ${response.grid_reward} 宝宝币超级奖励！
+            </div>
+        `;
+    } else if (response.grid_type === 'crack') {
+        content += `
+            <div class="alert alert-danger" style="background: linear-gradient(45deg, #8B0000, #DC143C); color: #FFFFFF;">
+                <i class="fas fa-skull-crossbones me-2"></i>
+                <strong>踩到裂开格子！</strong><br>
+                很遗憾，扣除 ${Math.abs(response.grid_reward)} 宝宝币
+            </div>
+        `;
+    } else if (response.grid_reward > 0) {
+        content += `
+            <div class="alert alert-success">
+                <i class="fas fa-coins me-2"></i>
+                恭喜！获得 ${response.grid_reward} 宝宝币奖励！
+            </div>
+        `;
+    } else if (response.grid_reward < 0) {
+        content += `
+            <div class="alert alert-danger">
+                <i class="fas fa-exclamation-triangle me-2"></i>
+                很遗憾，扣除 ${Math.abs(response.grid_reward)} 宝宝币
+            </div>
+        `;
+    } else {
+        content += `
+            <div class="alert alert-info">
+                <i class="fas fa-info-circle me-2"></i>
+                这是一个安全格子，没有奖励或惩罚
+            </div>
+        `;
+    }
+    
+    if (response.completed_round) {
+        content += `
+            <div class="alert alert-warning">
+                <i class="fas fa-trophy me-2"></i>
+                <strong>完成一圈！</strong>地图奖励已刷新，可以在右下角领取完圈奖励！
+            </div>
+        `;
+    }
+    
+    $('#modalContent').html(content);
+    $('#resultModal').modal('show');
+}
+
+function showCompletionReward(response) {
+    let content = `
+        <div class="text-center mb-3">
+            <i class="fas fa-gift text-warning" style="font-size: 3rem;"></i>
+            <h4 class="mt-2">完圈奖励</h4>
+        </div>
+    `;
+    
+    const reward = response.reward;
+    if (reward.type === 'balance') {
+        content += `
+            <div class="alert alert-success">
+                <i class="fas fa-coins me-2"></i>
+                恭喜获得 ${reward.value} 宝宝币！
+            </div>
+        `;
+    } else if (reward.type === 'coupon') {
+        content += `
+            <div class="alert alert-info">
+                <i class="fas fa-ticket-alt me-2"></i>
+                恭喜获得 ${reward.name}！
+            </div>
+        `;
+    } else if (reward.type === 'physical_item') {
+        content += `
+            <div class="alert alert-warning">
+                <i class="fas fa-star me-2"></i>
+                恭喜获得实物奖励：${reward.name}！
+            </div>
+        `;
+    }
+    
+    $('#modalContent').html(content);
+    $('#resultModal').modal('show');
+    updateBalance(response.new_balance);
+}
+
+function showError(message) {
+    $('#modalContent').html(`
+        <div class="alert alert-danger">
+            <i class="fas fa-exclamation-triangle me-2"></i>
+            ${message}
+        </div>
+    `);
+    $('#resultModal').modal('show');
+}
+
+function resetBuyButton() {
+    gameInProgress = false;
+    $('#buyDiceBtn').prop('disabled', false).html('<i class="fas fa-dice me-2"></i>购买骰子 (52宝宝币)');
+}
+
+function resetClaimButton() {
+    $('#claimRewardBtn').prop('disabled', false).html('<i class="fas fa-gift me-2"></i>领取完圈奖励');
+}
+
+function updateClaimButton(remainingRewards) {
+    const btn = $('#claimRewardBtn');
+    if (remainingRewards > 0) {
+        btn.prop('disabled', false)
+           .html(`<i class="fas fa-gift me-2"></i>领取完圈奖励 <span class="badge bg-danger ms-2">${remainingRewards}</span>`);
+    } else {
+        btn.prop('disabled', true)
+           .html('<i class="fas fa-gift me-2"></i>领取完圈奖励');
+    }
+}
+
+function updateBalance(newBalance) {
+    $('.fw-bold.text-primary').first().text(newBalance);
+}
+
+function updateMapRewards(newRewards, newSpecialTypes) {
+    newRewards.forEach((reward, index) => {
+        const cell = $(`#cell-${index}`);
+        const rewardSpan = cell.find('.cell-reward');
+        
+        // 移除旧的特殊图标
+        cell.find('.special-icon').remove();
+        
+        // 重置样式
+        cell.css({
+            'background': 'rgba(255, 255, 255, 0.95)',
+            'border': '2px solid #e0e0e0',
+            'box-shadow': '0 2px 8px rgba(0,0,0,0.1)'
+        });
+        
+        // 根据特殊类型设置样式和内容
+        if (newSpecialTypes && newSpecialTypes[index] === 'treasure') {
+            cell.css({
+                'background': 'linear-gradient(45deg, #FFD700, #FFA500)',
+                'border': '3px solid #FF8C00',
+                'box-shadow': '0 0 15px rgba(255, 215, 0, 0.6)'
+            });
+            rewardSpan.html(`<span class="text-warning fw-bold">+1314</span>`);
+            cell.append('<div class="special-icon treasure-icon"><i class="fas fa-gem"></i></div>');
+        } else if (newSpecialTypes && newSpecialTypes[index] === 'crack') {
+            cell.css({
+                'background': 'linear-gradient(45deg, #8B0000, #DC143C)',
+                'border': '3px solid #B22222',
+                'box-shadow': '0 0 15px rgba(220, 20, 60, 0.6)'
+            });
+            rewardSpan.html(`<span class="text-light fw-bold">-520</span>`);
+            cell.append('<div class="special-icon crack-icon"><i class="fas fa-skull-crossbones"></i></div>');
+        } else {
+            // 普通格子
+            if (reward > 0) {
+                rewardSpan.html(`<span class="text-success fw-bold">+${reward}</span>`);
+            } else if (reward < 0) {
+                rewardSpan.html(`<span class="text-danger fw-bold">${reward}</span>`);
+            } else {
+                rewardSpan.html(`<span class="text-muted">0</span>`);
+            }
+        }
+        
+        // 如果是当前位置，重新设置玩家样式
+        if (cell.hasClass('current-player')) {
+            cell.css({
+                'background': 'linear-gradient(45deg, #4CAF50, #45a049)',
+                'transform': 'scale(1.1)',
+                'box-shadow': '0 0 20px rgba(76, 175, 80, 0.8)',
+                'z-index': '20'
+            });
+        }
+    });
+    
+    // 刷新后滚动到当前位置
+    setTimeout(scrollToCurrentPosition, 100);
+}
+
+function goBack() {
+    if (window.history.length > 1) {
+        window.history.back();
+    } else {
+        window.location.href = '/daily_tasks';
+    }
+}
+</script>
+{% endblock %}

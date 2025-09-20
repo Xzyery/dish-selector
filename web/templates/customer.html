@@ -9,11 +9,24 @@
         <div class="row mb-4">
             <div class="col-12">
                 <div class="d-flex justify-content-between align-items-center flex-wrap">
-                    <h1 class="display-6 mb-2">
+                    <h1 class="display-6 mb-2 text-dark">
                         <i class="fas fa-utensils text-primary me-3"></i>
                         WXZY菜单
                     </h1>
                     <div class="customer-actions">
+                        <!-- 宝宝币余额显示 -->
+                        <div class="balance-display me-3">
+                            <button class="badge bg-warning text-dark fs-6 border-0" data-bs-toggle="modal" data-bs-target="#transactionModal" style="cursor: pointer;">
+                                <i class="fas fa-coins me-1"></i>
+                                <span id="userBalance">{{ user_data.balance or 0 }}</span> 宝宝币
+                            </button>
+                        </div>
+                        
+                        <!-- 任务中心按钮 -->
+                        <a href="/daily_tasks" class="btn btn-info me-2">
+                            <i class="fas fa-tasks me-2"></i>任务中心
+                        </a>
+                        
                         <button class="btn btn-warning" onclick="randomRecommend()">
                             <i class="fas fa-random me-2"></i>随机推荐
                         </button>
@@ -57,7 +70,13 @@
                                                  alt="{{ dish.name }}"
                                                  style="height: 250px; object-fit: cover;">
                                             <div class="dish-overlay">
-                                                <button class="btn btn-primary btn-lg" onclick="addToCart('{{ dish.name|e }}', {{ loop.index0 }})">
+                                                <div class="price-badge">
+                                                    <span class="badge bg-warning text-dark">
+                                                        <i class="fas fa-coins me-1"></i>
+                                                        {{ dish.price or 52 }} 宝宝币
+                                                    </span>
+                                                </div>
+                                                <button class="btn btn-primary btn-lg" onclick="addToCart('{{ dish.name|e }}', {{ loop.index0 }}, {{ dish.price or 52 }})">
                                                     <i class="fas fa-plus me-2"></i>加入购物车
                                                 </button>
                                             </div>
@@ -147,6 +166,18 @@
                         <!-- 订单详情将通过JavaScript填充 -->
                     </div>
                 </div>
+                
+                <!-- 优惠券选择区域 -->
+                <div class="mb-3" id="couponSection">
+                    <h6><i class="fas fa-ticket-alt me-2"></i>可用优惠券：</h6>
+                    <div id="couponList" class="border rounded p-3 bg-light">
+                        <!-- 优惠券列表将通过JavaScript填充 -->
+                        <div class="text-center text-muted">
+                            <i class="fas fa-spinner fa-spin me-2"></i>加载优惠券中...
+                        </div>
+                    </div>
+                    <div class="form-text">选择优惠券可以享受折扣或免费用餐</div>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
@@ -185,6 +216,105 @@
         </div>
     </div>
 </div>
+
+<!-- 交易详情模态框 -->
+<div class="modal fade" id="transactionModal" tabindex="-1" aria-labelledby="transactionModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-warning text-dark">
+                <h5 class="modal-title" id="transactionModalLabel">
+                    <i class="fas fa-coins me-2"></i>宝宝币交易记录
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <!-- 余额概览 -->
+                <div class="row mb-4">
+                    <div class="col-md-4">
+                        <div class="card bg-success text-white">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">
+                                    <i class="fas fa-wallet me-1"></i>当前余额
+                                </h5>
+                                <h3 class="mb-0">{{ user_data.balance or 0 }} 币</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card bg-info text-white">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">
+                                    <i class="fas fa-arrow-up me-1"></i>总收入
+                                </h5>
+                                <h3 class="mb-0" id="totalIncome">0 币</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card bg-danger text-white">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">
+                                    <i class="fas fa-arrow-down me-1"></i>总支出
+                                </h5>
+                                <h3 class="mb-0" id="totalExpense">0 币</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 交易记录列表 -->
+                <div class="transaction-list">
+                    <h6 class="mb-3">
+                        <i class="fas fa-history me-1"></i>最近交易记录
+                    </h6>
+                    {% if user_data.transactions %}
+                        <div class="list-group">
+                            {% for transaction in user_data.transactions[:20] %}
+                            <div class="list-group-item">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="flex-grow-1">
+                                        <div class="d-flex align-items-center">
+                                            {% if transaction.amount > 0 %}
+                                                <i class="fas fa-plus-circle text-success me-2"></i>
+                                            {% else %}
+                                                <i class="fas fa-minus-circle text-danger me-2"></i>
+                                            {% endif %}
+                                            <div>
+                                                <h6 class="mb-1">{{ transaction.description }}</h6>
+                                                <small class="text-muted">
+                                                    <i class="fas fa-clock me-1"></i>{{ transaction.date }}
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="transaction-amount text-end">
+                                        {% if transaction.amount > 0 %}
+                                            <span class="badge bg-success fs-6">+{{ transaction.amount }} 币</span>
+                                        {% else %}
+                                            <span class="badge bg-danger fs-6">{{ transaction.amount }} 币</span>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <div class="text-center py-4">
+                            <i class="fas fa-receipt text-muted" style="font-size: 3rem;"></i>
+                            <h5 class="mt-3 text-muted">暂无交易记录</h5>
+                            <p class="text-muted">开始使用宝宝币吧！</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <i class="fas fa-times me-1"></i>关闭
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
 
 {% block scripts %}
@@ -192,10 +322,16 @@
 // 购物车数据
 let cart = [];
 let dishesData = {{ dishes | tojson | safe }};
+let currentBalance = {{ user_data.balance or 0 }};
+let userCoupons = {{ user_data.coupons | tojson | safe }};
+let selectedCoupon = null;
 
 // 添加到购物车
-function addToCart(dishName, dishIndex) {
-    cart.push(dishName);
+function addToCart(dishName, dishIndex, price) {
+    cart.push({
+        name: dishName,
+        price: price
+    });
     updateCartDisplay();
     
     // 添加视觉反馈
@@ -206,7 +342,12 @@ function addToCart(dishName, dishIndex) {
     }, 1000);
     
     // 显示提示
-    showToast(`已将 "${dishName}" 加入购物车`, 'success');
+    showToast(`已将 "${dishName}" (${price}宝宝币) 加入购物车`, 'success');
+}
+
+// 计算总费用
+function getTotalCost() {
+    return cart.reduce((total, item) => total + item.price, 0);
 }
 
 // 从购物车移除
@@ -214,7 +355,7 @@ function removeFromCart(index) {
     const removedItem = cart[index];
     cart.splice(index, 1);
     updateCartDisplay();
-    showToast(`已从购物车移除 "${removedItem}"`, 'info');
+    showToast(`已从购物车移除 "${removedItem.name}"`, 'info');
 }
 
 // 更新购物车显示
@@ -240,15 +381,25 @@ function updateCartDisplay() {
     
     // 统计菜品数量
     const dishCounts = {};
-    cart.forEach(dish => {
-        dishCounts[dish] = (dishCounts[dish] || 0) + 1;
+    cart.forEach(item => {
+        if (dishCounts[item.name]) {
+            dishCounts[item.name].count++;
+            dishCounts[item.name].totalPrice += item.price;
+        } else {
+            dishCounts[item.name] = {
+                count: 1,
+                price: item.price,
+                totalPrice: item.price
+            };
+        }
     });
     
     let html = '';
-    cart.forEach((dish, index) => {
+    cart.forEach((item, index) => {
         html += `
             <div class="cart-item d-flex justify-content-between align-items-center mb-2 p-2 bg-light rounded">
-                <span class="flex-grow-1">${index + 1}. ${dish}</span>
+                <span class="flex-grow-1">${index + 1}. ${item.name}</span>
+                <span class="text-warning me-2">${item.price}币</span>
                 <button class="btn btn-outline-danger btn-sm" onclick="removeFromCart(${index})">
                     <i class="fas fa-times"></i>
                 </button>
@@ -258,11 +409,41 @@ function updateCartDisplay() {
     
     cartItemsContainer.innerHTML = html;
     
+    const totalCost = getTotalCost();
+    
     // 更新统计信息
     document.getElementById('totalItems').textContent = cart.length;
     document.getElementById('uniqueItems').textContent = Object.keys(dishCounts).length;
+    
+    // 添加总费用显示
+    if (!document.getElementById('totalCost')) {
+        cartSummary.innerHTML += `
+            <div class="d-flex justify-content-between">
+                <span>总费用：</span>
+                <span id="totalCost" class="text-warning fw-bold">${totalCost} 宝宝币</span>
+            </div>
+        `;
+    } else {
+        document.getElementById('totalCost').textContent = `${totalCost} 宝宝币`;
+    }
+    
     cartSummary.style.display = 'block';
-    checkoutBtn.disabled = false;
+    checkoutBtn.disabled = false; // 始终允许用户点击下单按钮
+    
+    // 更新按钮显示文本，但不禁用
+    if (totalCost > currentBalance) {
+        checkoutBtn.innerHTML = `
+            <i class="fas fa-exclamation-triangle me-2"></i>确认下单 (余额不足)
+        `;
+        checkoutBtn.classList.remove('btn-success');
+        checkoutBtn.classList.add('btn-warning'); // 使用警告色而不是危险色
+    } else {
+        checkoutBtn.innerHTML = `
+            <i class="fas fa-check me-2"></i>确认下单
+        `;
+        checkoutBtn.classList.remove('btn-warning');
+        checkoutBtn.classList.add('btn-success');
+    }
 }
 
 // 清空购物车
@@ -310,28 +491,165 @@ function updateOrderModal() {
     
     if (cart.length === 0) {
         orderSummary.innerHTML = '<p class="text-muted">购物车为空</p>';
+        updateCouponSection();
         return;
     }
     
     // 统计菜品数量
     const dishCounts = {};
-    cart.forEach(dish => {
-        dishCounts[dish] = (dishCounts[dish] || 0) + 1;
+    cart.forEach(item => {
+        if (dishCounts[item.name]) {
+            dishCounts[item.name].count++;
+            dishCounts[item.name].totalPrice += item.price;
+        } else {
+            dishCounts[item.name] = {
+                count: 1,
+                price: item.price,
+                totalPrice: item.price
+            };
+        }
     });
     
     let html = '<ul class="list-unstyled mb-0">';
-    Object.entries(dishCounts).forEach(([dish, count]) => {
+    Object.entries(dishCounts).forEach(([dishName, data]) => {
         html += `
             <li class="d-flex justify-content-between align-items-center mb-1">
-                <span>${dish}</span>
-                <span class="badge bg-primary">${count}</span>
+                <span>${dishName}</span>
+                <span>
+                    <span class="badge bg-primary me-2">${data.count}</span>
+                    <span class="text-warning">${data.totalPrice}宝宝币</span>
+                </span>
             </li>
         `;
     });
     html += '</ul>';
-    html += `<div class="mt-3 pt-2 border-top"><strong>总计: ${cart.length} 道菜</strong></div>`;
+    
+    const originalCost = getTotalCost();
+    const {finalCost, discount} = calculateFinalCost(originalCost);
+    
+    html += `
+        <div class="mt-3 pt-2 border-top">
+            <div class="d-flex justify-content-between">
+                <strong>总计: ${cart.length} 道菜</strong>
+                <strong class="text-warning">${originalCost} 宝宝币</strong>
+            </div>`;
+    
+    if (selectedCoupon) {
+        html += `
+            <div class="d-flex justify-content-between text-success">
+                <span>优惠券折扣:</span>
+                <span>-${originalCost - finalCost} 宝宝币</span>
+            </div>
+            <div class="d-flex justify-content-between text-success">
+                <strong>实付金额:</strong>
+                <strong>${finalCost} 宝宝币</strong>
+            </div>`;
+    }
+    
+    html += `
+            <div class="d-flex justify-content-between text-muted">
+                <span>当前余额:</span>
+                <span>${currentBalance} 宝宝币</span>
+            </div>
+            <div class="d-flex justify-content-between">
+                <span>支付后余额:</span>
+                <span class="${finalCost > currentBalance ? 'text-danger' : 'text-success'}">${currentBalance - finalCost} 宝宝币</span>
+            </div>
+        </div>
+    `;
     
     orderSummary.innerHTML = html;
+    updateCouponSection();
+}
+
+// 优惠券相关功能
+function updateCouponSection() {
+    const couponList = document.getElementById('couponList');
+    
+    // 过滤可用的优惠券
+    const availableCoupons = userCoupons.filter(coupon => 
+        !coupon.used && new Date(coupon.expires) > new Date()
+    );
+    
+    if (availableCoupons.length === 0) {
+        couponList.innerHTML = `
+            <div class="text-center text-muted">
+                <i class="fas fa-ticket-alt me-2"></i>暂无可用优惠券
+                <p class="mb-0 mt-1 small">通过每日签到获得优惠券</p>
+            </div>
+        `;
+        return;
+    }
+    
+    let html = '';
+    availableCoupons.forEach(coupon => {
+        const isSelected = selectedCoupon && selectedCoupon.id === coupon.id;
+        html += `
+            <div class="coupon-item ${isSelected ? 'selected' : ''}" onclick="selectCoupon('${coupon.id}')">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="flex-grow-1">
+                        <div class="d-flex align-items-center">
+                            <div class="coupon-icon me-2">
+                                ${coupon.type === 'discount' ? '<i class="fas fa-percentage"></i>' : '<i class="fas fa-gift"></i>'}
+                            </div>
+                            <div>
+                                <strong>${coupon.description}</strong>
+                                <br><small class="text-muted">有效期至: ${coupon.expires}</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="coupon-value">
+                        ${coupon.type === 'discount' ? Math.round(coupon.value * 100) + '折' : '免单'}
+                    </div>
+                    <div class="coupon-radio">
+                        <i class="fas fa-${isSelected ? 'check-circle text-success' : 'circle text-muted'}"></i>
+                    </div>
+                </div>
+            </div>
+        `;
+    });
+    
+    // 添加"不使用优惠券"选项
+    const noSelectSelected = !selectedCoupon;
+    html += `
+        <div class="coupon-item ${noSelectSelected ? 'selected' : ''}" onclick="selectCoupon(null)">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="flex-grow-1">
+                    <strong>不使用优惠券</strong>
+                </div>
+                <div class="coupon-radio">
+                    <i class="fas fa-${noSelectSelected ? 'check-circle text-success' : 'circle text-muted'}"></i>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    couponList.innerHTML = html;
+}
+
+function selectCoupon(couponId) {
+    if (couponId === null) {
+        selectedCoupon = null;
+    } else {
+        selectedCoupon = userCoupons.find(c => c.id === couponId);
+    }
+    updateOrderModal(); // 重新更新订单摘要
+}
+
+function calculateFinalCost(originalCost) {
+    if (!selectedCoupon) {
+        return {finalCost: originalCost, discount: 0};
+    }
+    
+    if (selectedCoupon.type === 'free') {
+        return {finalCost: 0, discount: originalCost};
+    } else if (selectedCoupon.type === 'discount') {
+        const finalCost = Math.ceil(originalCost * selectedCoupon.value);
+        const discount = originalCost - finalCost;
+        return {finalCost, discount};
+    }
+    
+    return {finalCost: originalCost, discount: 0};
 }
 
 // 提交订单
@@ -341,13 +659,25 @@ function submitOrder() {
         return;
     }
     
+    const originalCost = getTotalCost();
+    const {finalCost, discount} = calculateFinalCost(originalCost);
+    
+    if (finalCost > currentBalance) {
+        showToast(`余额不足！需要 ${finalCost} 宝宝币，但您只有 ${currentBalance} 宝宝币`, 'error');
+        return;
+    }
+    
     const customerName = document.getElementById('customerName').value.trim() || '匿名客户';
     const customerId = '{{ customer_id or "web" }}';
     
     const orderData = {
         customer_name: customerName,
         customer_id: customerId,
-        selected_dishes: cart
+        selected_dishes: cart.map(item => item.name),
+        original_cost: originalCost,
+        final_cost: finalCost,
+        discount: discount,
+        coupon_id: selectedCoupon ? selectedCoupon.id : null
     };
     
     fetch('/place_order', {
@@ -360,15 +690,33 @@ function submitOrder() {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
+            // 更新本地余额
+            currentBalance = data.new_balance;
+            document.getElementById('userBalance').textContent = currentBalance;
+            
+            // 如果使用了优惠券，标记为已使用
+            if (selectedCoupon) {
+                const couponIndex = userCoupons.findIndex(c => c.id === selectedCoupon.id);
+                if (couponIndex !== -1) {
+                    userCoupons[couponIndex].used = true;
+                }
+                selectedCoupon = null; // 重置选择的优惠券
+            }
+            
             // 关闭下单模态框
             const orderModal = bootstrap.Modal.getInstance(document.getElementById('orderModal'));
             orderModal.hide();
             
             // 显示成功信息
-            document.getElementById('orderIdDisplay').innerHTML = `
-                <strong>订单号: #${data.order_id}</strong><br>
-                <small class="text-muted">请记录此订单号以便查询</small>
-            `;
+            let successMessage = `<strong>订单号: #${data.order_id}</strong><br>`;
+            if (data.discount_applied && data.discount_applied > 0) {
+                successMessage += `<small class="text-success">使用优惠券节省: ${data.discount_applied} 宝宝币</small><br>`;
+                successMessage += `<small class="text-muted">实付: ${data.final_cost} 宝宝币，余额: ${currentBalance} 宝宝币</small>`;
+            } else {
+                successMessage += `<small class="text-muted">消费: ${data.total_cost} 宝宝币，余额: ${currentBalance} 宝宝币</small>`;
+            }
+            
+            document.getElementById('orderIdDisplay').innerHTML = successMessage;
             
             const successModal = new bootstrap.Modal(document.getElementById('successModal'));
             successModal.show();
@@ -426,16 +774,62 @@ function createToastContainer() {
     return container;
 }
 
+// 计算交易统计
+function calculateTransactionStats() {
+    const transactions = {{ user_data.transactions | tojson | safe }};
+    let totalIncome = 0;
+    let totalExpense = 0;
+    
+    transactions.forEach(transaction => {
+        if (transaction.amount > 0) {
+            totalIncome += transaction.amount;
+        } else {
+            totalExpense += Math.abs(transaction.amount);
+        }
+    });
+    
+    // 更新模态框中的统计信息
+    const totalIncomeElement = document.getElementById('totalIncome');
+    const totalExpenseElement = document.getElementById('totalExpense');
+    
+    if (totalIncomeElement) {
+        totalIncomeElement.textContent = totalIncome + ' 币';
+    }
+    if (totalExpenseElement) {
+        totalExpenseElement.textContent = totalExpense + ' 币';
+    }
+}
+
 // 页面加载完成后的初始化
 $(document).ready(function() {
     updateCartDisplay();
+    calculateTransactionStats();
     
     // 当打开订单模态框时更新订单详情
     document.getElementById('orderModal').addEventListener('show.bs.modal', updateOrderModal);
+    
+    // 当打开交易模态框时更新统计
+    document.getElementById('transactionModal').addEventListener('show.bs.modal', calculateTransactionStats);
 });
 </script>
 
 <style>
+/* 页面背景样式 */
+.customer-dashboard {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 50%, #f1f5f9 100%);
+    padding: 1rem 0;
+}
+
+/* 提示框样式调整 */
+.alert-info {
+    background: rgba(255,255,255,0.9);
+    border: 1px solid #bee5eb;
+    color: #0c5460;
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+}
+
 /* 自定义样式 */
 .dishes-gallery {
     display: grid;
@@ -509,6 +903,53 @@ $(document).ready(function() {
 
 .min-vh-75 {
     min-height: 75vh;
+}
+
+/* 优惠券样式 */
+.coupon-item {
+    background: white;
+    border: 2px solid #e9ecef;
+    border-radius: 10px;
+    padding: 12px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.coupon-item:hover {
+    border-color: #007bff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.coupon-item.selected {
+    border-color: #28a745;
+    background: #f8fff9;
+}
+
+.coupon-icon {
+    width: 30px;
+    height: 30px;
+    background: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #333;
+}
+
+.coupon-value {
+    background: #007bff;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 15px;
+    font-weight: bold;
+    font-size: 0.9rem;
+    margin-right: 10px;
+}
+
+.coupon-radio {
+    font-size: 1.2rem;
 }
 </style>
 {% endblock %}

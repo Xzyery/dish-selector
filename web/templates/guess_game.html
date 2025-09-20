@@ -1,0 +1,784 @@
+{% extends "base.html" %}
+
+{% block title %}猜数字游戏 - WXZY点餐系统{% endblock %}
+
+{% block content %}
+<div class="guess-game-container">
+    <div class="container">
+        <!-- 页面标题和余额 -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="d-flex align-items-center">
+                        <!-- 返回按钮 -->
+                        <button class="btn btn-outline-primary me-3" onclick="goBack()" title="返回上一页">
+                            <i class="fas fa-arrow-left"></i>
+                        </button>
+                        <h1 class="display-6 text-dark mb-0">
+                            <i class="fas fa-dice text-warning me-3"></i>
+                            猜数字游戏
+                        </h1>
+                    </div>
+                    <div class="balance-display">
+                        <div class="card bg-gradient-warning text-dark">
+                            <div class="card-body text-center py-2">
+                                <h5 class="mb-0 fw-bold">
+                                    <i class="fas fa-coins me-2"></i>
+                                    <span id="userBalance">{{ balance }}</span> 宝宝币
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 游戏统计 -->
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <div class="stat-card played">
+                    <div class="stat-icon">
+                        <i class="fas fa-gamepad"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="gamesPlayed">{{ games_played }}</h3>
+                        <p>今日已玩次数</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="stat-card remaining">
+                    <div class="stat-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="gamesRemaining">{{ games_remaining }}</h3>
+                        <p>剩余游戏次数</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 游戏主界面 -->
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <!-- 游戏说明 -->
+                <div class="card shadow-lg border-0 mb-4">
+                    <div class="card-header bg-gradient-primary text-white text-center">
+                        <h4 class="mb-0">
+                            <i class="fas fa-info-circle me-2"></i>
+                            游戏规则
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="rule-item">
+                                    <div class="rule-icon">
+                                        <i class="fas fa-target text-danger"></i>
+                                    </div>
+                                    <div class="rule-content">
+                                        <h6>游戏目标</h6>
+                                        <p>猜出1-52之间的随机数字</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="rule-item">
+                                    <div class="rule-icon">
+                                        <i class="fas fa-hand-paper text-warning"></i>
+                                    </div>
+                                    <div class="rule-content">
+                                        <h6>猜测次数</h6>
+                                        <p>每局游戏有7次猜测机会</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="rule-item">
+                                    <div class="rule-icon">
+                                        <i class="fas fa-coins text-success"></i>
+                                    </div>
+                                    <div class="rule-content">
+                                        <h6>奖励机制</h6>
+                                        <p>第1次答对：520币<br>第2次答对：100币<br>第3-5次答对：52币<br>第6-7次答对：25币</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="rule-item">
+                                    <div class="rule-icon">
+                                        <i class="fas fa-calendar-day text-info"></i>
+                                    </div>
+                                    <div class="rule-content">
+                                        <h6>每日限制</h6>
+                                        <p>每天最多可以玩10局游戏</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 游戏区域 -->
+                <div class="card shadow-lg border-0" id="gameArea">
+                    <div class="card-header bg-gradient-success text-white text-center">
+                        <h4 class="mb-0">
+                            <i class="fas fa-play me-2"></i>
+                            开始新游戏
+                        </h4>
+                    </div>
+                    <div class="card-body text-center">
+                        {% if games_remaining > 0 %}
+                            <div id="gameStart">
+                                <div class="game-start-content">
+                                    <div class="game-icon mb-3">
+                                        <i class="fas fa-dice-six" style="font-size: 4rem; color: #28a745;"></i>
+                                    </div>
+                                    <h4 class="mb-3">准备好挑战你的运气了吗？</h4>
+                                    <p class="text-muted mb-4">
+                                        系统将随机生成一个1-52之间的数字<br>
+                                        你有7次机会猜中它！
+                                    </p>
+                                    <button type="button" class="btn btn-success btn-lg" onclick="startNewGame()">
+                                        <i class="fas fa-rocket me-2"></i>开始游戏
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div id="gamePlay" style="display: none;">
+                                <div class="game-progress mb-4">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="attempts-info">
+                                            <span class="badge bg-primary">剩余机会：<span id="attemptsLeft">7</span></span>
+                                        </div>
+                                        <div class="reward-info">
+                                            <span class="badge bg-warning text-dark">当前奖励：<span id="currentReward">520</span>币</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="guess-input mb-4">
+                                    <div class="input-group input-group-lg">
+                                        <input type="number" class="form-control text-center" id="guessInput" 
+                                               placeholder="输入1-52的数字" min="1" max="52" 
+                                               onkeypress="handleKeyPress(event)">
+                                        <button class="btn btn-primary" type="button" onclick="makeGuess()">
+                                            <i class="fas fa-paper-plane me-1"></i>猜测
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <div id="gameHints" class="game-hints">
+                                    <div class="alert alert-info">
+                                        <i class="fas fa-lightbulb me-2"></i>
+                                        想一个1到52之间的数字...
+                                    </div>
+                                </div>
+                                
+                                <div id="guessHistory" class="guess-history mt-3">
+                                    <!-- 猜测历史将在这里显示 -->
+                                </div>
+                            </div>
+                        {% else %}
+                            <div class="game-limit-reached">
+                                <div class="limit-icon mb-3">
+                                    <i class="fas fa-hourglass-end" style="font-size: 4rem; color: #6c757d;"></i>
+                                </div>
+                                <h4 class="text-muted">今日游戏次数已用完</h4>
+                                <p class="text-muted">
+                                    您今天已经玩了10局游戏<br>
+                                    明天00:00后可以继续游戏
+                                </p>
+                                
+                                <!-- 购买游戏机会选项 -->
+                                <div class="buy-chance-section mt-4 p-3 border rounded">
+                                    <h5 class="text-primary mb-3">
+                                        <i class="fas fa-shopping-cart me-2"></i>
+                                        购买额外游戏机会
+                                    </h5>
+                                    <p class="text-muted mb-3">
+                                        使用宝宝币购买额外的游戏机会继续游戏
+                                    </p>
+                                    <div class="buy-option">
+                                        <div class="d-flex justify-content-center align-items-center mb-3">
+                                            <span class="badge bg-warning text-dark fs-6 me-3">
+                                                <i class="fas fa-coins me-1"></i>52 宝宝币
+                                            </span>
+                                            <span class="text-muted">→</span>
+                                            <span class="badge bg-success fs-6 ms-3">
+                                                <i class="fas fa-plus me-1"></i>1次游戏机会
+                                            </span>
+                                        </div>
+                                        <button type="button" class="btn btn-warning" onclick="buyGameChance()" id="buyChanceBtn">
+                                            <i class="fas fa-credit-card me-2"></i>
+                                            购买游戏机会 (52币)
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <div class="mt-3">
+                                    <small class="text-muted">
+                                        <i class="fas fa-clock me-1"></i>
+                                        距离重置还有 <span id="timeToReset"></span>
+                                    </small>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-center mt-4">
+            <a href="{{ url_for('daily_tasks') }}" class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left me-1"></i>返回任务中心
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- 游戏结果模态框 -->
+<div class="modal fade" id="gameResultModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header" id="resultHeader">
+                <h5 class="modal-title" id="resultTitle">
+                    <!-- 标题将通过JavaScript设置 -->
+                </h5>
+            </div>
+            <div class="modal-body text-center" id="resultBody">
+                <!-- 内容将通过JavaScript设置 -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="closeGameResult()">
+                    确定
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.guess-game-container {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 50%, #f1f5f9 100%);
+    padding: 2rem 0;
+}
+
+.bg-gradient-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+}
+
+.bg-gradient-success {
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%) !important;
+}
+
+.bg-gradient-warning {
+    background: linear-gradient(145deg, #ffc107 0%, #ff8f00 100%) !important;
+}
+
+.btn-outline-light {
+    border: 2px solid rgba(255,255,255,0.6);
+    color: #ffffff;
+    font-weight: 600;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.btn-outline-light:hover {
+    background-color: rgba(255,255,255,0.2);
+    border-color: #ffffff;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(255,255,255,0.2);
+}
+
+.btn-outline-primary {
+    border: 2px solid #007bff;
+    color: #007bff;
+    font-weight: 600;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-primary:hover {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0,123,255,0.3);
+}
+
+.stat-card {
+    background: white;
+    border-radius: 15px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    text-align: center;
+    transition: transform 0.3s ease;
+    margin-bottom: 1rem;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+}
+
+.stat-card.played {
+    border-left: 5px solid #007bff;
+}
+
+.stat-card.remaining {
+    border-left: 5px solid #28a745;
+}
+
+.stat-icon {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.played .stat-icon i { color: #007bff; }
+.remaining .stat-icon i { color: #28a745; }
+
+.stat-content h3 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin: 0;
+    color: #333;
+}
+
+.stat-content p {
+    margin: 0;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.rule-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+}
+
+.rule-icon {
+    font-size: 1.8rem;
+    margin-right: 1rem;
+    width: 50px;
+    text-align: center;
+}
+
+.rule-content h6 {
+    margin: 0 0 0.5rem 0;
+    color: #333;
+}
+
+.rule-content p {
+    margin: 0;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.game-start-content {
+    padding: 2rem 0;
+}
+
+.game-progress {
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 1rem;
+}
+
+.guess-input .form-control {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.game-hints .alert {
+    border-radius: 10px;
+    border: none;
+    font-weight: 500;
+}
+
+.guess-history-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    margin: 0.25rem 0;
+    border-radius: 8px;
+    background: #f8f9fa;
+}
+
+.guess-number {
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.guess-result {
+    font-size: 0.9rem;
+}
+
+.guess-correct {
+    background: #d4edda !important;
+    color: #155724;
+}
+
+.guess-too-high {
+    background: #f8d7da !important;
+    color: #721c24;
+}
+
+.guess-too-low {
+    background: #d1ecf1 !important;
+    color: #0c5460;
+}
+
+.balance-display .card {
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.card {
+    border-radius: 15px;
+    border: none;
+}
+
+.btn {
+    border-radius: 10px;
+}
+
+@media (max-width: 768px) {
+    .stat-card {
+        margin-bottom: 1rem;
+    }
+    
+    .rule-content p {
+        font-size: 0.8rem;
+    }
+    
+    .guess-input .form-control {
+        font-size: 1.2rem;
+    }
+}
+</style>
+
+<script>
+let currentGame = null;
+let gamesPlayed = {{ games_played }};
+let gamesRemaining = {{ games_remaining }};
+let currentBalance = {{ balance }};
+
+function startNewGame() {
+    if (gamesRemaining <= 0) {
+        showToast('今日游戏次数已用完，明天再来吧！', 'warning');
+        return;
+    }
+    
+    fetch('/start_guess_game', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            currentGame = {
+                gameId: data.game_id,
+                targetNumber: data.target_number,
+                attemptsLeft: 7,
+                currentReward: 520
+            };
+            
+            document.getElementById('gameStart').style.display = 'none';
+            document.getElementById('gamePlay').style.display = 'block';
+            document.getElementById('guessInput').focus();
+            updateGameDisplay();
+        } else {
+            showToast(data.message || '开始游戏失败', 'error');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showToast('开始游戏失败，请重试', 'error');
+    });
+}
+
+function makeGuess() {
+    const guessInput = document.getElementById('guessInput');
+    const guess = parseInt(guessInput.value);
+    
+    if (!guess || guess < 1 || guess > 52) {
+        showToast('请输入1-52之间的数字', 'warning');
+        guessInput.focus();
+        return;
+    }
+    
+    if (!currentGame) {
+        showToast('请先开始游戏', 'warning');
+        return;
+    }
+    
+    fetch('/make_guess', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            game_id: currentGame.gameId,
+            guess: guess
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // 使用后端返回的attempts_used更新前端状态
+            currentGame.attemptsLeft = 7 - data.attempts_used;
+            
+            // 添加猜测历史
+            addGuessToHistory(guess, data.result, data.hint);
+            
+            if (data.result === 'correct') {
+                // 猜中了
+                currentBalance = data.new_balance;
+                document.getElementById('userBalance').textContent = currentBalance;
+                showGameResult(true, data.reward, guess, data.attempts_used);
+                resetGame();
+            } else if (data.attempts_used >= 7) {
+                // 用完了所有机会
+                showGameResult(false, 0, data.correct_number, data.attempts_used);
+                resetGame();
+            } else {
+                // 继续游戏
+                updateGameDisplay();
+                updateHint(data.hint);
+                guessInput.value = '';
+                guessInput.focus();
+            }
+        } else {
+            showToast(data.message || '猜测失败', 'error');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showToast('猜测失败，请重试', 'error');
+    });
+}
+
+function updateGameDisplay() {
+    document.getElementById('attemptsLeft').textContent = currentGame.attemptsLeft;
+    
+    // 计算当前奖励 - 新的7次机会奖励规则
+    const rewardMap = {7: 520, 6: 100, 5: 52, 4: 52, 3: 52, 2: 25, 1: 25};
+    currentGame.currentReward = rewardMap[currentGame.attemptsLeft] || 25;
+    document.getElementById('currentReward').textContent = currentGame.currentReward;
+}
+
+function updateHint(hint) {
+    const hintsDiv = document.getElementById('gameHints');
+    let alertClass = 'alert-info';
+    let icon = 'fas fa-lightbulb';
+    
+    if (hint.includes('太大')) {
+        alertClass = 'alert-danger';
+        icon = 'fas fa-arrow-down';
+    } else if (hint.includes('太小')) {
+        alertClass = 'alert-primary';
+        icon = 'fas fa-arrow-up';
+    }
+    
+    hintsDiv.innerHTML = `
+        <div class="alert ${alertClass}">
+            <i class="${icon} me-2"></i>
+            ${hint}
+        </div>
+    `;
+}
+
+function addGuessToHistory(guess, result, hint) {
+    const historyDiv = document.getElementById('guessHistory');
+    const historyItem = document.createElement('div');
+    
+    let resultClass = '';
+    let resultText = '';
+    
+    if (result === 'correct') {
+        resultClass = 'guess-correct';
+        resultText = '正确！';
+    } else if (hint.includes('太大')) {
+        resultClass = 'guess-too-high';
+        resultText = '太大了';
+    } else if (hint.includes('太小')) {
+        resultClass = 'guess-too-low';
+        resultText = '太小了';
+    }
+    
+    historyItem.className = `guess-history-item ${resultClass}`;
+    historyItem.innerHTML = `
+        <span class="guess-number">${guess}</span>
+        <span class="guess-result">${resultText}</span>
+    `;
+    
+    historyDiv.appendChild(historyItem);
+}
+
+function showGameResult(won, reward, number, attempts) {
+    const modal = new bootstrap.Modal(document.getElementById('gameResultModal'));
+    const header = document.getElementById('resultHeader');
+    const title = document.getElementById('resultTitle');
+    const body = document.getElementById('resultBody');
+    
+    if (won) {
+        header.className = 'modal-header bg-success text-white';
+        title.innerHTML = '<i class="fas fa-trophy me-2"></i>恭喜您！猜中了！';
+        body.innerHTML = `
+            <div class="success-animation mb-3">
+                <i class="fas fa-trophy text-warning" style="font-size: 3rem;"></i>
+            </div>
+            <h4>正确答案是 ${number}</h4>
+            <p>您用了 ${attempts} 次就猜中了！</p>
+            <div class="alert alert-success">
+                <i class="fas fa-coins me-2"></i>
+                获得奖励：<strong>${reward} 宝宝币</strong>
+            </div>
+        `;
+    } else {
+        header.className = 'modal-header bg-danger text-white';
+        title.innerHTML = '<i class="fas fa-times-circle me-2"></i>很遗憾，没有猜中';
+        body.innerHTML = `
+            <div class="fail-animation mb-3">
+                <i class="fas fa-sad-tear text-muted" style="font-size: 3rem;"></i>
+            </div>
+            <h4>正确答案是 ${number}</h4>
+            <p>不要灰心，下次一定能猜中！</p>
+            <div class="alert alert-info">
+                <i class="fas fa-info-circle me-2"></i>
+                今天还有 ${9 - gamesPlayed} 次游戏机会
+            </div>
+        `;
+    }
+    
+    modal.show();
+}
+
+function closeGameResult() {
+    const modal = bootstrap.Modal.getInstance(document.getElementById('gameResultModal'));
+    modal.hide();
+    
+    // 更新游戏次数
+    gamesPlayed++;
+    gamesRemaining--;
+    document.getElementById('gamesPlayed').textContent = gamesPlayed;
+    document.getElementById('gamesRemaining').textContent = gamesRemaining;
+    
+    if (gamesRemaining <= 0) {
+        // 刷新页面显示游戏次数用完
+        location.reload();
+    }
+}
+
+function resetGame() {
+    currentGame = null;
+    document.getElementById('gameStart').style.display = 'block';
+    document.getElementById('gamePlay').style.display = 'none';
+    document.getElementById('guessInput').value = '';
+    document.getElementById('guessHistory').innerHTML = '';
+    
+    // 重置提示
+    document.getElementById('gameHints').innerHTML = `
+        <div class="alert alert-info">
+            <i class="fas fa-lightbulb me-2"></i>
+            想一个1到52之间的数字...
+        </div>
+    `;
+}
+
+function handleKeyPress(event) {
+    if (event.key === 'Enter') {
+        makeGuess();
+    }
+}
+
+function showToast(message, type = 'info') {
+    // 简单的提示实现，可以根据需要替换为更复杂的toast组件
+    alert(message);
+}
+
+// 计算到明天的剩余时间
+function updateTimeToReset() {
+    const now = new Date();
+    const tomorrow = new Date(now);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    tomorrow.setHours(0, 0, 0, 0);
+    
+    const timeLeft = tomorrow - now;
+    const hours = Math.floor(timeLeft / (1000 * 60 * 60));
+    const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+    
+    const timeElement = document.getElementById('timeToReset');
+    if (timeElement) {
+        timeElement.textContent = `${hours}小时${minutes}分钟`;
+    }
+}
+
+// 每分钟更新一次倒计时
+if ({{ games_remaining }} <= 0) {
+    updateTimeToReset();
+    setInterval(updateTimeToReset, 60000);
+}
+
+// 购买游戏机会功能
+    // 返回上一页功能
+    function goBack() {
+        if (window.history.length > 1) {
+            window.history.back();
+        } else {
+            window.location.href = "/customer";
+        }
+    }
+
+    // 购买游戏次数
+    function buyGameChance() {
+    if (currentBalance < 52) {
+        showToast('宝宝币不足！需要52个宝宝币购买一次游戏机会。', 'error');
+        return;
+    }
+    
+    if (!confirm('确定要花费52个宝宝币购买一次游戏机会吗？')) {
+        return;
+    }
+    
+    fetch('/buy_game_chance', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({})
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            currentBalance = data.new_balance;
+            document.getElementById('userBalance').textContent = currentBalance;
+            
+            // 更新剩余游戏次数显示
+            gamesRemaining++;
+            document.getElementById('gamesRemaining').textContent = gamesRemaining;
+            
+            showToast('购买成功！获得1次额外游戏机会。', 'success');
+            
+            // 刷新页面以显示游戏界面
+            setTimeout(() => {
+                location.reload();
+            }, 1500);
+        } else {
+            showToast(data.message || '购买失败', 'error');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showToast('购买失败，请重试', 'error');
+    });
+}
+</script>
+{% endblock %}

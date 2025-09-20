@@ -1,0 +1,42 @@
+{
+  "seeds": {
+    "1": {
+      "id": "1",
+      "name": "番茄",
+      "description": "",
+      "price": 10,
+      "required_water_count": 2,
+      "required_fertilizer_count": 1,
+      "icon": "🌱",
+      "harvest_item": {
+        "name": "12",
+        "description": "",
+        "category": "fruit"
+      },
+      "growth_stages": [
+        "种子",
+        "成熟"
+      ],
+      "available": true
+    },
+    "2": {
+      "id": "2",
+      "name": "西瓜",
+      "description": "",
+      "price": 10,
+      "required_water_count": 1,
+      "required_fertilizer_count": 1,
+      "icon": "🌱",
+      "harvest_item": {
+        "name": "西瓜",
+        "description": "",
+        "category": "fruit"
+      },
+      "growth_stages": [
+        "种子",
+        "成熟"
+      ],
+      "available": true
+    }
+  }
+}

@@ -1,0 +1,474 @@
+{% extends "base.html" %}
+
+{% block title %}每日问卷 - WXZY点餐系统{% endblock %}
+
+{% block content %}
+<div class="questionnaire-container">
+    <div class="container">
+        <!-- 页面标题和余额 -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="d-flex align-items-center">
+                        <!-- 返回按钮 -->
+                        <button class="btn btn-outline-primary me-3" onclick="goBack()" title="返回上一页">
+                            <i class="fas fa-arrow-left"></i>
+                        </button>
+                        <h1 class="display-6 text-dark mb-0">
+                            <i class="fas fa-clipboard-list text-warning me-3"></i>
+                            每日问卷
+                        </h1>
+                    </div>
+                    <div class="balance-display">
+                        <div class="card bg-gradient-warning text-dark">
+                            <div class="card-body text-center py-2">
+                                <h5 class="mb-0 fw-bold">
+                                    <i class="fas fa-coins me-2"></i>
+                                    {{ balance }} 宝宝币
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 问卷表单 -->
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="card shadow-lg border-0">
+                    <div class="card-header bg-gradient-primary text-white text-center">
+                        <h3 class="mb-0">
+                            <i class="fas fa-heart me-2"></i>
+                            宝宝每日关爱问卷
+                        </h3>
+                        <p class="mb-0 mt-2 opacity-75">完成问卷获得宝宝币</p>
+                    </div>
+                    <div class="card-body p-4">
+                        <form method="POST" id="questionnaireForm">
+                            <!-- 问题1：吃药 -->
+                            <div class="question-card mb-4">
+                                <div class="question-header">
+                                    <h5 class="question-title">
+                                        <span class="question-number">1</span>
+                                        <i class="fas fa-pills text-success me-2"></i>
+                                        宝贝今天有按时吃药药吗？
+                                    </h5>
+                                </div>
+                                <div class="question-options">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="medicine" id="medicine_yes" value="有" required>
+                                        <label class="form-check-label" for="medicine_yes">
+                                            <i class="fas fa-check text-success me-1"></i>有
+                                        </label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="medicine" id="medicine_no" value="没有" required>
+                                        <label class="form-check-label" for="medicine_no">
+                                            <i class="fas fa-times text-danger me-1"></i>没有
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 问题2：打卡 -->
+                            <div class="question-card mb-4">
+                                <div class="question-header">
+                                    <h5 class="question-title">
+                                        <span class="question-number">2</span>
+                                        <i class="fas fa-check-square text-primary me-2"></i>
+                                        宝b今天有小打卡吗？
+                                    </h5>
+                                </div>
+                                <div class="question-options">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="checkin" id="checkin_yes" value="有" required>
+                                        <label class="form-check-label" for="checkin_yes">
+                                            <i class="fas fa-check text-success me-1"></i>有
+                                        </label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="checkin" id="checkin_no" value="没有" required>
+                                        <label class="form-check-label" for="checkin_no">
+                                            <i class="fas fa-times text-danger me-1"></i>没有
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 问题3：健身 -->
+                            <div class="question-card mb-4">
+                                <div class="question-header">
+                                    <h5 class="question-title">
+                                        <span class="question-number">3</span>
+                                        <i class="fas fa-dumbbell text-warning me-2"></i>
+                                        宝宝今天有健身或者打球吗？
+                                    </h5>
+                                </div>
+                                <div class="question-options">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="exercise" id="exercise_yes" value="有" required>
+                                        <label class="form-check-label" for="exercise_yes">
+                                            <i class="fas fa-check text-success me-1"></i>有
+                                        </label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="exercise" id="exercise_no" value="没有" required>
+                                        <label class="form-check-label" for="exercise_no">
+                                            <i class="fas fa-times text-danger me-1"></i>没有
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 问题4：心情 (可选) -->
+                            <div class="question-card mb-4 optional">
+                                <div class="question-header">
+                                    <h5 class="question-title">
+                                        <span class="question-number">4</span>
+                                        <i class="fas fa-heart text-danger me-2"></i>
+                                        宝贝今天心情怎么样，开心吗，我爱宝贝，贝宝🥰
+                                        <span class="optional-badge">可选</span>
+                                    </h5>
+                                </div>
+                                <div class="question-options">
+                                    <textarea class="form-control" name="mood" rows="3" 
+                                            placeholder="分享一下今天的心情吧..."></textarea>
+                                </div>
+                            </div>
+                            
+                            <!-- 问题5：想说的话 (可选) -->
+                            <div class="question-card mb-4 optional">
+                                <div class="question-header">
+                                    <h5 class="question-title">
+                                        <span class="question-number">5</span>
+                                        <i class="fas fa-comments text-info me-2"></i>
+                                        宝贝今天想跟我说些什么吗，或者想了解了解什么感兴趣的技术吗？
+                                        <span class="optional-badge">可选</span>
+                                    </h5>
+                                </div>
+                                <div class="question-options">
+                                    <textarea class="form-control" name="message" rows="3" 
+                                            placeholder="想说的话或感兴趣的技术..."></textarea>
+                                </div>
+                            </div>
+                            
+                            <!-- 问题6：乐观 -->
+                            <div class="question-card mb-4">
+                                <div class="question-header">
+                                    <h5 class="question-title">
+                                        <span class="question-number">6</span>
+                                        <i class="fas fa-smile text-warning me-2"></i>
+                                        宝贝今天有没有比昨天更乐观一点？
+                                    </h5>
+                                </div>
+                                <div class="question-options">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="optimism" id="optimism_yes" value="有" required>
+                                        <label class="form-check-label" for="optimism_yes">
+                                            <i class="fas fa-check text-success me-1"></i>有
+                                        </label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="optimism" id="optimism_no" value="没有" required>
+                                        <label class="form-check-label" for="optimism_no">
+                                            <i class="fas fa-times text-danger me-1"></i>没有
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 问题7：随机按钮 -->
+                            <div class="question-card mb-4 special">
+                                <div class="question-header">
+                                    <h5 class="question-title">
+                                        <span class="question-number">7</span>
+                                        <i class="fas fa-dice text-danger me-2"></i>
+                                        宝宝给你个随机按钮🔘
+                                    </h5>
+                                </div>
+                                <div class="question-options text-center">
+                                    <p class="text-muted mb-3">点击下面的神秘按钮获得随机宝宝币奖励！</p>
+                                    <button type="button" class="btn btn-lg btn-warning random-button" id="randomRewardBtn" onclick="generateRandomReward()">
+                                        <i class="fas fa-gift me-2"></i>
+                                        点击获取随机奖励
+                                    </button>
+                                    <div id="randomRewardResult" class="mt-3" style="display: none;">
+                                        <div class="alert alert-success">
+                                            <h4><i class="fas fa-coins"></i> 恭喜获得 <span id="randomRewardAmount"></span> 宝宝币！</h4>
+                                        </div>
+                                    </div>
+                                    <!-- 隐藏输入字段存储随机奖励值 -->
+                                    <input type="hidden" name="random_reward" id="randomRewardInput" value="">
+                                </div>
+                            </div>
+                            
+                            <div class="text-center mt-4">
+                                <button type="submit" class="btn btn-primary btn-lg px-5" id="submitBtn" disabled>
+                                    <i class="fas fa-paper-plane me-2"></i>
+                                    提交问卷并获得奖励
+                                </button>
+                                <div class="mt-2">
+                                    <small class="text-muted">请先点击随机按钮获得奖励后再提交</small>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-3">
+                    <a href="{{ url_for('daily_tasks') }}" class="btn btn-outline-secondary">
+                        <i class="fas fa-arrow-left me-1"></i>返回任务中心
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.questionnaire-container {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 50%, #f1f5f9 100%);
+    padding: 2rem 0;
+}
+
+.bg-gradient-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+}
+
+.bg-gradient-warning {
+    background: linear-gradient(145deg, #ffc107 0%, #ff8f00 100%) !important;
+}
+
+.btn-outline-light {
+    border: 2px solid rgba(255,255,255,0.6);
+    color: #ffffff;
+    font-weight: 600;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.btn-outline-light:hover {
+    background-color: rgba(255,255,255,0.2);
+    border-color: #ffffff;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(255,255,255,0.2);
+}
+
+.btn-outline-primary {
+    border: 2px solid #007bff;
+    color: #007bff;
+    font-weight: 600;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-primary:hover {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0,123,255,0.3);
+}
+
+.question-card {
+    background: white;
+    border-radius: 15px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    border-left: 5px solid #667eea;
+    transition: transform 0.2s;
+}
+
+.question-card:hover {
+    transform: translateY(-2px);
+}
+
+.question-card.optional {
+    border-left-color: #17a2b8;
+}
+
+.question-card.special {
+    border-left-color: #dc3545;
+    background: linear-gradient(135deg, #fff 0%, #fff8f0 100%);
+}
+
+.question-header {
+    display: flex;
+    justify-content-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+.question-title {
+    margin: 0;
+    color: #333;
+    flex: 1;
+}
+
+.question-number {
+    display: inline-block;
+    background: #667eea;
+    color: white;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 30px;
+    font-size: 0.9rem;
+    margin-right: 0.5rem;
+}
+
+.reward-badge {
+    background: #28a745;
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    white-space: nowrap;
+    margin-left: 1rem;
+}
+
+.reward-badge.special {
+    background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+}
+
+.optional-badge {
+    background: #17a2b8;
+    color: white;
+    padding: 0.1rem 0.5rem;
+    border-radius: 10px;
+    font-size: 0.7rem;
+    margin-left: 0.5rem;
+}
+
+.question-options {
+    margin-top: 1rem;
+}
+
+.form-check-label {
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.form-check-input:checked + .form-check-label {
+    color: #667eea;
+}
+
+.random-button-placeholder {
+    background: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 100%);
+    border-radius: 15px;
+    padding: 1.5rem;
+    border: 3px dashed #e17055;
+}
+
+.random-rewards-info {
+    background: rgba(255,255,255,0.8);
+    border-radius: 10px;
+    padding: 0.5rem;
+}
+
+.balance-display .card {
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.btn {
+    border-radius: 10px;
+}
+
+.card {
+    border-radius: 15px;
+    border: none;
+}
+
+@media (max-width: 768px) {
+    .question-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .reward-badge {
+        margin-left: 0;
+        margin-top: 0.5rem;
+    }
+}
+
+.random-button {
+    background: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 100%);
+    border: 3px solid #e17055;
+    color: #2d3436;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    animation: pulse 2s infinite;
+}
+
+.random-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 25px rgba(225, 112, 85, 0.4);
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+    100% { transform: scale(1); }
+}
+
+.random-button:disabled {
+    opacity: 0.6;
+    animation: none;
+}
+</style>
+
+<script>
+function goBack() {
+    // 检查是否有历史记录可以返回
+    if (window.history.length > 1) {
+        window.history.back();
+    } else {
+        // 如果没有历史记录，返回到客户端主页
+        window.location.href = '/customer';
+    }
+}
+
+function generateRandomReward() {
+    // 生成随机奖励
+    const random = Math.random();
+    let reward;
+    
+    if (random < 0.0052) { // 0.52% 概率获得520币
+        reward = 520;
+    } else if (random < 0.0252) { // 2% 概率获得52币
+        reward = 52;
+    } else if (random < 0.0752) { // 5% 概率获得40币
+        reward = 40;
+    } else if (random < 0.1752) { // 10% 概率获得30-39币
+        reward = Math.floor(Math.random() * 10) + 30;
+    } else if (random < 0.3252) { // 15% 概率获得20-29币
+        reward = Math.floor(Math.random() * 10) + 20;
+    } else { // 67.48% 概率获得1-19币
+        reward = Math.floor(Math.random() * 19) + 1;
+    }
+    
+    // 显示结果
+    document.getElementById('randomRewardAmount').textContent = reward;
+    document.getElementById('randomRewardResult').style.display = 'block';
+    document.getElementById('randomRewardInput').value = reward;
+    
+    // 禁用按钮并更改文本
+    const btn = document.getElementById('randomRewardBtn');
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fas fa-check me-2"></i>已获得奖励';
+    btn.classList.remove('btn-warning');
+    btn.classList.add('btn-success');
+    
+    // 启用提交按钮
+    document.getElementById('submitBtn').disabled = false;
+    document.querySelector('.text-muted').textContent = '现在可以提交问卷了！';
+}
+</script>
+{% endblock %}

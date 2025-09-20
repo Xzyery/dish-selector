@@ -1,0 +1,736 @@
+{% extends "base.html" %}
+
+{% block title %}宝包 - WXZY点餐系统{% endblock %}
+
+{% block content %}
+<div class="inventory-container">
+    <div class="container">
+        <!-- 页面标题和余额 -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="d-flex align-items-center">
+                        <!-- 返回按钮 -->
+                        <button class="btn btn-outline-primary me-3" onclick="goBack()" title="返回上一页">
+                            <i class="fas fa-arrow-left"></i>
+                        </button>
+                        <h1 class="display-6 text-dark mb-0">
+                            <i class="fas fa-backpack text-warning me-3"></i>
+                            宝包
+                        </h1>
+                    </div>
+                    <div class="balance-display">
+                        <div class="card bg-gradient-warning text-dark">
+                            <div class="card-body text-center py-2">
+                                <h5 class="mb-0 fw-bold">
+                                    <i class="fas fa-coins me-2"></i>
+                                    <span id="userBalance">{{ balance }}</span> 宝宝币
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 物品分类导航 -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <ul class="nav nav-pills justify-content-center" id="categoryTabs">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-category="all" href="#" onclick="filterItems('all')">
+                            <i class="fas fa-list me-2"></i>全部
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-category="real_item" href="#" onclick="filterItems('real_item')">
+                            <i class="fas fa-gift me-2"></i>实物
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-category="fragment_item" href="#" onclick="filterItems('fragment_item')">
+                            <i class="fas fa-puzzle-piece me-2"></i>碎片
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-category="consumable" href="#" onclick="filterItems('consumable')">
+                            <i class="fas fa-potion me-2"></i>消耗品
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-category="discount_item" href="#" onclick="filterItems('discount_item')">
+                            <i class="fas fa-ticket-alt me-2"></i>优惠券
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- 碎片合成区域 -->
+        <div class="row mb-4" id="fragmentComposingSection" style="display: none;">
+            <div class="col-12">
+                <div class="card fragment-compose-card">
+                    <div class="card-header">
+                        <h5 class="mb-0">
+                            <i class="fas fa-magic me-2"></i>碎片合成工坊
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="composableFragments">
+                            <!-- 动态加载可合成的碎片 -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 物品列表 -->
+        <div class="row" id="itemsContainer">
+            {% if inventory %}
+                {% for item in inventory %}
+                <div class="col-lg-3 col-md-4 col-sm-6 mb-4 item-card" data-category="{{ item.category }}">
+                    <div class="card item-card-inner h-100">
+                        <div class="card-header">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h6 class="mb-0">
+                                    {% if item.fragment_type == 'switch' %}
+                                        🎮 神秘游戏设备碎片
+                                    {% else %}
+                                        {{ item.name }}
+                                    {% endif %}
+                                </h6>
+                                {% if item.quantity > 1 %}
+                                <span class="badge bg-primary">{{ item.quantity }}</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="text-center mb-3">
+                                {% if item.category == 'real_item' %}
+                                    <i class="fas fa-gift item-icon real-item-icon"></i>
+                                {% elif item.category == 'fragment_item' %}
+                                    <i class="fas fa-puzzle-piece item-icon fragment-item-icon"></i>
+                                {% elif item.category == 'game_item' %}
+                                    <i class="fas fa-gamepad item-icon game-item-icon"></i>
+                                {% elif item.category == 'check_in_item' %}
+                                    <i class="fas fa-calendar-check item-icon check-item-icon"></i>
+                                {% elif item.category == 'discount_item' %}
+                                    <i class="fas fa-ticket-alt item-icon discount-item-icon"></i>
+                                {% else %}
+                                    <i class="fas fa-box item-icon default-icon"></i>
+                                {% endif %}
+                            </div>
+                            <p class="text-muted small">
+                                {% if item.fragment_type == 'switch' %}
+                                    神秘的游戏设备碎片，收集12个即可合成完整的游戏设备
+                                {% else %}
+                                    {{ item.description }}
+                                {% endif %}
+                            </p>
+                            {% if item.obtained_date %}
+                            <p class="text-muted small">获得时间: {{ item.obtained_date }}</p>
+                            {% endif %}
+                        </div>
+                        <div class="card-footer">
+                            <div class="d-flex gap-2">
+                                <div class="flex-grow-1">
+                                    {% if item.category == 'real_item' %}
+                                        <button type="button" class="btn btn-primary btn-sm w-100" onclick="usePhysicalItem({{ loop.index0 }}, '{{ item.name }}')">
+                                            <i class="fas fa-shopping-cart me-1"></i>创建订单
+                                        </button>
+                                    {% elif item.category == 'fragment_item' %}
+                                        <button type="button" class="btn btn-warning btn-sm w-100" onclick="showComposeOptions('{{ item.fragment_type }}')">
+                                            <i class="fas fa-magic me-1"></i>合成物品
+                                        </button>
+                                    {% elif item.category == 'check_in_item' %}
+                                        <button type="button" class="btn btn-success btn-sm w-100" onclick="showMakeUpModal()">
+                                            <i class="fas fa-calendar-plus me-1"></i>去补签
+                                        </button>
+                                    {% elif item.category == 'game_item' %}
+                                        <button type="button" class="btn btn-info btn-sm w-100" onclick="usePhysicalItem({{ loop.index0 }}, '{{ item.name }}')">
+                                            <i class="fas fa-play me-1"></i>使用道具
+                                        </button>
+                                    {% elif item.category == 'discount_item' %}
+                                        <a href="/customer" class="btn btn-warning btn-sm w-100">
+                                            <i class="fas fa-utensils me-1"></i>去点餐
+                                        </a>
+                                    {% else %}
+                                        <button type="button" class="btn btn-secondary btn-sm w-100" disabled>
+                                            <i class="fas fa-info me-1"></i>查看详情
+                                        </button>
+                                    {% endif %}
+                                </div>
+                                <div>
+                                    <button type="button" class="btn btn-outline-danger btn-sm" onclick="deleteInventoryItem({{ loop.index0 }}, '{{ item.name if item.fragment_type != 'switch' else '神秘游戏设备碎片' }}', {{ item.quantity }})" title="删除物品">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="col-12">
+                    <div class="text-center py-5 empty-state">
+                        <i class="fas fa-box-open" style="font-size: 4rem;"></i>
+                        <h4 class="mt-3">宝包空空如也</h4>
+                        <p>去抽奖获得物品吧！</p>
+                        <a href="/lottery_page" class="btn btn-primary">
+                            <i class="fas fa-gift me-2"></i>去抽奖
+                        </a>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<!-- 补签模态框 -->
+<div class="modal fade" id="makeUpModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">补签</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>选择要补签的日期：</p>
+                <input type="date" id="makeUpDate" class="form-control">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" onclick="performMakeUp()">确认补签</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.inventory-container {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 50%, #f1f5f9 100%);
+    padding: 2rem 0;
+}
+
+.item-card-inner {
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    border: none;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
+}
+
+.item-card-inner:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 35px rgba(0,0,0,0.2);
+}
+
+.item-icon {
+    font-size: 2.5rem;
+    margin: 1rem 0;
+}
+
+.fragment-item-icon {
+    color: #9b59b6;
+}
+
+.real-item-icon {
+    color: #e74c3c;
+}
+
+.game-item-icon {
+    color: #27ae60;
+}
+
+.check-item-icon {
+    color: #3498db;
+}
+
+.discount-item-icon {
+    color: #f39c12;
+}
+
+.default-icon {
+    color: #95a5a6;
+}
+
+.balance-display .card {
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    background: linear-gradient(145deg, #ffc107 0%, #ff8f00 100%) !important;
+}
+
+.nav-pills {
+    background: rgba(255,255,255,0.8);
+    border-radius: 25px;
+    padding: 0.5rem;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.nav-pills .nav-link {
+    border-radius: 20px;
+    margin: 0 0.25rem;
+    color: #495057;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.nav-pills .nav-link:hover {
+    background-color: rgba(0,123,255,0.1);
+    color: #007bff;
+}
+
+.nav-pills .nav-link.active {
+    background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+    color: #ffffff;
+    box-shadow: 0 4px 15px rgba(0,123,255,0.3);
+}
+
+.card-header {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-bottom: 1px solid #dee2e6;
+    border-radius: 20px 20px 0 0 !important;
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.card-footer {
+    background: transparent;
+    border-top: 1px solid #dee2e6;
+    border-radius: 0 0 20px 20px !important;
+}
+
+.card-body {
+    color: #2c3e50;
+}
+
+.card-body .text-muted {
+    color: #7f8c8d !important;
+    font-weight: 500;
+}
+
+.btn-outline-light {
+    border: 2px solid rgba(255,255,255,0.6);
+    color: #ffffff;
+    font-weight: 600;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.btn-outline-light:hover {
+    background-color: rgba(255,255,255,0.2);
+    border-color: #ffffff;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(255,255,255,0.2);
+}
+
+.btn-outline-primary {
+    border: 2px solid #007bff;
+    color: #007bff;
+    font-weight: 600;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-primary:hover {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0,123,255,0.3);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0,123,255,0.3);
+}
+
+.btn-success {
+    background: linear-gradient(135deg, #28a745 0%, #1e7e34 100%);
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+}
+
+.btn-info {
+    background: linear-gradient(135deg, #17a2b8 0%, #117a8b 100%);
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+}
+
+.btn-warning {
+    background: linear-gradient(135deg, #ffc107 0%, #e0a800 100%);
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    color: #212529;
+}
+
+.fragment-compose-card {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    color: white;
+}
+
+.fragment-compose-card .card-header {
+    background: rgba(255,255,255,0.1);
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+    border-radius: 20px 20px 0 0 !important;
+}
+
+.fragment-compose-card .card-body {
+    background: rgba(255,255,255,0.05);
+}
+
+.compose-item {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 15px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    backdrop-filter: blur(10px);
+}
+
+.compose-item:hover {
+    background: rgba(255,255,255,0.15);
+    transform: translateY(-2px);
+    transition: all 0.3s ease;
+}
+
+.empty-state {
+    background: rgba(255,255,255,0.9);
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    padding: 3rem;
+    color: #495057;
+}
+
+.empty-state i {
+    color: #6c757d;
+}
+
+.empty-state h4 {
+    color: #495057;
+    font-weight: 600;
+}
+
+.empty-state p {
+    color: #6c757d;
+}
+</style>
+
+<script>
+function goBack() {
+    // 检查是否有历史记录可以返回
+    if (window.history.length > 1) {
+        window.history.back();
+    } else {
+        // 如果没有历史记录，返回到主页
+        window.location.href = '/customer';
+    }
+}
+
+function filterItems(category) {
+    const items = document.querySelectorAll('.item-card');
+    const tabs = document.querySelectorAll('.nav-link');
+    const fragmentSection = document.getElementById('fragmentComposingSection');
+    
+    // 更新标签状态
+    tabs.forEach(tab => {
+        tab.classList.remove('active');
+        if (tab.dataset.category === category) {
+            tab.classList.add('active');
+        }
+    });
+    
+    // 过滤物品
+    items.forEach(item => {
+        if (category === 'all' || item.dataset.category === category) {
+            item.style.display = 'block';
+        } else {
+            item.style.display = 'none';
+        }
+    });
+    
+    // 如果选择碎片分类，显示合成区域
+    if (category === 'fragment_item' || category === 'all') {
+        fragmentSection.style.display = 'block';
+        loadComposableFragments();
+    } else {
+        fragmentSection.style.display = 'none';
+    }
+}
+
+function loadComposableFragments() {
+    fetch('/get_composable_fragments')
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                const container = document.getElementById('composableFragments');
+                container.innerHTML = '';
+                
+                if (data.composable_fragments.length === 0) {
+                    container.innerHTML = '<p class="text-center mb-0">暂无可合成的碎片</p>';
+                    return;
+                }
+                
+                data.composable_fragments.forEach(fragment => {
+                    const canCompose = fragment.can_compose;
+                    const progressWidth = Math.min((fragment.current_count / fragment.needed_count) * 100, 100);
+                    
+                    const fragmentHtml = `
+                        <div class="compose-item">
+                            <div class="row align-items-center">
+                                <div class="col-md-3">
+                                    <h6 class="mb-1">${fragment.fragment_type === 'switch' ? '🎮 神秘游戏设备' : fragment.result_item.name}</h6>
+                                    <small class="text-light">${fragment.fragment_type === 'switch' ? '神秘的游戏设备，12个碎片可合成完整设备' : fragment.result_item.description}</small>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="progress mb-2" style="height: 8px;">
+                                        <div class="progress-bar ${canCompose ? 'bg-success' : 'bg-warning'}" 
+                                             style="width: ${progressWidth}%"></div>
+                                    </div>
+                                    <small>${fragment.current_count} / ${fragment.needed_count} 碎片</small>
+                                </div>
+                                <div class="col-md-3">
+                                    ${canCompose ? 
+                                        `<span class="badge bg-success">可合成 ${fragment.how_many_can_compose} 个</span>` :
+                                        `<span class="badge bg-secondary">碎片不足</span>`
+                                    }
+                                </div>
+                                <div class="col-md-2">
+                                    <button class="btn btn-light btn-sm ${!canCompose ? 'disabled' : ''}" 
+                                            onclick="composeFragment('${fragment.fragment_type}')"
+                                            ${!canCompose ? 'disabled' : ''}>
+                                        <i class="fas fa-magic me-1"></i>合成
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    container.insertAdjacentHTML('beforeend', fragmentHtml);
+                });
+            }
+        })
+        .catch(error => {
+            console.error('Error loading composable fragments:', error);
+        });
+}
+
+function showComposeOptions(fragmentType) {
+    composeFragment(fragmentType);
+}
+
+function composeFragment(fragmentType) {
+    if (confirm(`确定要合成 ${fragmentType} 吗？`)) {
+        fetch('/compose_fragments', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                fragment_type: fragmentType
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                showToast(data.message, 'success');
+                // 刷新页面以更新物品
+                setTimeout(() => {
+                    location.reload();
+                }, 1500);
+            } else {
+                showToast(data.message || '合成失败', 'error');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            showToast('合成失败，请重试', 'error');
+        });
+    }
+}
+
+function usePhysicalItem(itemIndex, itemName) {
+    if (confirm(`确定要为 ${itemName} 创建订单吗？`)) {
+        fetch('/use_item', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                item_index: itemIndex
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                showToast(data.message, 'success');
+                // 刷新页面以更新物品数量
+                setTimeout(() => {
+                    location.reload();
+                }, 1500);
+            } else {
+                if (data.action === 'compose') {
+                    showToast(data.message, 'info');
+                    // 如果是碎片，切换到碎片分类
+                    filterItems('fragment_item');
+                } else if (data.action === 'redirect') {
+                    showToast(data.message, 'info');
+                    if (data.url) {
+                        setTimeout(() => {
+                            window.location.href = data.url;
+                        }, 2000);
+                    }
+                } else {
+                    showToast(data.message || '使用失败', 'error');
+                }
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            showToast('使用失败，请重试', 'error');
+        });
+    }
+}
+
+function showMakeUpModal() {
+    const today = new Date();
+    const maxDate = today.toISOString().split('T')[0];
+    document.getElementById('makeUpDate').max = maxDate;
+    
+    const modal = new bootstrap.Modal(document.getElementById('makeUpModal'));
+    modal.show();
+}
+
+function performMakeUp() {
+    const date = document.getElementById('makeUpDate').value;
+    if (!date) {
+        showToast('请选择补签日期', 'error');
+        return;
+    }
+    
+    fetch('/make_up_check_in', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            date: date
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            showToast(`补签成功！获得${data.reward}个宝宝币`, 'success');
+            document.getElementById('userBalance').textContent = data.new_balance;
+            
+            // 关闭模态框
+            const modal = bootstrap.Modal.getInstance(document.getElementById('makeUpModal'));
+            modal.hide();
+            
+            // 刷新页面以更新补签卡数量
+            setTimeout(() => {
+                location.reload();
+            }, 1500);
+        } else {
+            showToast(data.message || '补签失败', 'error');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showToast('补签失败，请重试', 'error');
+    });
+}
+
+function showToast(message, type = 'info') {
+    const toastHtml = `
+        <div class="toast align-items-center text-white bg-${type === 'error' ? 'danger' : 'success'} border-0" role="alert">
+            <div class="d-flex">
+                <div class="toast-body">${message}</div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+            </div>
+        </div>
+    `;
+    
+    let toastContainer = document.getElementById('toastContainer');
+    if (!toastContainer) {
+        toastContainer = document.createElement('div');
+        toastContainer.id = 'toastContainer';
+        toastContainer.className = 'toast-container position-fixed top-0 end-0 p-3';
+        toastContainer.style.zIndex = '9999';
+        document.body.appendChild(toastContainer);
+    }
+    
+    toastContainer.insertAdjacentHTML('beforeend', toastHtml);
+    const toastElement = toastContainer.lastElementChild;
+    const toast = new bootstrap.Toast(toastElement);
+    toast.show();
+    
+    setTimeout(() => {
+        toastElement.remove();
+    }, 3000);
+}
+
+// 删除背包物品
+function deleteInventoryItem(itemIndex, itemName, quantity) {
+    // 确认删除
+    const quantityText = quantity > 1 ? `(数量: ${quantity})` : '';
+    if (!confirm(`确定要删除 "${itemName}" ${quantityText} 吗？\n\n此操作不可恢复！`)) {
+        return;
+    }
+    
+    // 发送删除请求
+    fetch('/delete_inventory_item', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            'item_index': itemIndex
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            showToast(data.message || '物品删除成功', 'success');
+            // 刷新页面以更新物品列表
+            setTimeout(() => {
+                location.reload();
+            }, 1000);
+        } else {
+            showToast(data.message || '删除失败', 'error');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showToast('删除失败，请重试', 'error');
+    });
+}
+
+// 页面加载时初始化
+document.addEventListener('DOMContentLoaded', function() {
+    // 如果当前显示全部或碎片分类，加载碎片合成区域
+    const activeTab = document.querySelector('.nav-link.active');
+    if (activeTab && (activeTab.dataset.category === 'all' || activeTab.dataset.category === 'fragment_item')) {
+        document.getElementById('fragmentComposingSection').style.display = 'block';
+        loadComposableFragments();
+    }
+});
+</script>
+{% endblock %}
