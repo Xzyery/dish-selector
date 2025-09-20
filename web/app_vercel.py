@@ -92,6 +92,7 @@ def get_default_dishes():
             "description": "这是一个示例菜品，用于演示系统功能",
             "price": 15,
             "image": "",
+            "image_path": "",  # 添加 image_path 字段兼容模板
             "category": "主食",
             "created_at": datetime.now().isoformat()
         }
@@ -148,7 +149,12 @@ def load_dishes():
             file_path = os.path.join(base_dir, 'dishes.json')
             if os.path.exists(file_path):
                 with open(file_path, 'r', encoding='utf-8') as f:
-                    _memory_storage['dishes'] = json.load(f)
+                    dishes = json.load(f)
+                    # 确保每个菜品都有 image_path 字段
+                    for dish in dishes:
+                        if 'image_path' not in dish:
+                            dish['image_path'] = dish.get('image', '')
+                    _memory_storage['dishes'] = dishes
             else:
                 _memory_storage['dishes'] = get_default_dishes()
         except Exception as e:
@@ -188,6 +194,11 @@ def save_seeds_data(data):
 @app.route('/images/<filename>')
 def get_image(filename):
     """获取图片文件"""
+    return send_from_directory(app.static_folder, filename)
+
+@app.route('/uploads/<filename>')
+def uploaded_file(filename):
+    """获取上传的文件 - 兼容原始模板"""
     return send_from_directory(app.static_folder, filename)
 
 # 基本路由
@@ -423,6 +434,7 @@ def add_dish():
             'description': data.get('description', ''),
             'price': float(data.get('price', 0)),
             'image': '',  # 在Vercel环境中不支持图片上传
+            'image_path': '',  # 添加 image_path 字段兼容模板
             'category': data.get('category', '其他'),
             'created_at': datetime.now().isoformat()
         }
@@ -431,6 +443,15 @@ def add_dish():
         save_dishes(dishes)
         
         return jsonify({'success': True, 'message': '菜品添加成功！'})
+    except Exception as e:
+        return jsonify({'success': False, 'message': str(e)}), 500
+
+@app.route('/batch_add_dishes', methods=['POST'])
+def batch_add_dishes():
+    """批量添加菜品"""
+    try:
+        # 在Vercel环境中，我们简化这个功能
+        return jsonify({'success': True, 'message': '批量添加功能在演示环境中已简化'})
     except Exception as e:
         return jsonify({'success': False, 'message': str(e)}), 500
 
