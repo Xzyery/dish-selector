@@ -169,7 +169,63 @@ def index():
 
 @app.route('/customer')
 def customer():
-    """客户端页面"""
+    """客户端页面 - 简化版本"""
+    try:
+        # 先返回简单的HTML，避免模板渲染问题
+        return """
+        <html>
+        <head>
+            <title>客户端</title>
+            <meta charset="UTF-8">
+            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        </head>
+        <body>
+            <div class="container mt-5">
+                <h1>客户端页面</h1>
+                <p>正在开发中...</p>
+                <a href="/" class="btn btn-primary">返回首页</a>
+                <a href="/customer_full" class="btn btn-secondary">尝试完整版本</a>
+            </div>
+        </body>
+        </html>
+        """
+    except Exception as e:
+        return jsonify({
+            'error': 'Customer page error',
+            'details': str(e)
+        }), 500
+
+@app.route('/chef')
+def chef():
+    """厨师端页面 - 简化版本"""
+    try:
+        # 先返回简单的HTML，避免模板渲染问题
+        return """
+        <html>
+        <head>
+            <title>厨师端</title>
+            <meta charset="UTF-8">
+            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        </head>
+        <body>
+            <div class="container mt-5">
+                <h1>厨师端页面</h1>
+                <p>正在开发中...</p>
+                <a href="/" class="btn btn-primary">返回首页</a>
+                <a href="/chef_full" class="btn btn-secondary">尝试完整版本</a>
+            </div>
+        </body>
+        </html>
+        """
+    except Exception as e:
+        return jsonify({
+            'error': 'Chef page error',
+            'details': str(e)
+        }), 500
+
+@app.route('/customer_full')
+def customer_full():
+    """完整的客户端页面"""
     try:
         dishes = load_dishes()
         user_data = load_user_data()
@@ -188,27 +244,25 @@ def customer():
         return render_template('customer.html', dishes=dishes, user_data=user_data)
     except Exception as e:
         return jsonify({
-            'error': 'Customer page error',
+            'error': 'Customer full page error',
             'details': str(e),
             'template_folder': app.template_folder,
-            'template_exists': os.path.exists(os.path.join(app.template_folder, 'customer.html')),
-            'current_dir': os.getcwd()
+            'template_exists': os.path.exists(os.path.join(app.template_folder, 'customer.html')) if app.template_folder else False
         }), 500
 
-@app.route('/chef')
-def chef():
-    """厨师端页面"""
+@app.route('/chef_full')
+def chef_full():
+    """完整的厨师端页面"""
     try:
         dishes = load_dishes()
         user_data = load_user_data()
         return render_template('chef.html', dishes=dishes, user_data=user_data)
     except Exception as e:
         return jsonify({
-            'error': 'Chef page error',
+            'error': 'Chef full page error',
             'details': str(e),
             'template_folder': app.template_folder,
-            'template_exists': os.path.exists(os.path.join(app.template_folder, 'chef.html')),
-            'current_dir': os.getcwd()
+            'template_exists': os.path.exists(os.path.join(app.template_folder, 'chef.html')) if app.template_folder else False
         }), 500
 
 # API路由 - 简化版本，避免文件操作
