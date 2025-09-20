@@ -9,7 +9,13 @@ from PIL import Image
 import shutil
 import random
 
-app = Flask(__name__)
+# 获取当前文件的目录
+current_dir = os.path.dirname(os.path.abspath(__file__))
+
+# 明确指定模板和静态文件路径
+app = Flask(__name__, 
+           template_folder=os.path.join(current_dir, 'templates'),
+           static_folder=os.path.join(current_dir, 'static'))
 app.secret_key = os.environ.get('SECRET_KEY', 'dish_selector_secret_key_2024')
 
 # 配置文件上传 - Vercel环境下禁用
@@ -164,28 +170,46 @@ def index():
 @app.route('/customer')
 def customer():
     """客户端页面"""
-    dishes = load_dishes()
-    user_data = load_user_data()
-    
-    # 检查并重置每日任务
-    today = date.today().isoformat()
-    if user_data.get('last_reset_date') != today:
-        user_data['daily_tasks'] = {
-            'questionnaire': False,
-            'poop_photo': False,
-            'lucky_spin': False
-        }
-        user_data['last_reset_date'] = today
-        save_user_data(user_data)
-    
-    return render_template('customer.html', dishes=dishes, user_data=user_data)
+    try:
+        dishes = load_dishes()
+        user_data = load_user_data()
+        
+        # 检查并重置每日任务
+        today = date.today().isoformat()
+        if user_data.get('last_reset_date') != today:
+            user_data['daily_tasks'] = {
+                'questionnaire': False,
+                'poop_photo': False,
+                'lucky_spin': False
+            }
+            user_data['last_reset_date'] = today
+            save_user_data(user_data)
+        
+        return render_template('customer.html', dishes=dishes, user_data=user_data)
+    except Exception as e:
+        return jsonify({
+            'error': 'Customer page error',
+            'details': str(e),
+            'template_folder': app.template_folder,
+            'template_exists': os.path.exists(os.path.join(app.template_folder, 'customer.html')),
+            'current_dir': os.getcwd()
+        }), 500
 
 @app.route('/chef')
 def chef():
     """厨师端页面"""
-    dishes = load_dishes()
-    user_data = load_user_data()
-    return render_template('chef.html', dishes=dishes, user_data=user_data)
+    try:
+        dishes = load_dishes()
+        user_data = load_user_data()
+        return render_template('chef.html', dishes=dishes, user_data=user_data)
+    except Exception as e:
+        return jsonify({
+            'error': 'Chef page error',
+            'details': str(e),
+            'template_folder': app.template_folder,
+            'template_exists': os.path.exists(os.path.join(app.template_folder, 'chef.html')),
+            'current_dir': os.getcwd()
+        }), 500
 
 # API路由 - 简化版本，避免文件操作
 @app.route('/api/user_data')
@@ -222,6 +246,9 @@ def add_to_cart():
 @app.route('/health')
 def health_check():
     """健康检查端点"""
+    template_folder = app.template_folder
+    static_folder = app.static_folder
+    
     return jsonify({
         'status': 'ok',
         'message': 'WXZY点餐系统 running on Vercel',
@@ -229,8 +256,29 @@ def health_check():
             'user_data_loaded': _memory_storage['user_data'] is not None,
             'dishes_loaded': _memory_storage['dishes'] is not None,
             'seeds_data_loaded': _memory_storage['seeds_data'] is not None
+        },
+        'file_system': {
+            'current_dir': os.getcwd(),
+            'template_folder': template_folder,
+            'static_folder': static_folder,
+            'template_folder_exists': os.path.exists(template_folder) if template_folder else False,
+            'static_folder_exists': os.path.exists(static_folder) if static_folder else False,
+            'templates': os.listdir(template_folder) if template_folder and os.path.exists(template_folder) else []
         }
     })
+
+@app.route('/test_template')
+def test_template():
+    """测试模板渲染"""
+    try:
+        return render_template('index.html')
+    except Exception as e:
+        return jsonify({
+            'error': 'Template test failed',
+            'details': str(e),
+            'template_folder': app.template_folder,
+            'current_dir': os.getcwd()
+        }), 500
 
 # 错误处理
 @app.errorhandler(404)
