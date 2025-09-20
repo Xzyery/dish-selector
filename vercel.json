@@ -1,22 +1,16 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "web/app.py",
-      "use": "@vercel/python"
-    }
-  ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "web/app.py"
+      "dest": "/api/index.py"
     }
   ],
   "env": {
     "PYTHONPATH": "."
   },
   "functions": {
-    "web/app.py": {
+    "api/index.py": {
       "maxDuration": 30
     }
   }
