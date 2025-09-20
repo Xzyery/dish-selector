@@ -1,13 +1,13 @@
 {
-  "balance": 525,
+  "balance": 468,
   "transactions": [
     {
-      "id": "0dbb3278",
-      "amount": 5,
-      "description": "每日签到奖励(连续1天)",
-      "type": "income",
-      "timestamp": 1758380410,
-      "date": "2025-09-20 23:00:10"
+      "id": "a299073f",
+      "amount": -52,
+      "description": "购买菜品订单",
+      "type": "expense",
+      "timestamp": 1758384134,
+      "date": "2025-09-21 00:02:14"
     }
   ],
   "daily_questionnaire_completed": {},
@@ -15,11 +15,9 @@
   "medicine_streak": 0,
   "checkin_streak": 0,
   "exercise_streak": 0,
-  "check_in_history": {
-    "2025-09-20": 5
-  },
-  "consecutive_days": 1,
-  "total_check_ins": 1,
+  "check_in_history": {},
+  "consecutive_days": 0,
+  "total_check_ins": 0,
   "coupons": [],
   "guess_game_history": {},
   "daily_guess_games": 0,
