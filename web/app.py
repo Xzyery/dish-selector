@@ -10,7 +10,7 @@ import shutil
 import random
 
 app = Flask(__name__)
-app.secret_key = os.environ.get('SECRET_KEY', 'dish_selector_secret_key_2024')
+app.secret_key = 'dish_selector_secret_key_2024'
 
 # 配置文件上传
 UPLOAD_FOLDER = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static')
@@ -2939,6 +2939,5 @@ def delete_seed():
 
 if __name__ == '__main__':
     import os
-    port = int(os.environ.get("PORT", 5000))
-    debug = os.environ.get("FLASK_ENV") == "development"
-    app.run(debug=debug, host='0.0.0.0', port=port)
+    port = int(os.environ.get('PORT', 5000))
+    app.run(debug=False, host='0.0.0.0', port=port)
